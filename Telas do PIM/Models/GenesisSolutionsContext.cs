@@ -3,14 +3,19 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Telas_do_PIM.Models;
 
 public partial class GenesisSolutionsContext : DbContext
 {
-    public GenesisSolutionsContext(DbContextOptions<GenesisSolutionsContext> options)
-        : base(options)
+    private readonly IConfiguration _configuration;
+    public GenesisSolutionsContext()
+        
     {
+        _configuration = new ConfigurationBuilder()
+           .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+           .Build();
     }
 
     public virtual DbSet<Funcionario> Funcionarios { get; set; }
@@ -19,15 +24,15 @@ public partial class GenesisSolutionsContext : DbContext
     {
         modelBuilder.Entity<Funcionario>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Funciona__3214EC27F24928DA");
+            entity.HasKey(e => e.Id).HasName("PK__Funciona__3214EC27E9E855EF");
 
             entity.ToTable("Funcionario");
 
-            entity.HasIndex(e => e.Email, "UQ__Funciona__161CF724A355946C").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Funciona__161CF724A49F0C2A").IsUnique();
 
-            entity.HasIndex(e => e.Cpf, "UQ__Funciona__C1F89731EC1EBACC").IsUnique();
+            entity.HasIndex(e => e.Cpf, "UQ__Funciona__C1F8973169FC9690").IsUnique();
 
-            entity.HasIndex(e => e.Telefone, "UQ__Funciona__D6F1694F5516FE8B").IsUnique();
+            entity.HasIndex(e => e.Telefone, "UQ__Funciona__D6F1694F8BDAC63B").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Cpf)
@@ -62,6 +67,7 @@ public partial class GenesisSolutionsContext : DbContext
 
         OnModelCreatingPartial(modelBuilder);
     }
-
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer(_configuration.GetSection("ConnectionStrings:AzureDB").Value);
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

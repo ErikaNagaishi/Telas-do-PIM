@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Telas_do_PIM.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -5,9 +6,12 @@ namespace Telas_do_PIM
 {
     public partial class TelaDeLogin : Form
     {
+        
         public TelaDeLogin()
         {
             InitializeComponent();
+           
+
             TxtUsuario.GotFocus += RemoverTxtUsuario;
             TxtSenha.GotFocus += RemoverTxtSenha;
 
@@ -52,15 +56,15 @@ namespace Telas_do_PIM
 
         private void BtnEntrar_Click(object sender, EventArgs e)
         {
-            var GenesisContext = new GenesisSolutionsContext( new Microsoft.EntityFrameworkCore.DbContextOptions<GenesisSolutionsContext>());
+            var GenesisContext = new GenesisSolutionsContext();
             String usuario = TxtUsuario.Text;
             String senha = TxtSenha.Text;
             if (GenesisContext.Funcionarios.Any(e=>e.Email == usuario && e.Senha == senha))
             {
                 MessageBox.Show("Acesso Liberado!");
                 Visible = false;
-                Menu fmMenu = new Menu();
-                fmMenu.Show();
+                //Menu fmMenu = new Menu();
+                //fmMenu.Show();
                 //Application.Exit();
             }
             else
