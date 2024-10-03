@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using Telas_do_PIM.Forms;
 using Telas_do_PIM.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -63,9 +64,9 @@ namespace Telas_do_PIM
             {
                 MessageBox.Show("Acesso Liberado!");
                 Visible = false;
-                //Menu fmMenu = new Menu();
-                //fmMenu.Show();
-                //Application.Exit();
+                TelaDeSelecao fmTelaDeSelecao = new ();
+                fmTelaDeSelecao.Show();
+                
             }
             else
             {
