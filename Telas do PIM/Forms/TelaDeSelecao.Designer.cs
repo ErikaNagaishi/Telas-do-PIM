@@ -81,6 +81,7 @@
             Rbtnadm.TabStop = true;
             Rbtnadm.Text = "Cadastrar ADM";
             Rbtnadm.UseVisualStyleBackColor = true;
+            Rbtnadm.CheckedChanged += Rbtnadm_CheckedChanged;
             // 
             // Rbtncliente
             // 
@@ -93,6 +94,7 @@
             Rbtncliente.TabStop = true;
             Rbtncliente.Text = "Cadastrar Cliente";
             Rbtncliente.UseVisualStyleBackColor = true;
+            Rbtncliente.CheckedChanged += Rbtncliente_CheckedChanged;
             // 
             // TelaDeSelecao
             // 

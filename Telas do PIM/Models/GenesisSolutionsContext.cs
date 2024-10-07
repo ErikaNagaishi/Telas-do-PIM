@@ -11,17 +11,245 @@ public partial class GenesisSolutionsContext : DbContext
 {
     private readonly IConfiguration _configuration;
     public GenesisSolutionsContext()
-        
+
     {
         _configuration = new ConfigurationBuilder()
            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
            .Build();
     }
 
+    public virtual DbSet<Adm> Adms { get; set; }
+
+    public virtual DbSet<Cliente> Clientes { get; set; }
+
+    public virtual DbSet<ConteudoPedidosCliente> ConteudoPedidosClientes { get; set; }
+
+    public virtual DbSet<ConteudoPedidosFornecedor> ConteudoPedidosFornecedors { get; set; }
+
+    public virtual DbSet<EntregaPedido> EntregaPedidos { get; set; }
+
+    public virtual DbSet<Entregadore> Entregadores { get; set; }
+
+    public virtual DbSet<Fornecedore> Fornecedores { get; set; }
+
+    public virtual DbSet<FornecedoresInsumo> FornecedoresInsumos { get; set; }
+
     public virtual DbSet<Funcionario> Funcionarios { get; set; }
+
+    public virtual DbSet<Insumo> Insumos { get; set; }
+
+    public virtual DbSet<LotesProduto> LotesProdutos { get; set; }
+
+    public virtual DbSet<PedidosCliente> PedidosClientes { get; set; }
+
+    public virtual DbSet<PedidosFornecedor> PedidosFornecedors { get; set; }
+
+    public virtual DbSet<Produto> Produtos { get; set; }
+
+    public virtual DbSet<TodosPedidosCliente> TodosPedidosClientes { get; set; }
+
+    public virtual DbSet<TodosPedidosFornecedore> TodosPedidosFornecedores { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Adm>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__ADM__3214EC27788252A7");
+
+            entity.ToTable("ADM");
+
+            entity.HasIndex(e => e.Email, "UQ__ADM__161CF72475F172AB").IsUnique();
+
+            entity.HasIndex(e => e.Cpf, "UQ__ADM__C1F8973136394FDF").IsUnique();
+
+            entity.HasIndex(e => e.Telefone, "UQ__ADM__D6F1694F0D1A98A1").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Cpf)
+                .IsRequired()
+                .HasMaxLength(11)
+                .IsUnicode(false)
+                .HasColumnName("CPF");
+            entity.Property(e => e.Email)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("EMAIL");
+            entity.Property(e => e.Endereço)
+                .IsRequired()
+                .IsUnicode(false)
+                .HasColumnName("ENDEREÇO");
+            entity.Property(e => e.Nome)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Senha)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("SENHA");
+            entity.Property(e => e.Telefone)
+                .IsRequired()
+                .HasMaxLength(15)
+                .IsUnicode(false)
+                .HasColumnName("TELEFONE");
+        });
+
+        modelBuilder.Entity<Cliente>(entity =>
+        {
+            entity.HasKey(e => e.IdCliente).HasName("PK__Clientes__9BB2655B60D5A12F");
+
+            entity.Property(e => e.IdCliente).HasColumnName("ID_cliente");
+            entity.Property(e => e.Cep)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("CEP");
+            entity.Property(e => e.CnpjCliente).HasColumnName("CNPJ_cliente");
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("EMAIL");
+            entity.Property(e => e.EnderecoCliente)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("endereco_cliente");
+            entity.Property(e => e.Numero)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("NUMERO");
+            entity.Property(e => e.RazaoSocial)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("razao_social");
+            entity.Property(e => e.SenhaCliente)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("senha_cliente");
+        });
+
+        modelBuilder.Entity<ConteudoPedidosCliente>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Conteudo_Pedidos_Cliente");
+
+            entity.Property(e => e.IdLote).HasColumnName("ID_lote");
+            entity.Property(e => e.IdPedido).HasColumnName("ID_pedido");
+            entity.Property(e => e.IdProduto).HasColumnName("ID_produto");
+            entity.Property(e => e.QtdProduto).HasColumnName("qtd_produto");
+
+            entity.HasOne(d => d.IdLoteNavigation).WithMany()
+                .HasForeignKey(d => d.IdLote)
+                .HasConstraintName("FK__Conteudo___ID_lo__07C12930");
+
+            entity.HasOne(d => d.IdPedidoNavigation).WithMany()
+                .HasForeignKey(d => d.IdPedido)
+                .HasConstraintName("FK__Conteudo___ID_pe__05D8E0BE");
+
+            entity.HasOne(d => d.IdProdutoNavigation).WithMany()
+                .HasForeignKey(d => d.IdProduto)
+                .HasConstraintName("FK__Conteudo___ID_pr__06CD04F7");
+        });
+
+        modelBuilder.Entity<ConteudoPedidosFornecedor>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Conteudo_Pedidos_Fornecedor");
+
+            entity.Property(e => e.IdInsumo).HasColumnName("ID_insumo");
+            entity.Property(e => e.IdPedido).HasColumnName("ID_pedido");
+            entity.Property(e => e.QtdInsumo).HasColumnName("qtd_insumo");
+
+            entity.HasOne(d => d.IdInsumoNavigation).WithMany()
+                .HasForeignKey(d => d.IdInsumo)
+                .HasConstraintName("FK__Conteudo___ID_in__1332DBDC");
+
+            entity.HasOne(d => d.IdPedidoNavigation).WithMany()
+                .HasForeignKey(d => d.IdPedido)
+                .HasConstraintName("FK__Conteudo___ID_pe__123EB7A3");
+        });
+
+        modelBuilder.Entity<EntregaPedido>(entity =>
+        {
+            entity.HasKey(e => e.IdEntrega).HasName("PK__Entrega___4AAEC7078A730F6A");
+
+            entity.ToTable("Entrega_Pedido");
+
+            entity.Property(e => e.IdEntrega).HasColumnName("ID_entrega");
+            entity.Property(e => e.DataEntrega)
+                .HasColumnType("date")
+                .HasColumnName("data_entrega");
+            entity.Property(e => e.EnderecoEntrega)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("endereco_entrega");
+            entity.Property(e => e.IdEntregador).HasColumnName("ID_entregador");
+            entity.Property(e => e.IdPedido).HasColumnName("ID_pedido");
+
+            entity.HasOne(d => d.IdEntregadorNavigation).WithMany(p => p.EntregaPedidos)
+                .HasForeignKey(d => d.IdEntregador)
+                .HasConstraintName("FK__Entrega_P__ID_en__7A672E12");
+
+            entity.HasOne(d => d.IdPedidoNavigation).WithMany(p => p.EntregaPedidos)
+                .HasForeignKey(d => d.IdPedido)
+                .HasConstraintName("FK__Entrega_P__ID_pe__7C4F7684");
+        });
+
+        modelBuilder.Entity<Entregadore>(entity =>
+        {
+            entity.HasKey(e => e.IdEntregador).HasName("PK__Entregad__6B277A7EDA6B7D33");
+
+            entity.Property(e => e.IdEntregador).HasColumnName("ID_entregador");
+            entity.Property(e => e.CpfEntregador).HasColumnName("CPF_entregador");
+            entity.Property(e => e.DataAdmissao)
+                .HasColumnType("date")
+                .HasColumnName("data_admissao");
+            entity.Property(e => e.NomeEntregador)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("nome_entregador");
+        });
+
+        modelBuilder.Entity<Fornecedore>(entity =>
+        {
+            entity.HasKey(e => e.IdFornecedor).HasName("PK__Forneced__0821580498AFE7CB");
+
+            entity.Property(e => e.IdFornecedor).HasColumnName("ID_fornecedor");
+            entity.Property(e => e.CnpjFornecedor).HasColumnName("CNPJ_fornecedor");
+            entity.Property(e => e.Endereco)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("endereco");
+            entity.Property(e => e.RazaoSocial)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("razao_social");
+        });
+
+        modelBuilder.Entity<FornecedoresInsumo>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Fornecedores_Insumo");
+
+            entity.Property(e => e.IdFornecedor).HasColumnName("ID_fornecedor");
+            entity.Property(e => e.IdInsumo).HasColumnName("ID_insumo");
+
+            entity.HasOne(d => d.IdFornecedorNavigation).WithMany()
+                .HasForeignKey(d => d.IdFornecedor)
+                .HasConstraintName("FK__Fornecedo__ID_fo__160F4887");
+
+            entity.HasOne(d => d.IdInsumoNavigation).WithMany()
+                .HasForeignKey(d => d.IdInsumo)
+                .HasConstraintName("FK__Fornecedo__ID_in__151B244E");
+        });
+
         modelBuilder.Entity<Funcionario>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Funciona__3214EC27E9E855EF");
@@ -65,9 +293,134 @@ public partial class GenesisSolutionsContext : DbContext
                 .HasColumnName("TELEFONE");
         });
 
+        modelBuilder.Entity<Insumo>(entity =>
+        {
+            entity.HasKey(e => e.IdInsumo).HasName("PK__Insumos__3827B826ABCB82EF");
+
+            entity.Property(e => e.IdInsumo).HasColumnName("ID_insumo");
+            entity.Property(e => e.NomeInsumo)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("nome_insumo");
+            entity.Property(e => e.PrecoCusto)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("preco_custo");
+        });
+
+        modelBuilder.Entity<LotesProduto>(entity =>
+        {
+            entity.HasKey(e => e.IdLote).HasName("PK__Lotes_Pr__8F4FC3A07999F180");
+
+            entity.ToTable("Lotes_Produtos");
+
+            entity.Property(e => e.IdLote).HasColumnName("ID_lote");
+            entity.Property(e => e.DataColheita)
+                .HasColumnType("date")
+                .HasColumnName("data_colheita");
+            entity.Property(e => e.DataPlantio)
+                .HasColumnType("date")
+                .HasColumnName("data_plantio");
+            entity.Property(e => e.IdProduto).HasColumnName("ID_produto");
+            entity.Property(e => e.QtdProduzida).HasColumnName("qtd_produzida");
+
+            entity.HasOne(d => d.IdProdutoNavigation).WithMany(p => p.LotesProdutos)
+                .HasForeignKey(d => d.IdProduto)
+                .HasConstraintName("FK__Lotes_Pro__ID_pr__01142BA1");
+        });
+
+        modelBuilder.Entity<PedidosCliente>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Pedidos_Cliente");
+
+            entity.Property(e => e.IdCliente).HasColumnName("ID_cliente");
+            entity.Property(e => e.IdPedido).HasColumnName("ID_pedido");
+
+            entity.HasOne(d => d.IdClienteNavigation).WithMany()
+                .HasForeignKey(d => d.IdCliente)
+                .HasConstraintName("FK__Pedidos_C__ID_cl__02FC7413");
+
+            entity.HasOne(d => d.IdPedidoNavigation).WithMany()
+                .HasForeignKey(d => d.IdPedido)
+                .HasConstraintName("FK__Pedidos_C__ID_pe__03F0984C");
+        });
+
+        modelBuilder.Entity<PedidosFornecedor>(entity =>
+        {
+            entity.HasKey(e => e.IdPedido).HasName("PK__Pedidos___E337E2C3656F60CB");
+
+            entity.ToTable("Pedidos_Fornecedor");
+
+            entity.Property(e => e.IdPedido).HasColumnName("ID_pedido");
+            entity.Property(e => e.IdFornecedor).HasColumnName("ID_fornecedor");
+
+            entity.HasOne(d => d.IdFornecedorNavigation).WithMany(p => p.PedidosFornecedors)
+                .HasForeignKey(d => d.IdFornecedor)
+                .HasConstraintName("FK__Pedidos_F__ID_fo__0C85DE4D");
+        });
+
+        modelBuilder.Entity<Produto>(entity =>
+        {
+            entity.HasKey(e => e.IdProduto).HasName("PK__Produtos__FD71723B9069C574");
+
+            entity.Property(e => e.IdProduto).HasColumnName("ID_produto");
+            entity.Property(e => e.NomeProduto)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("nome_produto");
+            entity.Property(e => e.QtdEmEstoque).HasColumnName("qtd_em_estoque");
+            entity.Property(e => e.ValorVenda)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("valor_venda");
+        });
+
+        modelBuilder.Entity<TodosPedidosCliente>(entity =>
+        {
+            entity.HasKey(e => e.IdPedido).HasName("PK__Todos_Pe__E337E2C362A9BB1E");
+
+            entity.ToTable("Todos_Pedidos_Clientes");
+
+            entity.Property(e => e.IdPedido).HasColumnName("ID_pedido");
+            entity.Property(e => e.DataAquisicao)
+                .HasColumnType("date")
+                .HasColumnName("data_aquisicao");
+            entity.Property(e => e.FormaPagto)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("forma_pagto");
+            entity.Property(e => e.IdEntrega).HasColumnName("ID_entrega");
+            entity.Property(e => e.ValorTotal).HasColumnName("valor_total");
+
+            entity.HasOne(d => d.IdEntregaNavigation).WithMany(p => p.TodosPedidosClientes)
+                .HasForeignKey(d => d.IdEntrega)
+                .HasConstraintName("FK__Todos_Ped__ID_en__7B5B524B");
+        });
+
+        modelBuilder.Entity<TodosPedidosFornecedore>(entity =>
+        {
+            entity.HasKey(e => e.IdPedido).HasName("PK__Todos_Pe__E337E2C3890E9110");
+
+            entity.ToTable("Todos_Pedidos_Fornecedores");
+
+            entity.Property(e => e.IdPedido).HasColumnName("ID_pedido");
+            entity.Property(e => e.DataAquisicao)
+                .HasColumnType("date")
+                .HasColumnName("data_aquisicao");
+            entity.Property(e => e.FormaPagto)
+                .HasMaxLength(1)
+                .IsUnicode(false)
+                .HasColumnName("forma_pagto");
+            entity.Property(e => e.ValorTotal)
+                .HasColumnType("decimal(18, 0)")
+                .HasColumnName("valor_total");
+        });
+
         OnModelCreatingPartial(modelBuilder);
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(_configuration.GetSection("ConnectionStrings:AzureDB").Value);
+     => optionsBuilder.UseSqlServer(_configuration.GetSection("ConnectionStrings:AzureDB").Value);
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

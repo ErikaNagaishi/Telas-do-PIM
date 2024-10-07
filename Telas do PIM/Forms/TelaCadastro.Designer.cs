@@ -1,6 +1,6 @@
 ﻿namespace Telas_do_PIM.Forms
 {
-    partial class TelaCadastroFuncionario
+    partial class TelaCadastro
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            label2 = new Label();
+            LblCadastro = new Label();
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
@@ -57,14 +57,15 @@
             label1.TabIndex = 0;
             label1.Text = "Genesis Solutions";
             // 
-            // label2
+            // LblCadastro
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(321, 71);
-            label2.Name = "label2";
-            label2.Size = new Size(168, 15);
-            label2.TabIndex = 1;
-            label2.Text = "Cadastre um novo funcionário";
+            LblCadastro.AutoSize = true;
+            LblCadastro.Location = new Point(321, 71);
+            LblCadastro.Name = "LblCadastro";
+            LblCadastro.Size = new Size(168, 15);
+            LblCadastro.TabIndex = 1;
+            LblCadastro.Text = "Cadastre um novo funcionário";
+            LblCadastro.Click += LblCadastro_Click;
             // 
             // label3
             // 
@@ -143,6 +144,7 @@
             TxtConfSenha.Name = "TxtConfSenha";
             TxtConfSenha.Size = new Size(252, 23);
             TxtConfSenha.TabIndex = 10;
+            TxtConfSenha.TextChanged += TxtConfSenha_TextChanged;
             // 
             // TxtSenha
             // 
@@ -198,7 +200,7 @@
             button2.Text = "Voltar";
             button2.UseVisualStyleBackColor = true;
             // 
-            // TelaCadastroFuncionario
+            // TelaCadastro
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -219,10 +221,11 @@
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
-            Controls.Add(label2);
+            Controls.Add(LblCadastro);
             Controls.Add(label1);
-            Name = "TelaCadastroFuncionario";
+            Name = "TelaCadastro";
             Text = "Form1";
+            Load += TelaCadastro_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -230,7 +233,7 @@
         #endregion
 
         private Label label1;
-        private Label label2;
+        private Label LblCadastro;
         private Label label3;
         private Label label4;
         private Label label5;
