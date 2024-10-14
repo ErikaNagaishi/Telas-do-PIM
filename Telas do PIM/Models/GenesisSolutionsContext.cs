@@ -3,19 +3,14 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace Telas_do_PIM.Models;
 
 public partial class GenesisSolutionsContext : DbContext
 {
-    private readonly IConfiguration _configuration;
-    public GenesisSolutionsContext()
-
+    public GenesisSolutionsContext(DbContextOptions<GenesisSolutionsContext> options)
+        : base(options)
     {
-        _configuration = new ConfigurationBuilder()
-           .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-           .Build();
     }
 
     public virtual DbSet<Adm> Adms { get; set; }
@@ -104,7 +99,11 @@ public partial class GenesisSolutionsContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("CEP");
-            entity.Property(e => e.CnpjCliente).HasColumnName("CNPJ_cliente");
+            entity.Property(e => e.CnpjCliente)
+                .IsRequired()
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("CNPJ_cliente");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .IsUnicode(false)
@@ -420,7 +419,6 @@ public partial class GenesisSolutionsContext : DbContext
 
         OnModelCreatingPartial(modelBuilder);
     }
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-     => optionsBuilder.UseSqlServer(_configuration.GetSection("ConnectionStrings:AzureDB").Value);
+
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
