@@ -28,12 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaDeLogin));
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
             TxtUsuario = new TextBox();
             TxtSenha = new TextBox();
             BtnEntrar = new Button();
+            pictureBoxShowPassword = new PictureBox();
+            pictureBoxHidePassword = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxShowPassword).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxHidePassword).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -91,11 +96,35 @@
             BtnEntrar.UseVisualStyleBackColor = true;
             BtnEntrar.Click += BtnEntrar_Click;
             // 
+            // pictureBoxShowPassword
+            // 
+            pictureBoxShowPassword.Image = (Image)resources.GetObject("pictureBoxShowPassword.Image");
+            pictureBoxShowPassword.Location = new Point(202, 227);
+            pictureBoxShowPassword.Name = "pictureBoxShowPassword";
+            pictureBoxShowPassword.Size = new Size(22, 23);
+            pictureBoxShowPassword.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxShowPassword.TabIndex = 6;
+            pictureBoxShowPassword.TabStop = false;
+            pictureBoxShowPassword.Click += pictureBoxShowPassword_Click;
+            // 
+            // pictureBoxHidePassword
+            // 
+            pictureBoxHidePassword.Image = (Image)resources.GetObject("pictureBoxHidePassword.Image");
+            pictureBoxHidePassword.Location = new Point(202, 227);
+            pictureBoxHidePassword.Name = "pictureBoxHidePassword";
+            pictureBoxHidePassword.Size = new Size(22, 23);
+            pictureBoxHidePassword.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxHidePassword.TabIndex = 7;
+            pictureBoxHidePassword.TabStop = false;
+            pictureBoxHidePassword.Click += pictureBoxHidePassword_Click;
+            // 
             // TelaDeLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(pictureBoxHidePassword);
+            Controls.Add(pictureBoxShowPassword);
             Controls.Add(BtnEntrar);
             Controls.Add(TxtSenha);
             Controls.Add(TxtUsuario);
@@ -104,6 +133,8 @@
             Controls.Add(label1);
             Name = "TelaDeLogin";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)pictureBoxShowPassword).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxHidePassword).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -116,5 +147,7 @@
         private TextBox TxtUsuario;
         private TextBox TxtSenha;
         private Button BtnEntrar;
+        private PictureBox pictureBoxShowPassword;
+        private PictureBox pictureBoxHidePassword;
     }
 }

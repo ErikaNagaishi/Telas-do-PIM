@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaCadastroCliente));
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -48,6 +49,14 @@
             BtnVoltar = new Button();
             label10 = new Label();
             TxtNumeracao = new TextBox();
+            pictureBoxShowPassword = new PictureBox();
+            pictureBoxHidePassword = new PictureBox();
+            pictureBoxShowConfPassword = new PictureBox();
+            pictureBoxHideConfPassword = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxShowPassword).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxHidePassword).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxShowConfPassword).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxHideConfPassword).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -139,57 +148,59 @@
             TxtNome.Location = new Point(70, 103);
             TxtNome.Name = "TxtNome";
             TxtNome.Size = new Size(100, 23);
-            TxtNome.TabIndex = 9;
+            TxtNome.TabIndex = 1;
             // 
             // TxtCNPJ
             // 
             TxtCNPJ.Location = new Point(68, 155);
             TxtCNPJ.Name = "TxtCNPJ";
             TxtCNPJ.Size = new Size(100, 23);
-            TxtCNPJ.TabIndex = 10;
+            TxtCNPJ.TabIndex = 2;
             // 
             // TxtCEP
             // 
             TxtCEP.Location = new Point(70, 201);
             TxtCEP.Name = "TxtCEP";
             TxtCEP.Size = new Size(100, 23);
-            TxtCEP.TabIndex = 11;
+            TxtCEP.TabIndex = 3;
             // 
             // TxtEndereco
             // 
             TxtEndereco.Location = new Point(70, 245);
             TxtEndereco.Name = "TxtEndereco";
             TxtEndereco.Size = new Size(100, 23);
-            TxtEndereco.TabIndex = 12;
+            TxtEndereco.TabIndex = 4;
             // 
             // TxtEmail
             // 
             TxtEmail.Location = new Point(70, 297);
             TxtEmail.Name = "TxtEmail";
             TxtEmail.Size = new Size(100, 23);
-            TxtEmail.TabIndex = 13;
+            TxtEmail.TabIndex = 6;
             // 
             // TxtSenha
             // 
             TxtSenha.Location = new Point(70, 351);
             TxtSenha.Name = "TxtSenha";
+            TxtSenha.PasswordChar = '*';
             TxtSenha.Size = new Size(100, 23);
-            TxtSenha.TabIndex = 14;
+            TxtSenha.TabIndex = 7;
             TxtSenha.TextChanged += TxtSenha_TextChanged;
             // 
             // TxtConfSenha
             // 
             TxtConfSenha.Location = new Point(70, 408);
             TxtConfSenha.Name = "TxtConfSenha";
+            TxtConfSenha.PasswordChar = '*';
             TxtConfSenha.Size = new Size(100, 23);
-            TxtConfSenha.TabIndex = 15;
+            TxtConfSenha.TabIndex = 8;
             // 
             // BtnCadastrar
             // 
             BtnCadastrar.Location = new Point(310, 451);
             BtnCadastrar.Name = "BtnCadastrar";
             BtnCadastrar.Size = new Size(75, 23);
-            BtnCadastrar.TabIndex = 16;
+            BtnCadastrar.TabIndex = 10;
             BtnCadastrar.Text = "Cadastrar";
             BtnCadastrar.UseVisualStyleBackColor = true;
             BtnCadastrar.Click += BtnCadastrar_Click;
@@ -199,9 +210,10 @@
             BtnVoltar.Location = new Point(23, 468);
             BtnVoltar.Name = "BtnVoltar";
             BtnVoltar.Size = new Size(75, 23);
-            BtnVoltar.TabIndex = 17;
+            BtnVoltar.TabIndex = 11;
             BtnVoltar.Text = "Voltar";
             BtnVoltar.UseVisualStyleBackColor = true;
+            BtnVoltar.Click += BtnVoltar_Click;
             // 
             // label10
             // 
@@ -217,13 +229,61 @@
             TxtNumeracao.Location = new Point(186, 245);
             TxtNumeracao.Name = "TxtNumeracao";
             TxtNumeracao.Size = new Size(69, 23);
-            TxtNumeracao.TabIndex = 19;
+            TxtNumeracao.TabIndex = 5;
+            // 
+            // pictureBoxShowPassword
+            // 
+            pictureBoxShowPassword.Image = (Image)resources.GetObject("pictureBoxShowPassword.Image");
+            pictureBoxShowPassword.Location = new Point(176, 351);
+            pictureBoxShowPassword.Name = "pictureBoxShowPassword";
+            pictureBoxShowPassword.Size = new Size(22, 23);
+            pictureBoxShowPassword.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxShowPassword.TabIndex = 19;
+            pictureBoxShowPassword.TabStop = false;
+            pictureBoxShowPassword.Click += pictureBoxShowPassword_Click;
+            // 
+            // pictureBoxHidePassword
+            // 
+            pictureBoxHidePassword.Image = (Image)resources.GetObject("pictureBoxHidePassword.Image");
+            pictureBoxHidePassword.Location = new Point(176, 351);
+            pictureBoxHidePassword.Name = "pictureBoxHidePassword";
+            pictureBoxHidePassword.Size = new Size(22, 23);
+            pictureBoxHidePassword.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxHidePassword.TabIndex = 20;
+            pictureBoxHidePassword.TabStop = false;
+            pictureBoxHidePassword.Click += pictureBoxHidePassword_Click;
+            // 
+            // pictureBoxShowConfPassword
+            // 
+            pictureBoxShowConfPassword.Image = (Image)resources.GetObject("pictureBoxShowConfPassword.Image");
+            pictureBoxShowConfPassword.Location = new Point(176, 408);
+            pictureBoxShowConfPassword.Name = "pictureBoxShowConfPassword";
+            pictureBoxShowConfPassword.Size = new Size(22, 23);
+            pictureBoxShowConfPassword.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxShowConfPassword.TabIndex = 21;
+            pictureBoxShowConfPassword.TabStop = false;
+            pictureBoxShowConfPassword.Click += pictureBoxShowConfPassword_Click;
+            // 
+            // pictureBoxHideConfPassword
+            // 
+            pictureBoxHideConfPassword.Image = (Image)resources.GetObject("pictureBoxHideConfPassword.Image");
+            pictureBoxHideConfPassword.Location = new Point(176, 408);
+            pictureBoxHideConfPassword.Name = "pictureBoxHideConfPassword";
+            pictureBoxHideConfPassword.Size = new Size(22, 23);
+            pictureBoxHideConfPassword.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxHideConfPassword.TabIndex = 22;
+            pictureBoxHideConfPassword.TabStop = false;
+            pictureBoxHideConfPassword.Click += pictureBoxHideConfPassword_Click;
             // 
             // TelaCadastroCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 503);
+            Controls.Add(pictureBoxHideConfPassword);
+            Controls.Add(pictureBoxShowConfPassword);
+            Controls.Add(pictureBoxHidePassword);
+            Controls.Add(pictureBoxShowPassword);
             Controls.Add(TxtNumeracao);
             Controls.Add(label10);
             Controls.Add(BtnVoltar);
@@ -246,6 +306,10 @@
             Controls.Add(label1);
             Name = "TelaCadastroCliente";
             Text = "Cadastro de Cliente";
+            ((System.ComponentModel.ISupportInitialize)pictureBoxShowPassword).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxHidePassword).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxShowConfPassword).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxHideConfPassword).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -272,5 +336,9 @@
         private Button BtnVoltar;
         private Label label10;
         private TextBox TxtNumeracao;
+        private PictureBox pictureBoxShowPassword;
+        private PictureBox pictureBoxHidePassword;
+        private PictureBox pictureBoxShowConfPassword;
+        private PictureBox pictureBoxHideConfPassword;
     }
 }

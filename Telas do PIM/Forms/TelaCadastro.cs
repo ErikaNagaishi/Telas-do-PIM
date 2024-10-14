@@ -1,24 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Windows.Forms.VisualStyles;
 using Telas_do_PIM.Models;
 
 namespace Telas_do_PIM.Forms
 {
     public partial class TelaCadastro : Form
     {
-        bool eAdm;
-        public TelaCadastro(bool eAdm)
+        private bool eAdm;
+        private readonly TelaDeSelecao _telaDeSelecao;
+
+        public bool EAdm
+
         {
-            this.eAdm = eAdm;
+            set
+            {
+                eAdm = value;
+                LblCadastro.Text = (eAdm) ? "Cadastre um ADM" : "Cadastre um funcinário";
+            }
+            get
+            {
+                return eAdm;
+            }
+        }
+
+        private readonly GenesisSolutionsContext genesisContext;
+        public TelaCadastro(GenesisSolutionsContext genesisSolutionsContext, TelaDeSelecao telaDeSelecao)
+        {
+            _telaDeSelecao = telaDeSelecao;
+            genesisContext = genesisSolutionsContext;
             InitializeComponent();
-            LblCadastro.Text = (eAdm) ? "Cadastre um ADM" : "Cadastre um funcinário";
+            FormClosing += FormClosingAction;
+
+            TxtSenha.KeyDown += TelaDeCadastro_KeyDown;
+            TxtConfSenha.KeyDown += TelaDeCadastro_KeyDown;
+
+            pictureBoxHideConfPassword.Hide();
+            pictureBoxHidePassword.Hide();
+        }
+        private void FormClosingAction(object? sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                switch (MessageBox.Show(this, "Tem certeza que deseja encerrar?", "Confirme", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+                {
+                    //Stay on this form
+                    case DialogResult.No:
+                        e.Cancel = true;
+                        break;
+                    default:
+                        try
+                        {
+                            Application.Exit();
+                            //Environment.Exit(0);
+                        }
+                        catch
+                        {
+                            Application.Exit();
+                        }
+                        break;
+                }
+            }
+        }
+        private void TelaDeCadastro_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                RealizaCadastro();
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -28,6 +76,11 @@ namespace Telas_do_PIM.Forms
 
         private void BtnCadastrar_Click(object sender, EventArgs e)
         {
+            RealizaCadastro();
+        }
+
+        private void RealizaCadastro()
+        {
             if (!TxtSenha.Text.Equals(TxtConfSenha.Text))
             {
                 MessageBox.Show("Senha não confere");
@@ -35,7 +88,7 @@ namespace Telas_do_PIM.Forms
 
             else
             {
-                if (eAdm)
+                if (EAdm)
                 {
                     Adm Adm = new()
                     {
@@ -46,9 +99,8 @@ namespace Telas_do_PIM.Forms
                         Senha = TxtSenha.Text,
                         Endereço = TxtEndereco.Text
                     };
-                    var GenesisContext = new GenesisSolutionsContext();
-                    GenesisContext.Adms.Add(Adm);
-                    GenesisContext.SaveChanges();
+                    genesisContext.Adms.Add(Adm);
+                    genesisContext.SaveChanges();
 
                     MessageBox.Show("Administrador Cadastrado com sucesso!");
                 }
@@ -63,11 +115,17 @@ namespace Telas_do_PIM.Forms
                         Senha = TxtSenha.Text,
                         Endereço = TxtEndereco.Text
                     };
-                    var GenesisContext = new GenesisSolutionsContext();
-                    GenesisContext.Funcionarios.Add(funcionario);
-                    GenesisContext.SaveChanges();
+                    genesisContext.Funcionarios.Add(funcionario);
+                    genesisContext.SaveChanges();
 
                     MessageBox.Show("Funcionário Cadastrado com sucesso!");
+                }
+                using (var fmTelaCadastro = Program.ServiceProvider.GetRequiredService<TelaCadastro>())
+                {
+                    this.Hide();
+                    fmTelaCadastro.StartPosition = FormStartPosition.CenterScreen;
+                    fmTelaCadastro.EAdm = this.EAdm;
+                    fmTelaCadastro.ShowDialog();
                 }
             }
         }
@@ -85,6 +143,43 @@ namespace Telas_do_PIM.Forms
         private void TelaCadastro_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnVoltar_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            _telaDeSelecao.StartPosition = FormStartPosition.CenterScreen;
+            _telaDeSelecao.ShowDialog();
+        }
+
+        private void pictureBoxHidePassword_Click(object sender, EventArgs e)
+        {
+            pictureBoxHidePassword.Hide();
+            pictureBoxShowPassword.Show();
+
+            TxtSenha.PasswordChar = '*';
+        }
+
+        private void pictureBoxShowConfPassword_Click(object sender, EventArgs e)
+        {
+            pictureBoxHideConfPassword.Show();
+            pictureBoxShowConfPassword.Hide();
+            TxtConfSenha.PasswordChar = '\0';
+        }
+
+        private void pictureBoxHideConfPassword_Click(object sender, EventArgs e)
+        {
+            pictureBoxHideConfPassword.Hide();
+            pictureBoxShowConfPassword.Show();
+
+            TxtConfSenha.PasswordChar = '*';
+        }
+
+        private void pictureBoxShowPassword_Click(object sender, EventArgs e)
+        {
+            pictureBoxHidePassword.Show();
+            pictureBoxShowPassword.Hide();
+            TxtSenha.PasswordChar = '\0';
         }
     }
 }
