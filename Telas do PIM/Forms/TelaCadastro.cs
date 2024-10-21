@@ -143,6 +143,7 @@ namespace Telas_do_PIM.Forms
         private void TelaCadastro_Load(object sender, EventArgs e)
         {
 
+
         }
 
         private void btnVoltar_Click(object sender, EventArgs e)
