@@ -46,6 +46,8 @@ namespace Telas_do_PIM
             services.AddTransient<TelaCadastro>();
             services.AddTransient<TelaCadastroCliente>();
             services.AddTransient<TelaDeSelecao>();
+            services.AddTransient<TelaPrincipal>();
+
         }
     }
 }

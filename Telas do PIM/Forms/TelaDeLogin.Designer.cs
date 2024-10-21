@@ -44,16 +44,19 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(174, 63);
+            label1.Font = new Font("Georgia", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(62, 36);
             label1.Name = "label1";
-            label1.Size = new Size(99, 15);
+            label1.Size = new Size(539, 84);
             label1.TabIndex = 0;
             label1.Text = "Genesis Solutions";
+            label1.UseCompatibleTextRendering = true;
+            label1.Click += label1_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(99, 120);
+            label2.Location = new Point(88, 189);
             label2.Name = "label2";
             label2.Size = new Size(47, 15);
             label2.TabIndex = 1;
@@ -62,7 +65,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(99, 200);
+            label3.Location = new Point(88, 269);
             label3.Name = "label3";
             label3.Size = new Size(39, 15);
             label3.TabIndex = 2;
@@ -70,7 +73,7 @@
             // 
             // TxtUsuario
             // 
-            TxtUsuario.Location = new Point(96, 138);
+            TxtUsuario.Location = new Point(85, 207);
             TxtUsuario.Name = "TxtUsuario";
             TxtUsuario.Size = new Size(100, 23);
             TxtUsuario.TabIndex = 3;
@@ -79,7 +82,7 @@
             // 
             // TxtSenha
             // 
-            TxtSenha.Location = new Point(96, 227);
+            TxtSenha.Location = new Point(85, 296);
             TxtSenha.Name = "TxtSenha";
             TxtSenha.Size = new Size(100, 23);
             TxtSenha.TabIndex = 4;
@@ -88,7 +91,7 @@
             // 
             // BtnEntrar
             // 
-            BtnEntrar.Location = new Point(257, 299);
+            BtnEntrar.Location = new Point(246, 368);
             BtnEntrar.Name = "BtnEntrar";
             BtnEntrar.Size = new Size(75, 23);
             BtnEntrar.TabIndex = 5;
@@ -99,7 +102,7 @@
             // pictureBoxShowPassword
             // 
             pictureBoxShowPassword.Image = (Image)resources.GetObject("pictureBoxShowPassword.Image");
-            pictureBoxShowPassword.Location = new Point(202, 227);
+            pictureBoxShowPassword.Location = new Point(191, 296);
             pictureBoxShowPassword.Name = "pictureBoxShowPassword";
             pictureBoxShowPassword.Size = new Size(22, 23);
             pictureBoxShowPassword.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -110,7 +113,7 @@
             // pictureBoxHidePassword
             // 
             pictureBoxHidePassword.Image = (Image)resources.GetObject("pictureBoxHidePassword.Image");
-            pictureBoxHidePassword.Location = new Point(202, 227);
+            pictureBoxHidePassword.Location = new Point(191, 296);
             pictureBoxHidePassword.Name = "pictureBoxHidePassword";
             pictureBoxHidePassword.Size = new Size(22, 23);
             pictureBoxHidePassword.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -122,7 +125,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1025, 625);
             Controls.Add(pictureBoxHidePassword);
             Controls.Add(pictureBoxShowPassword);
             Controls.Add(BtnEntrar);

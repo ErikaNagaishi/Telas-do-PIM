@@ -149,5 +149,10 @@ namespace Telas_do_PIM
             TxtSenha.PasswordChar = '\0';
 
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
