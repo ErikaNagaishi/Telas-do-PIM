@@ -1,8 +1,8 @@
 using Microsoft.Data.SqlClient;
-using Telas_do_PIM.Forms;
+using Microsoft.Extensions.DependencyInjection;
 using Telas_do_PIM.Models;
 
-namespace Telas_do_PIM
+namespace Telas_do_PIM.Forms
 {
     public partial class TelaDeLogin : Form
     {
@@ -14,12 +14,6 @@ namespace Telas_do_PIM
 
             TxtSenha.KeyDown += TelaDeLogin_KeyDown;
             TxtUsuario.KeyDown += TelaDeLogin_KeyDown;
-
-            TxtUsuario.GotFocus += RemoverTxtUsuario;
-            TxtSenha.GotFocus += RemoverTxtSenha;
-
-            TxtUsuario.LostFocus += AddTxtUsuario;
-            TxtSenha.LostFocus += AddTxtSenha;
 
             FormClosing += FormClosingAction;
 
@@ -59,43 +53,6 @@ namespace Telas_do_PIM
             }
         }
 
-        private void RemoverTxtUsuario(object sender, EventArgs e)
-        {
-            if (TxtUsuario.Text == "Usuário...")
-                TxtUsuario.Text = "";
-        }
-
-        private void AddTxtUsuario(object sender, EventArgs e)
-        {
-            if (String.IsNullOrEmpty(TxtUsuario.Text))
-                TxtUsuario.Text = "Usuário...";
-        }
-        private void RemoverTxtSenha(object sender, EventArgs e)
-        {
-            if (TxtSenha.Text == "Senha...")
-                TxtSenha.Text = "";
-            TxtSenha.PasswordChar = '*';
-        }
-
-        private void AddTxtSenha(object sender, EventArgs e)
-        {
-            if (String.IsNullOrEmpty(TxtSenha.Text))
-            {
-                TxtSenha.Text = "Senha...";
-                TxtSenha.PasswordChar = '\0';
-            }
-
-        }
-        private void TxtUser_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TxtSenha_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void BtnEntrar_Click(object sender, EventArgs e)
         {
             RealizaLogin();
@@ -107,18 +64,34 @@ namespace Telas_do_PIM
             String senha = TxtSenha.Text;
             int tentativas = 0;
             //Azure deixa o banco "dormindo" e com isso a primeira tentativa de login dá erro de timeout
-            while (tentativas < 3)
+            while (tentativas < 2)
             {
                 try
                 {
                     if (genesisContext.Funcionarios.Any(e => e.Email == usuario && e.Senha == senha))
                     {
-                        MessageBox.Show("Acesso Liberado!");
+                        //MessageBox.Show("Acesso Liberado!");
+                        Program.funcionarioLogado = genesisContext.Funcionarios.First(e => e.Email == usuario && e.Senha == senha);
                         this.Hide();
-                        TelaDeSelecao fmTelaDeSelecao = new();
-                        fmTelaDeSelecao.StartPosition = FormStartPosition.CenterScreen;
-                        fmTelaDeSelecao.ShowDialog();
 
+                        using (var fmTelaDeSelecao = Program.ServiceProvider.GetRequiredService<TelaDeSelecao>())
+                        {
+                            this.Hide();
+                            fmTelaDeSelecao.StartPosition = FormStartPosition.CenterScreen;
+                            fmTelaDeSelecao.ShowDialog();
+                        }
+
+                    }
+                    if (genesisContext.Clientes.Any(e => e.Email == usuario && e.SenhaCliente == senha))
+                    {
+                        Program.clienteLogado = genesisContext.Clientes.First(e => e.Email == usuario && e.SenhaCliente == senha);
+                        this.Hide();
+                        using (var fmTelaPrincipalCliente = Program.ServiceProvider.GetRequiredService<TelaPrincipal>())
+                        {
+                            this.Hide();
+                            fmTelaPrincipalCliente.StartPosition = FormStartPosition.CenterScreen;
+                            fmTelaPrincipalCliente.ShowDialog();
+                        }
                     }
                     else
                     {
@@ -147,11 +120,6 @@ namespace Telas_do_PIM
             pictureBoxHidePassword.Show();
             pictureBoxShowPassword.Hide();
             TxtSenha.PasswordChar = '\0';
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
 
         }
     }

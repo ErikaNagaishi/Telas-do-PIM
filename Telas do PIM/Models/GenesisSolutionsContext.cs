@@ -39,7 +39,13 @@ public partial class GenesisSolutionsContext : DbContext
 
     public virtual DbSet<PedidosFornecedor> PedidosFornecedors { get; set; }
 
+    public virtual DbSet<Perfil> Perfils { get; set; }
+
+    public virtual DbSet<PerfilTela> PerfilTelas { get; set; }
+
     public virtual DbSet<Produto> Produtos { get; set; }
+
+    public virtual DbSet<Tela> Telas { get; set; }
 
     public virtual DbSet<TodosPedidosCliente> TodosPedidosClientes { get; set; }
 
@@ -276,6 +282,7 @@ public partial class GenesisSolutionsContext : DbContext
                 .IsRequired()
                 .IsUnicode(false)
                 .HasColumnName("ENDEREÇO");
+            entity.Property(e => e.IdPerfil).HasColumnName("id_perfil");
             entity.Property(e => e.Nome)
                 .IsRequired()
                 .HasMaxLength(100)
@@ -290,6 +297,10 @@ public partial class GenesisSolutionsContext : DbContext
                 .HasMaxLength(15)
                 .IsUnicode(false)
                 .HasColumnName("TELEFONE");
+
+            entity.HasOne(d => d.IdPerfilNavigation).WithMany(p => p.Funcionarios)
+                .HasForeignKey(d => d.IdPerfil)
+                .HasConstraintName("FK__Funcionar__id_pe__2BFE89A6");
         });
 
         modelBuilder.Entity<Insumo>(entity =>
@@ -359,6 +370,37 @@ public partial class GenesisSolutionsContext : DbContext
                 .HasConstraintName("FK__Pedidos_F__ID_fo__0C85DE4D");
         });
 
+        modelBuilder.Entity<Perfil>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Perfil__3214EC07F390936C");
+
+            entity.ToTable("Perfil");
+
+            entity.Property(e => e.Perfil1)
+                .IsRequired()
+                .HasMaxLength(30)
+                .IsUnicode(false)
+                .HasColumnName("Perfil");
+        });
+
+        modelBuilder.Entity<PerfilTela>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__PERFIL_T__3214EC2752D4F03A");
+
+            entity.ToTable("Perfil_Tela");
+
+            entity.Property(e => e.IdPerfil).HasColumnName("Id_Perfil");
+            entity.Property(e => e.IdTela).HasColumnName("Id_Tela");
+
+            entity.HasOne(d => d.IdPerfilNavigation).WithMany(p => p.PerfilTelas)
+                .HasForeignKey(d => d.IdPerfil)
+                .HasConstraintName("FK__PERFIL_TE__ID_PE__3E1D39E1");
+
+            entity.HasOne(d => d.IdTelaNavigation).WithMany(p => p.PerfilTelas)
+                .HasForeignKey(d => d.IdTela)
+                .HasConstraintName("FK__PERFIL_TE__ID_TE__3F115E1A");
+        });
+
         modelBuilder.Entity<Produto>(entity =>
         {
             entity.HasKey(e => e.IdProduto).HasName("PK__Produtos__FD71723B9069C574");
@@ -373,6 +415,23 @@ public partial class GenesisSolutionsContext : DbContext
             entity.Property(e => e.ValorVenda)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("valor_venda");
+        });
+
+        modelBuilder.Entity<Tela>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__TELA__3214EC2704F5C8D9");
+
+            entity.ToTable("Tela");
+
+            entity.Property(e => e.IdentificacaoTela)
+                .HasMaxLength(30)
+                .IsUnicode(false)
+                .HasColumnName("Identificacao_Tela");
+            entity.Property(e => e.NomeTela)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("Nome_Tela");
         });
 
         modelBuilder.Entity<TodosPedidosCliente>(entity =>

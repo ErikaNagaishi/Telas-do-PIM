@@ -30,7 +30,9 @@ namespace Telas_do_PIM
                 Application.Run(form);
             }
         }
-        public static IServiceProvider ServiceProvider { get; private set; }
+        public static IServiceProvider ServiceProvider { get; set; }
+        public static Funcionario? funcionarioLogado { get; set; }
+        public static Cliente? clienteLogado { get; set; }
         private static void ConfigureServices(ServiceCollection services)
         {
             var _configuration = new ConfigurationBuilder()
@@ -40,13 +42,16 @@ namespace Telas_do_PIM
             var connection = _configuration.GetSection("ConnectionStrings:AzureDB").Value;
 
             services.AddDbContext<GenesisSolutionsContext>(
-                options => options.UseSqlServer(connection));
+                options => options
+                            .UseSqlServer(connection)
+                            .EnableSensitiveDataLogging());
 
             services.AddTransient<TelaDeLogin>();
-            services.AddTransient<TelaCadastro>();
+            services.AddTransient<TelaCadastroFuncionario>();
             services.AddTransient<TelaCadastroCliente>();
             services.AddTransient<TelaDeSelecao>();
             services.AddTransient<TelaPrincipal>();
+            services.AddTransient<TelaManutencaoFuncionario>();
 
         }
     }

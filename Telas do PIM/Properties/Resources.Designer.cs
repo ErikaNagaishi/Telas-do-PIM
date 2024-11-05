@@ -59,5 +59,55 @@ namespace Telas_do_PIM.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Icon semelhante a (Ícone).
+        /// </summary>
+        internal static System.Drawing.Icon trashBinIcon {
+            get {
+                object obj = ResourceManager.GetObject("trashBinIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Icon semelhante a (Ícone).
+        /// </summary>
+        internal static System.Drawing.Icon trashBinIcon128 {
+            get {
+                object obj = ResourceManager.GetObject("trashBinIcon128", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Icon semelhante a (Ícone).
+        /// </summary>
+        internal static System.Drawing.Icon trashBinIcon256 {
+            get {
+                object obj = ResourceManager.GetObject("trashBinIcon256", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Icon semelhante a (Ícone).
+        /// </summary>
+        internal static System.Drawing.Icon trashBinIcon96 {
+            get {
+                object obj = ResourceManager.GetObject("trashBinIcon96", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Icon semelhante a (Ícone).
+        /// </summary>
+        internal static System.Drawing.Icon trashBinImg {
+            get {
+                object obj = ResourceManager.GetObject("trashBinImg", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

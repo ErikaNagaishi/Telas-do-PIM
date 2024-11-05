@@ -20,4 +20,8 @@ public partial class Funcionario
     public string Email { get; set; }
 
     public string Senha { get; set; }
+
+    public int IdPerfil { get; set; }
+
+    public virtual Perfil IdPerfilNavigation { get; set; }
 }

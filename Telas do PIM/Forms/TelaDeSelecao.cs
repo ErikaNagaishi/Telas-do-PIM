@@ -1,13 +1,42 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using Telas_do_PIM.Models;
 
 namespace Telas_do_PIM.Forms
 {
     public partial class TelaDeSelecao : Form
     {
-        public TelaDeSelecao()
+        private readonly GenesisSolutionsContext genesisContext;
+        public TelaDeSelecao(GenesisSolutionsContext genesisSolutionsContext)
         {
+            genesisContext = genesisSolutionsContext;
             InitializeComponent();
             FormClosing += FormClosingAction;
+            VerificaAcessosFuncionario();
+        }
+
+        private void VerificaAcessosFuncionario()
+        {
+            var perfilUsuario = Program.funcionarioLogado.IdPerfil;
+
+            //Buscar os nomes dos radioButton que redirecionam para cada form
+            var telasComAcesso = genesisContext.PerfilTelas.Where(e=> e.IdPerfil == perfilUsuario).Select(e=> e.IdTelaNavigation.IdentificacaoTela).ToList();
+
+            //Reflection. Buscar todos os radioButtons desse form
+            var radioButtons = this.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic).Where(e=> e.Name.Contains("rbtn")).ToList();
+
+            radioButtons.ForEach(rbtn =>
+            {
+                if(telasComAcesso.Any(e=> e.Equals(rbtn.Name)))
+                {
+                    var radioButton = (RadioButton?)rbtn.GetValue(this);
+                    if (radioButton != null)
+                    {
+                        //Se o nome do radioButton for encontrado na consulta do banco então o acesso é liberado
+                        radioButton.Enabled = true;
+                    }
+                }
+            });
         }
 
         private void FormClosingAction(object? sender, FormClosingEventArgs e)
@@ -37,23 +66,21 @@ namespace Telas_do_PIM.Forms
 
         private void Rbtnfunc_Click(object sender, EventArgs e)
         {
-            using (var fmTelaCadastroFuncionario = Program.ServiceProvider.GetRequiredService<TelaCadastro>())
+            using (var fmTelaCadastroFuncionario = Program.ServiceProvider.GetRequiredService<TelaCadastroFuncionario>())
             {
                 this.Hide();
                 fmTelaCadastroFuncionario.StartPosition = FormStartPosition.CenterScreen;
                 fmTelaCadastroFuncionario.ShowDialog();
-                fmTelaCadastroFuncionario.EAdm = false;
             }
         }
 
         private void Rbtnadm_Click(object sender, EventArgs e)
         {
-            using (var fmTelaCadastroFuncionario = Program.ServiceProvider.GetRequiredService<TelaCadastro>())
+            using (var fmTelaManutencaoAdm = Program.ServiceProvider.GetRequiredService<TelaManutencaoFuncionario>())
             {
                 this.Hide();
-                fmTelaCadastroFuncionario.EAdm = true;
-                fmTelaCadastroFuncionario.StartPosition = FormStartPosition.CenterScreen;
-                fmTelaCadastroFuncionario.ShowDialog();
+                fmTelaManutencaoAdm.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaManutencaoAdm.ShowDialog();
             }
         }
 
@@ -61,7 +88,15 @@ namespace Telas_do_PIM.Forms
         {
             using (var fmTelaCadastroCliente = Program.ServiceProvider.GetRequiredService<TelaCadastroCliente>())
             {
-                this.Visible = false;
+                this.Hide();
+                fmTelaCadastroCliente.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaCadastroCliente.ShowDialog();
+            }
+        }
+        private void rbtnManutencaoClientes_Click(object sender, EventArgs e)
+        {
+            using (var fmTelaCadastroCliente = Program.ServiceProvider.GetRequiredService<TelaCadastroCliente>())
+            {
                 this.Hide();
                 fmTelaCadastroCliente.StartPosition = FormStartPosition.CenterScreen;
                 fmTelaCadastroCliente.ShowDialog();
@@ -69,19 +104,24 @@ namespace Telas_do_PIM.Forms
         }
         private void Rbtndashboard_MouseHover(object sender, EventArgs e)
         {
-            Rbtndashboard.Checked = true;
+            rbtnDashboard.Checked = true;
         }
         private void Rbtnfunc_MouseHover(object sender, EventArgs e)
         {
-            Rbtnfunc.Checked = true;
+            rbtnCadastroFuncionario.Checked = true;
         }
         private void Rbtnadm_MouseHover(object sender, EventArgs e)
         {
-            Rbtnadm.Checked = true;
+            rbtnMantutencaoFuncionario.Checked = true;
         }
         private void Rbtncliente_MouseHover(object sender, EventArgs e)
         {
-            Rbtncliente.Checked = true;
+            rbtnCadastroCliente.Checked = true;
         }
+        private void rbtnManutencaoClientes_MouseHover(object sender, EventArgs e)
+        {
+            rbtnManutencaoClientes.Checked = true;
+        }
+        
     }
 }

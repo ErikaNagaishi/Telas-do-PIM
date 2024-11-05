@@ -29,93 +29,124 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            Rbtndashboard = new RadioButton();
-            Rbtnfunc = new RadioButton();
-            Rbtnadm = new RadioButton();
-            Rbtncliente = new RadioButton();
+            rbtnDashboard = new RadioButton();
+            rbtnCadastroFuncionario = new RadioButton();
+            rbtnMantutencaoFuncionario = new RadioButton();
+            rbtnCadastroCliente = new RadioButton();
+            rbtnManutencaoClientes = new RadioButton();
+            rbtnManutencaoProdutos = new RadioButton();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(306, 73);
+            label1.Location = new Point(268, 55);
             label1.Name = "label1";
-            label1.Size = new Size(124, 20);
+            label1.Size = new Size(99, 15);
             label1.TabIndex = 0;
             label1.Text = "Genesis Solutions";
             // 
-            // Rbtndashboard
+            // rbtnDashboard
             // 
-            Rbtndashboard.AutoSize = true;
-            Rbtndashboard.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
-            Rbtndashboard.Location = new Point(94, 193);
-            Rbtndashboard.Margin = new Padding(3, 4, 3, 4);
-            Rbtndashboard.Name = "Rbtndashboard";
-            Rbtndashboard.Size = new Size(157, 24);
-            Rbtndashboard.TabIndex = 1;
-            Rbtndashboard.TabStop = true;
-            Rbtndashboard.Text = "Acessar Dashboard";
-            Rbtndashboard.UseVisualStyleBackColor = true;
-            Rbtndashboard.MouseEnter += Rbtndashboard_MouseHover;
+            rbtnDashboard.AutoSize = true;
+            rbtnDashboard.Enabled = false;
+            rbtnDashboard.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
+            rbtnDashboard.Location = new Point(82, 145);
+            rbtnDashboard.Name = "rbtnDashboard";
+            rbtnDashboard.Size = new Size(125, 19);
+            rbtnDashboard.TabIndex = 1;
+            rbtnDashboard.TabStop = true;
+            rbtnDashboard.Text = "Acessar Dashboard";
+            rbtnDashboard.UseVisualStyleBackColor = true;
+            rbtnDashboard.MouseEnter += Rbtndashboard_MouseHover;
             // 
-            // Rbtnfunc
+            // rbtnCadastroFuncionario
             // 
-            Rbtnfunc.AutoSize = true;
-            Rbtnfunc.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
-            Rbtnfunc.Location = new Point(94, 257);
-            Rbtnfunc.Margin = new Padding(3, 4, 3, 4);
-            Rbtnfunc.Name = "Rbtnfunc";
-            Rbtnfunc.Size = new Size(174, 24);
-            Rbtnfunc.TabIndex = 2;
-            Rbtnfunc.TabStop = true;
-            Rbtnfunc.Text = "Cadastrar Funcionário";
-            Rbtnfunc.UseVisualStyleBackColor = true;
-            Rbtnfunc.MouseClick += Rbtnfunc_Click;
-            Rbtnfunc.MouseEnter += Rbtnfunc_MouseHover;
+            rbtnCadastroFuncionario.AutoSize = true;
+            rbtnCadastroFuncionario.Enabled = false;
+            rbtnCadastroFuncionario.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
+            rbtnCadastroFuncionario.Location = new Point(82, 183);
+            rbtnCadastroFuncionario.Name = "rbtnCadastroFuncionario";
+            rbtnCadastroFuncionario.Size = new Size(141, 19);
+            rbtnCadastroFuncionario.TabIndex = 2;
+            rbtnCadastroFuncionario.TabStop = true;
+            rbtnCadastroFuncionario.Text = "Cadastrar Funcionário";
+            rbtnCadastroFuncionario.UseVisualStyleBackColor = true;
+            rbtnCadastroFuncionario.MouseClick += Rbtnfunc_Click;
+            rbtnCadastroFuncionario.MouseEnter += Rbtnfunc_MouseHover;
             // 
-            // Rbtnadm
+            // rbtnMantutencaoFuncionario
             // 
-            Rbtnadm.AutoSize = true;
-            Rbtnadm.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
-            Rbtnadm.Location = new Point(94, 325);
-            Rbtnadm.Margin = new Padding(3, 4, 3, 4);
-            Rbtnadm.Name = "Rbtnadm";
-            Rbtnadm.Size = new Size(131, 24);
-            Rbtnadm.TabIndex = 3;
-            Rbtnadm.TabStop = true;
-            Rbtnadm.Text = "Cadastrar ADM";
-            Rbtnadm.UseVisualStyleBackColor = true;
-            Rbtnadm.MouseClick += Rbtnadm_Click;
-            Rbtnadm.MouseEnter += Rbtnadm_MouseHover;
+            rbtnMantutencaoFuncionario.AutoSize = true;
+            rbtnMantutencaoFuncionario.Enabled = false;
+            rbtnMantutencaoFuncionario.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
+            rbtnMantutencaoFuncionario.Location = new Point(353, 183);
+            rbtnMantutencaoFuncionario.Name = "rbtnMantutencaoFuncionario";
+            rbtnMantutencaoFuncionario.Size = new Size(179, 19);
+            rbtnMantutencaoFuncionario.TabIndex = 3;
+            rbtnMantutencaoFuncionario.TabStop = true;
+            rbtnMantutencaoFuncionario.Text = "Manutenção de Funcionários";
+            rbtnMantutencaoFuncionario.UseVisualStyleBackColor = true;
+            rbtnMantutencaoFuncionario.MouseClick += Rbtnadm_Click;
+            rbtnMantutencaoFuncionario.MouseEnter += Rbtnadm_MouseHover;
             // 
-            // Rbtncliente
+            // rbtnCadastroCliente
             // 
-            Rbtncliente.AutoSize = true;
-            Rbtncliente.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
-            Rbtncliente.Location = new Point(94, 389);
-            Rbtncliente.Margin = new Padding(3, 4, 3, 4);
-            Rbtncliente.Name = "Rbtncliente";
-            Rbtncliente.Size = new Size(143, 24);
-            Rbtncliente.TabIndex = 4;
-            Rbtncliente.TabStop = true;
-            Rbtncliente.Text = "Cadastrar Cliente";
-            Rbtncliente.UseVisualStyleBackColor = true;
-            Rbtncliente.MouseClick += Rbtncliente_Click;
-            Rbtncliente.MouseEnter += Rbtncliente_MouseHover;
+            rbtnCadastroCliente.AutoSize = true;
+            rbtnCadastroCliente.Enabled = false;
+            rbtnCadastroCliente.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
+            rbtnCadastroCliente.Location = new Point(82, 218);
+            rbtnCadastroCliente.Name = "rbtnCadastroCliente";
+            rbtnCadastroCliente.Size = new Size(115, 19);
+            rbtnCadastroCliente.TabIndex = 4;
+            rbtnCadastroCliente.TabStop = true;
+            rbtnCadastroCliente.Text = "Cadastrar Cliente";
+            rbtnCadastroCliente.UseVisualStyleBackColor = true;
+            rbtnCadastroCliente.MouseClick += Rbtncliente_Click;
+            rbtnCadastroCliente.MouseEnter += Rbtncliente_MouseHover;
+            // 
+            // rbtnManutencaoClientes
+            // 
+            rbtnManutencaoClientes.AutoSize = true;
+            rbtnManutencaoClientes.Enabled = false;
+            rbtnManutencaoClientes.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
+            rbtnManutencaoClientes.Location = new Point(353, 218);
+            rbtnManutencaoClientes.Name = "rbtnManutencaoClientes";
+            rbtnManutencaoClientes.Size = new Size(153, 19);
+            rbtnManutencaoClientes.TabIndex = 6;
+            rbtnManutencaoClientes.TabStop = true;
+            rbtnManutencaoClientes.Text = "Manutenção de Clientes";
+            rbtnManutencaoClientes.UseVisualStyleBackColor = true;
+            rbtnManutencaoClientes.MouseClick += rbtnManutencaoClientes_Click;
+            rbtnManutencaoClientes.MouseEnter += rbtnManutencaoClientes_MouseHover;
+            // 
+            // rbtnManutencaoProdutos
+            // 
+            rbtnManutencaoProdutos.AutoSize = true;
+            rbtnManutencaoProdutos.Enabled = false;
+            rbtnManutencaoProdutos.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
+            rbtnManutencaoProdutos.Location = new Point(353, 145);
+            rbtnManutencaoProdutos.Name = "rbtnManutencaoProdutos";
+            rbtnManutencaoProdutos.Size = new Size(159, 19);
+            rbtnManutencaoProdutos.TabIndex = 7;
+            rbtnManutencaoProdutos.TabStop = true;
+            rbtnManutencaoProdutos.Text = "Manutenção de Produtos";
+            rbtnManutencaoProdutos.UseVisualStyleBackColor = true;
             // 
             // TelaDeSelecao
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(914, 600);
-            Controls.Add(Rbtncliente);
-            Controls.Add(Rbtnadm);
-            Controls.Add(Rbtnfunc);
-            Controls.Add(Rbtndashboard);
+            ClientSize = new Size(800, 450);
+            Controls.Add(rbtnManutencaoProdutos);
+            Controls.Add(rbtnManutencaoClientes);
+            Controls.Add(rbtnCadastroCliente);
+            Controls.Add(rbtnMantutencaoFuncionario);
+            Controls.Add(rbtnCadastroFuncionario);
+            Controls.Add(rbtnDashboard);
             Controls.Add(label1);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "TelaDeSelecao";
-            Text = "Form1";
+            Text = "Genesis Solution";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -123,9 +154,11 @@
         #endregion
 
         private Label label1;
-        private RadioButton Rbtndashboard;
-        private RadioButton Rbtnfunc;
-        private RadioButton Rbtnadm;
-        private RadioButton Rbtncliente;
+        private RadioButton rbtnDashboard;
+        private RadioButton rbtnCadastroFuncionario;
+        private RadioButton rbtnMantutencaoFuncionario;
+        private RadioButton rbtnCadastroCliente;
+        private RadioButton rbtnManutencaoClientes;
+        private RadioButton rbtnManutencaoProdutos;
     }
 }
