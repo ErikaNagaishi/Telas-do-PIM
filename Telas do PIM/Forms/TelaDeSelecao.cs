@@ -88,6 +88,18 @@ namespace Telas_do_PIM.Forms
         {
             using (var fmTelaCadastroCliente = Program.ServiceProvider.GetRequiredService<TelaCadastroCliente>())
             {
+<<<<<<< HEAD
+=======
+                this.Hide();
+                fmTelaCadastroCliente.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaCadastroCliente.ShowDialog();
+            }
+        }
+        private void rbtnManutencaoClientes_Click(object sender, EventArgs e)
+        {
+            using (var fmTelaCadastroCliente = Program.ServiceProvider.GetRequiredService<TelaCadastroCliente>())
+            {
+>>>>>>> 669d664c19ff73b1d882aab09441f300a675e12f
                 this.Hide();
                 fmTelaCadastroCliente.StartPosition = FormStartPosition.CenterScreen;
                 fmTelaCadastroCliente.ShowDialog();
