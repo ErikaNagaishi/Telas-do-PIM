@@ -1,60 +1,31 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
 using Telas_do_PIM.Models;
-using ViaCep;
 
 namespace Telas_do_PIM.Forms
 {
-    public partial class TelaCadastroCliente : Form
+    public partial class TelaCadastroFuncionario : Form
     {
-        private readonly GenesisSolutionsContext genesisContext;
         private readonly TelaDeSelecao _telaDeSelecao;
-        public TelaCadastroCliente(GenesisSolutionsContext genesisSolutionsContext, TelaDeSelecao telaDeSelecao)
+
+        private readonly GenesisSolutionsContext genesisContext;
+        public TelaCadastroFuncionario(GenesisSolutionsContext genesisSolutionsContext, TelaDeSelecao telaDeSelecao)
         {
             _telaDeSelecao = telaDeSelecao;
             genesisContext = genesisSolutionsContext;
             InitializeComponent();
             FormClosing += FormClosingAction;
 
-            TxtSenha.KeyDown += TelaDeCadastroCliente_KeyDown;
-            TxtConfSenha.KeyDown += TelaDeCadastroCliente_KeyDown;
+            TxtSenha.KeyDown += TelaDeCadastro_KeyDown;
+            TxtConfSenha.KeyDown += TelaDeCadastro_KeyDown;
 
-            TxtCEP.Leave += textCEP_Leave;
-
-            TxtEndereco.Enabled = false;
-
-            pictureBoxHidePassword.Hide();
             pictureBoxHideConfPassword.Hide();
+            pictureBoxHidePassword.Hide();
+
+            var perfis = genesisContext.Perfils.Select(e => e.Id + " - " + e.Perfil1).ToArray();
+
+            cmbBoxPerfil.Items.AddRange(perfis);
         }
-
-        private void textCEP_Leave(object? sender, EventArgs e)
-        {
-            LocalizarCEP();
-        }
-
-        private async void LocalizarCEP()
-        {
-            var cep = TxtCEP.Text.Replace("-", "");
-            if (!string.IsNullOrWhiteSpace(cep) &&
-                ValidarCEP(cep))
-            {
-
-                var cepResultado = new ViaCepClient().Search(cep);
-                if(cepResultado is not null)
-                {
-                    TxtEndereco.Text = cepResultado.Street;
-                }
-                else
-                {
-                    MessageBox.Show("CEP inválido");
-                }
-            }
-            else
-            {
-                MessageBox.Show("CEP inválido");
-            }
-        }
-
         private void FormClosingAction(object? sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -69,7 +40,6 @@ namespace Telas_do_PIM.Forms
                         try
                         {
                             Application.Exit();
-                            //Environment.Exit(0);
                         }
                         catch
                         {
@@ -79,12 +49,17 @@ namespace Telas_do_PIM.Forms
                 }
             }
         }
-        private void TelaDeCadastroCliente_KeyDown(object sender, KeyEventArgs e)
+        private void TelaDeCadastro_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 RealizaCadastro();
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void BtnCadastrar_Click(object sender, EventArgs e)
@@ -94,42 +69,36 @@ namespace Telas_do_PIM.Forms
 
         private void RealizaCadastro()
         {
-            if (!TxtSenha.Text.Equals(TxtConfSenha.Text))
+            if (ValidaCadastro())
             {
-                MessageBox.Show("Senha não confere");
-            }
-            else
-            {
-
-                Cliente cliente = new()
+                var idPerfil = int.Parse(cmbBoxPerfil.Items[cmbBoxPerfil.SelectedIndex].ToString().Split('-')[0]);
+                Funcionario funcionario = new Funcionario()
                 {
-                    RazaoSocial = TxtNome.Text,
-                    CnpjCliente = TxtCNPJ.Text,
+                    Nome = TxtNome.Text,
+                    Cpf = TxtCPF.Text,
+                    Telefone = TxtTelefone.Text,
                     Email = TxtEmail.Text,
-                    SenhaCliente = TxtSenha.Text,
-                    EnderecoCliente = TxtCEP.Text,
-                    Numero = TxtNumeracao.Text,
-                    Cep = TxtCEP.Text,
+                    Senha = TxtSenha.Text,
+                    Endereço = TxtEndereco.Text,
+                    IdPerfil = idPerfil
+
                 };
-                genesisContext.Clientes.Add(cliente);
+                genesisContext.Funcionarios.Add(funcionario);
                 genesisContext.SaveChanges();
 
-                MessageBox.Show("Cliente Cadastrado com sucesso!");
-
-                //Chamar novamente o mesmo form para resetar os campos de textbox
-                using (var fmTelaCadastroCliente = Program.ServiceProvider.GetRequiredService<TelaCadastroCliente>())
+                MessageBox.Show("Funcionário Cadastrado com sucesso!");
+                using (var fmTelaCadastro = Program.ServiceProvider.GetRequiredService<TelaCadastroFuncionario>())
                 {
-                    this.Visible = false;
                     this.Hide();
-                    fmTelaCadastroCliente.StartPosition = FormStartPosition.CenterScreen;
-                    fmTelaCadastroCliente.ShowDialog();
+                    fmTelaCadastro.StartPosition = FormStartPosition.CenterScreen;
+                    fmTelaCadastro.ShowDialog();
                 }
             }
         }
 
         private bool ValidaCadastro()
         {
-            if (!ValidarCNPJ(TxtCNPJ.Text))
+            if (!ValidarCPF(TxtCPF.Text))
             {
                 MessageBox.Show("CPF não é válido");
                 return false;
@@ -144,14 +113,14 @@ namespace Telas_do_PIM.Forms
                 MessageBox.Show("E-mail não é válido");
                 return false;
             }
-            if (string.IsNullOrEmpty(TxtCEP.Text))
+            if (string.IsNullOrEmpty(TxtEndereco.Text))
             {
                 MessageBox.Show("Endereço não pode ser em branco");
                 return false;
             }
-            if (string.IsNullOrEmpty(TxtCEP.Text))
+            if (string.IsNullOrEmpty(TxtTelefone.Text))
             {
-                MessageBox.Show("CEP não pode ser em branco");
+                MessageBox.Show("Telefone não pode ser em branco");
                 return false;
             }
             if (string.IsNullOrEmpty(TxtNome.Text))
@@ -160,74 +129,69 @@ namespace Telas_do_PIM.Forms
                 return false;
             }
 
-            if (genesisContext.Clientes.Any(f => f.CnpjCliente.Equals(TxtCNPJ)))
+            if(genesisContext.Funcionarios.Any(f => f.Cpf.Equals(TxtCPF.Text)))
             {
-                MessageBox.Show("CNPJ já está cadastrado");
+                MessageBox.Show("CPF já está cadastrado");
                 return false;
             }
 
-            if (genesisContext.Clientes.Any(f => f.Email.Equals(TxtEmail)))
+            if (genesisContext.Funcionarios.Any(f => f.Email.Equals(TxtEmail.Text)))
             {
                 MessageBox.Show("Email já está cadastrado");
                 return false;
             }
-
-            return true;
-        }
-
-        private bool ValidarCEP(string cep)
-        {
-            cep.Replace('-', '\0');
-
-            // Verifica se o CEP possui exatamente 8 dígitos
-            if (cep.Length != 8)
-                return false;
-
-            // Verifica se todos os caracteres são dígitos
-            foreach (char c in cep)
+            if(cmbBoxPerfil.SelectedIndex == -1)
             {
-                if (!char.IsDigit(c))
-                    return false;
+                MessageBox.Show("Informe um perfil");
+                return false;
             }
 
             return true;
         }
-        public static bool ValidarCNPJ(string cnpj)
+
+        public static bool ValidarCPF(string cpf)
         {
             // Remove caracteres não numéricos
-            cnpj = cnpj.Replace(".", "").Replace("-", "").Replace("/", "");
+            cpf = new string(cpf.Where(char.IsDigit).ToArray());
 
-            if (cnpj.Length != 14)
+            // Verifica se o CPF possui 11 dígitos
+            if (cpf.Length != 11)
                 return false;
 
-            // Primeira parte dos cálculos
-            int[] multiplicador1 = new int[12] { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+            // Verifica se todos os dígitos são iguais
+            if (cpf.Distinct().Count() == 1)
+                return false;
+
+            // Calcula o primeiro dígito verificador
             int soma = 0;
-            for (int i = 0; i < 12; i++)
-                soma += int.Parse(cnpj[i].ToString()) * multiplicador1[i];
-            int resto = (soma % 11);
+            for (int i = 0; i < 9; i++)
+                soma += int.Parse(cpf[i].ToString()) * (10 - i);
+            int resto = soma % 11;
+
             if (resto < 2)
                 resto = 0;
             else
                 resto = 11 - resto;
-            string digito = resto.ToString();
-            // Concatena o primeiro dígito verificador ao CNPJ original
-               cnpj += digito;
+            if (resto != int.Parse(cpf[9].ToString()))
+                return false;
 
-            // Segunda parte dos cálculos
-            int[] multiplicador2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
+
+            // Calcula o segundo dígito verificador
             soma = 0;
-            for (int i = 0; i < 13; i++)
-                soma += int.Parse(cnpj[i].ToString()) * multiplicador2[i];
-            resto = (soma % 11);
+            for (int i = 0; i < 10; i++)
+                soma += int.Parse(cpf[i].ToString()) * (11 - i);
+            resto = soma % 11;
+
             if (resto < 2)
                 resto = 0;
             else
                 resto = 11 - resto;
-            digito += resto.ToString();
+            if (resto != int.Parse(cpf[10].ToString()))
+                return false;
 
-            // Verifica se os dígitos calculados conferem com os dígitos informados
-            return cnpj.EndsWith(digito);
+
+            // Se passou por todas as verificações, o CPF é válido
+            return true;
         }
 
         private bool ValidaEmail(string email)
@@ -247,7 +211,7 @@ namespace Telas_do_PIM.Forms
             return true;
         }
 
-        private void BtnVoltar_Click(object sender, EventArgs e)
+        private void btnVoltar_Click(object sender, EventArgs e)
         {
             this.Hide();
             _telaDeSelecao.StartPosition = FormStartPosition.CenterScreen;
@@ -283,5 +247,6 @@ namespace Telas_do_PIM.Forms
             pictureBoxShowPassword.Hide();
             TxtSenha.PasswordChar = '\0';
         }
+
     }
 }

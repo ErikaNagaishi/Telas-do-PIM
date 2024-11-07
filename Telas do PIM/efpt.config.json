@@ -68,7 +68,19 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Perfil]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Perfil_Tela]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Produtos]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Tela]",
          "ObjectType": 0
       },
       {

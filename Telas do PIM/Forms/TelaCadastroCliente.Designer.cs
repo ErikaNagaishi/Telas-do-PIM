@@ -39,9 +39,6 @@
             label8 = new Label();
             label9 = new Label();
             TxtNome = new TextBox();
-            TxtCNPJ = new TextBox();
-            TxtCEP = new TextBox();
-            TxtEndereco = new TextBox();
             TxtEmail = new TextBox();
             TxtSenha = new TextBox();
             TxtConfSenha = new TextBox();
@@ -53,6 +50,9 @@
             pictureBoxHidePassword = new PictureBox();
             pictureBoxShowConfPassword = new PictureBox();
             pictureBoxHideConfPassword = new PictureBox();
+            TxtCEP = new MaskedTextBox();
+            TxtEndereco = new TextBox();
+            TxtCNPJ = new MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBoxShowPassword).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHidePassword).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxShowConfPassword).BeginInit();
@@ -85,7 +85,6 @@
             label3.Size = new Size(40, 15);
             label3.TabIndex = 2;
             label3.Text = "Nome";
-            label3.Click += label3_Click;
             // 
             // label4
             // 
@@ -122,7 +121,6 @@
             label7.Size = new Size(41, 15);
             label7.TabIndex = 6;
             label7.Text = "E-mail";
-            label7.Click += label7_Click;
             // 
             // label8
             // 
@@ -141,62 +139,44 @@
             label9.Size = new Size(126, 15);
             label9.TabIndex = 8;
             label9.Text = "Confirmação da senha";
-            label9.Click += label9_Click;
             // 
             // TxtNome
             // 
             TxtNome.Location = new Point(70, 103);
+            TxtNome.MaxLength = 255;
             TxtNome.Name = "TxtNome";
-            TxtNome.Size = new Size(100, 23);
+            TxtNome.Size = new Size(221, 23);
             TxtNome.TabIndex = 1;
-            // 
-            // TxtCNPJ
-            // 
-            TxtCNPJ.Location = new Point(68, 155);
-            TxtCNPJ.Name = "TxtCNPJ";
-            TxtCNPJ.Size = new Size(100, 23);
-            TxtCNPJ.TabIndex = 2;
-            // 
-            // TxtCEP
-            // 
-            TxtCEP.Location = new Point(70, 201);
-            TxtCEP.Name = "TxtCEP";
-            TxtCEP.Size = new Size(100, 23);
-            TxtCEP.TabIndex = 3;
-            // 
-            // TxtEndereco
-            // 
-            TxtEndereco.Location = new Point(70, 245);
-            TxtEndereco.Name = "TxtEndereco";
-            TxtEndereco.Size = new Size(100, 23);
-            TxtEndereco.TabIndex = 4;
             // 
             // TxtEmail
             // 
             TxtEmail.Location = new Point(70, 297);
+            TxtEmail.MaxLength = 100;
             TxtEmail.Name = "TxtEmail";
-            TxtEmail.Size = new Size(100, 23);
+            TxtEmail.Size = new Size(221, 23);
             TxtEmail.TabIndex = 6;
             // 
             // TxtSenha
             // 
             TxtSenha.Location = new Point(70, 351);
+            TxtSenha.MaxLength = 255;
             TxtSenha.Name = "TxtSenha";
             TxtSenha.PasswordChar = '*';
-            TxtSenha.Size = new Size(100, 23);
+            TxtSenha.Size = new Size(221, 23);
             TxtSenha.TabIndex = 7;
-            TxtSenha.TextChanged += TxtSenha_TextChanged;
             // 
             // TxtConfSenha
             // 
             TxtConfSenha.Location = new Point(70, 408);
+            TxtConfSenha.MaxLength = 255;
             TxtConfSenha.Name = "TxtConfSenha";
             TxtConfSenha.PasswordChar = '*';
-            TxtConfSenha.Size = new Size(100, 23);
+            TxtConfSenha.Size = new Size(221, 23);
             TxtConfSenha.TabIndex = 8;
             // 
             // BtnCadastrar
             // 
+            BtnCadastrar.Enabled = false;
             BtnCadastrar.Location = new Point(310, 451);
             BtnCadastrar.Name = "BtnCadastrar";
             BtnCadastrar.Size = new Size(75, 23);
@@ -218,7 +198,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(186, 227);
+            label10.Location = new Point(297, 227);
             label10.Name = "label10";
             label10.Size = new Size(69, 15);
             label10.TabIndex = 18;
@@ -226,7 +206,8 @@
             // 
             // TxtNumeracao
             // 
-            TxtNumeracao.Location = new Point(186, 245);
+            TxtNumeracao.Location = new Point(297, 245);
+            TxtNumeracao.MaxLength = 20;
             TxtNumeracao.Name = "TxtNumeracao";
             TxtNumeracao.Size = new Size(69, 23);
             TxtNumeracao.TabIndex = 5;
@@ -234,7 +215,7 @@
             // pictureBoxShowPassword
             // 
             pictureBoxShowPassword.Image = (Image)resources.GetObject("pictureBoxShowPassword.Image");
-            pictureBoxShowPassword.Location = new Point(176, 351);
+            pictureBoxShowPassword.Location = new Point(297, 351);
             pictureBoxShowPassword.Name = "pictureBoxShowPassword";
             pictureBoxShowPassword.Size = new Size(22, 23);
             pictureBoxShowPassword.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -245,7 +226,7 @@
             // pictureBoxHidePassword
             // 
             pictureBoxHidePassword.Image = (Image)resources.GetObject("pictureBoxHidePassword.Image");
-            pictureBoxHidePassword.Location = new Point(176, 351);
+            pictureBoxHidePassword.Location = new Point(297, 351);
             pictureBoxHidePassword.Name = "pictureBoxHidePassword";
             pictureBoxHidePassword.Size = new Size(22, 23);
             pictureBoxHidePassword.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -256,7 +237,7 @@
             // pictureBoxShowConfPassword
             // 
             pictureBoxShowConfPassword.Image = (Image)resources.GetObject("pictureBoxShowConfPassword.Image");
-            pictureBoxShowConfPassword.Location = new Point(176, 408);
+            pictureBoxShowConfPassword.Location = new Point(297, 408);
             pictureBoxShowConfPassword.Name = "pictureBoxShowConfPassword";
             pictureBoxShowConfPassword.Size = new Size(22, 23);
             pictureBoxShowConfPassword.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -267,7 +248,7 @@
             // pictureBoxHideConfPassword
             // 
             pictureBoxHideConfPassword.Image = (Image)resources.GetObject("pictureBoxHideConfPassword.Image");
-            pictureBoxHideConfPassword.Location = new Point(176, 408);
+            pictureBoxHideConfPassword.Location = new Point(297, 408);
             pictureBoxHideConfPassword.Name = "pictureBoxHideConfPassword";
             pictureBoxHideConfPassword.Size = new Size(22, 23);
             pictureBoxHideConfPassword.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -275,11 +256,41 @@
             pictureBoxHideConfPassword.TabStop = false;
             pictureBoxHideConfPassword.Click += pictureBoxHideConfPassword_Click;
             // 
+            // TxtCEP
+            // 
+            TxtCEP.Location = new Point(70, 201);
+            TxtCEP.Mask = "00000-999";
+            TxtCEP.Name = "TxtCEP";
+            TxtCEP.Size = new Size(221, 23);
+            TxtCEP.TabIndex = 23;
+            TxtCEP.TextMaskFormat = MaskFormat.IncludePrompt;
+            // 
+            // TxtEndereco
+            // 
+            TxtEndereco.Enabled = false;
+            TxtEndereco.Location = new Point(70, 245);
+            TxtEndereco.MaxLength = 20;
+            TxtEndereco.Name = "TxtEndereco";
+            TxtEndereco.Size = new Size(223, 23);
+            TxtEndereco.TabIndex = 24;
+            // 
+            // TxtCNPJ
+            // 
+            TxtCNPJ.Location = new Point(70, 155);
+            TxtCNPJ.Mask = "00,000,000/0000-00";
+            TxtCNPJ.Name = "TxtCNPJ";
+            TxtCNPJ.Size = new Size(221, 23);
+            TxtCNPJ.TabIndex = 25;
+            TxtCNPJ.TextMaskFormat = MaskFormat.IncludePrompt;
+            // 
             // TelaCadastroCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 503);
+            Controls.Add(TxtCNPJ);
+            Controls.Add(TxtEndereco);
+            Controls.Add(TxtCEP);
             Controls.Add(pictureBoxHideConfPassword);
             Controls.Add(pictureBoxShowConfPassword);
             Controls.Add(pictureBoxHidePassword);
@@ -291,9 +302,6 @@
             Controls.Add(TxtConfSenha);
             Controls.Add(TxtSenha);
             Controls.Add(TxtEmail);
-            Controls.Add(TxtEndereco);
-            Controls.Add(TxtCEP);
-            Controls.Add(TxtCNPJ);
             Controls.Add(TxtNome);
             Controls.Add(label9);
             Controls.Add(label8);
@@ -326,9 +334,6 @@
         private Label label8;
         private Label label9;
         private TextBox TxtNome;
-        private TextBox TxtCNPJ;
-        private TextBox TxtCEP;
-        private TextBox TxtEndereco;
         private TextBox TxtEmail;
         private TextBox TxtSenha;
         private TextBox TxtConfSenha;
@@ -340,5 +345,8 @@
         private PictureBox pictureBoxHidePassword;
         private PictureBox pictureBoxShowConfPassword;
         private PictureBox pictureBoxHideConfPassword;
+        private MaskedTextBox TxtCEP;
+        private TextBox TxtEndereco;
+        private MaskedTextBox TxtCNPJ;
     }
 }

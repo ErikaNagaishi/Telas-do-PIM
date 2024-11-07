@@ -1,6 +1,6 @@
 ﻿namespace Telas_do_PIM.Forms
 {
-    partial class TelaCadastro
+    partial class TelaCadastroFuncionario
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaCadastro));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaCadastroFuncionario));
             label1 = new Label();
             LblCadastro = new Label();
             label3 = new Label();
@@ -43,14 +43,16 @@
             TxtSenha = new TextBox();
             TxtEmail = new TextBox();
             TxtEndereco = new TextBox();
-            TxtTelefone = new TextBox();
-            TxtCPF = new TextBox();
             BtnCadastrar = new Button();
             btnVoltar = new Button();
             pictureBoxHidePassword = new PictureBox();
             pictureBoxShowPassword = new PictureBox();
             pictureBoxShowConfPassword = new PictureBox();
             pictureBoxHideConfPassword = new PictureBox();
+            TxtTelefone = new MaskedTextBox();
+            TxtCPF = new MaskedTextBox();
+            label2 = new Label();
+            cmbBoxPerfil = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHidePassword).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxShowPassword).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxShowConfPassword).BeginInit();
@@ -74,12 +76,11 @@
             LblCadastro.Size = new Size(168, 15);
             LblCadastro.TabIndex = 1;
             LblCadastro.Text = "Cadastre um novo funcionário";
-            LblCadastro.Click += LblCadastro_Click;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(97, 398);
+            label3.Location = new Point(98, 443);
             label3.Name = "label3";
             label3.Size = new Size(126, 15);
             label3.TabIndex = 2;
@@ -88,7 +89,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(97, 354);
+            label4.Location = new Point(98, 399);
             label4.Name = "label4";
             label4.Size = new Size(39, 15);
             label4.TabIndex = 3;
@@ -97,7 +98,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(97, 310);
+            label5.Location = new Point(98, 310);
             label5.Name = "label5";
             label5.Size = new Size(41, 15);
             label5.TabIndex = 4;
@@ -142,6 +143,7 @@
             // TxtNome
             // 
             TxtNome.Location = new Point(98, 152);
+            TxtNome.MaxLength = 100;
             TxtNome.Name = "TxtNome";
             TxtNome.Size = new Size(252, 23);
             TxtNome.TabIndex = 1;
@@ -149,16 +151,17 @@
             // 
             // TxtConfSenha
             // 
-            TxtConfSenha.Location = new Point(98, 416);
+            TxtConfSenha.Location = new Point(98, 461);
+            TxtConfSenha.MaxLength = 100;
             TxtConfSenha.Name = "TxtConfSenha";
             TxtConfSenha.PasswordChar = '*';
             TxtConfSenha.Size = new Size(252, 23);
             TxtConfSenha.TabIndex = 7;
-            TxtConfSenha.TextChanged += TxtConfSenha_TextChanged;
             // 
             // TxtSenha
             // 
-            TxtSenha.Location = new Point(97, 372);
+            TxtSenha.Location = new Point(98, 417);
+            TxtSenha.MaxLength = 100;
             TxtSenha.Name = "TxtSenha";
             TxtSenha.PasswordChar = '*';
             TxtSenha.Size = new Size(252, 23);
@@ -166,7 +169,8 @@
             // 
             // TxtEmail
             // 
-            TxtEmail.Location = new Point(97, 328);
+            TxtEmail.Location = new Point(98, 328);
+            TxtEmail.MaxLength = 100;
             TxtEmail.Name = "TxtEmail";
             TxtEmail.Size = new Size(252, 23);
             TxtEmail.TabIndex = 5;
@@ -174,27 +178,14 @@
             // TxtEndereco
             // 
             TxtEndereco.Location = new Point(98, 284);
+            TxtEndereco.MaxLength = 255;
             TxtEndereco.Name = "TxtEndereco";
             TxtEndereco.Size = new Size(252, 23);
             TxtEndereco.TabIndex = 4;
             // 
-            // TxtTelefone
-            // 
-            TxtTelefone.Location = new Point(98, 240);
-            TxtTelefone.Name = "TxtTelefone";
-            TxtTelefone.Size = new Size(252, 23);
-            TxtTelefone.TabIndex = 3;
-            // 
-            // TxtCPF
-            // 
-            TxtCPF.Location = new Point(98, 196);
-            TxtCPF.Name = "TxtCPF";
-            TxtCPF.Size = new Size(252, 23);
-            TxtCPF.TabIndex = 2;
-            // 
             // BtnCadastrar
             // 
-            BtnCadastrar.Location = new Point(98, 454);
+            BtnCadastrar.Location = new Point(98, 490);
             BtnCadastrar.Name = "BtnCadastrar";
             BtnCadastrar.Size = new Size(252, 23);
             BtnCadastrar.TabIndex = 8;
@@ -215,7 +206,7 @@
             // pictureBoxHidePassword
             // 
             pictureBoxHidePassword.Image = (Image)resources.GetObject("pictureBoxHidePassword.Image");
-            pictureBoxHidePassword.Location = new Point(354, 372);
+            pictureBoxHidePassword.Location = new Point(354, 417);
             pictureBoxHidePassword.Name = "pictureBoxHidePassword";
             pictureBoxHidePassword.Size = new Size(22, 23);
             pictureBoxHidePassword.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -226,7 +217,7 @@
             // pictureBoxShowPassword
             // 
             pictureBoxShowPassword.Image = (Image)resources.GetObject("pictureBoxShowPassword.Image");
-            pictureBoxShowPassword.Location = new Point(354, 372);
+            pictureBoxShowPassword.Location = new Point(354, 417);
             pictureBoxShowPassword.Name = "pictureBoxShowPassword";
             pictureBoxShowPassword.Size = new Size(22, 23);
             pictureBoxShowPassword.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -237,7 +228,7 @@
             // pictureBoxShowConfPassword
             // 
             pictureBoxShowConfPassword.Image = (Image)resources.GetObject("pictureBoxShowConfPassword.Image");
-            pictureBoxShowConfPassword.Location = new Point(354, 416);
+            pictureBoxShowConfPassword.Location = new Point(354, 461);
             pictureBoxShowConfPassword.Name = "pictureBoxShowConfPassword";
             pictureBoxShowConfPassword.Size = new Size(22, 23);
             pictureBoxShowConfPassword.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -248,7 +239,7 @@
             // pictureBoxHideConfPassword
             // 
             pictureBoxHideConfPassword.Image = (Image)resources.GetObject("pictureBoxHideConfPassword.Image");
-            pictureBoxHideConfPassword.Location = new Point(354, 416);
+            pictureBoxHideConfPassword.Location = new Point(354, 461);
             pictureBoxHideConfPassword.Name = "pictureBoxHideConfPassword";
             pictureBoxHideConfPassword.Size = new Size(22, 23);
             pictureBoxHideConfPassword.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -256,19 +247,56 @@
             pictureBoxHideConfPassword.TabStop = false;
             pictureBoxHideConfPassword.Click += pictureBoxHideConfPassword_Click;
             // 
-            // TelaCadastro
+            // TxtTelefone
+            // 
+            TxtTelefone.Location = new Point(98, 240);
+            TxtTelefone.Mask = "(99) 00000-0000";
+            TxtTelefone.Name = "TxtTelefone";
+            TxtTelefone.Size = new Size(252, 23);
+            TxtTelefone.TabIndex = 3;
+            TxtTelefone.TextMaskFormat = MaskFormat.IncludePrompt;
+            // 
+            // TxtCPF
+            // 
+            TxtCPF.Location = new Point(98, 196);
+            TxtCPF.Mask = "000,000,000-00";
+            TxtCPF.Name = "TxtCPF";
+            TxtCPF.Size = new Size(252, 23);
+            TxtCPF.TabIndex = 2;
+            TxtCPF.TextMaskFormat = MaskFormat.IncludePrompt;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(98, 354);
+            label2.Name = "label2";
+            label2.Size = new Size(34, 15);
+            label2.TabIndex = 22;
+            label2.Text = "Perfil";
+            // 
+            // cmbBoxPerfil
+            // 
+            cmbBoxPerfil.FormattingEnabled = true;
+            cmbBoxPerfil.Location = new Point(98, 372);
+            cmbBoxPerfil.Name = "cmbBoxPerfil";
+            cmbBoxPerfil.Size = new Size(252, 23);
+            cmbBoxPerfil.TabIndex = 23;
+            // 
+            // TelaCadastroFuncionario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 589);
+            Controls.Add(cmbBoxPerfil);
+            Controls.Add(label2);
+            Controls.Add(TxtCPF);
+            Controls.Add(TxtTelefone);
             Controls.Add(pictureBoxHideConfPassword);
             Controls.Add(pictureBoxShowConfPassword);
             Controls.Add(pictureBoxShowPassword);
             Controls.Add(pictureBoxHidePassword);
             Controls.Add(btnVoltar);
             Controls.Add(BtnCadastrar);
-            Controls.Add(TxtCPF);
-            Controls.Add(TxtTelefone);
             Controls.Add(TxtEndereco);
             Controls.Add(TxtEmail);
             Controls.Add(TxtSenha);
@@ -283,9 +311,8 @@
             Controls.Add(label3);
             Controls.Add(LblCadastro);
             Controls.Add(label1);
-            Name = "TelaCadastro";
-            Text = "Form1";
-            Load += TelaCadastro_Load;
+            Name = "TelaCadastroFuncionario";
+            Text = "Cadastro de funcionário";
             ((System.ComponentModel.ISupportInitialize)pictureBoxHidePassword).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxShowPassword).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxShowConfPassword).EndInit();
@@ -310,13 +337,15 @@
         private TextBox TxtSenha;
         private TextBox TxtEmail;
         private TextBox TxtEndereco;
-        private TextBox TxtTelefone;
-        private TextBox TxtCPF;
         private Button BtnCadastrar;
         private Button btnVoltar;
         private PictureBox pictureBoxHidePassword;
         private PictureBox pictureBoxShowPassword;
         private PictureBox pictureBoxShowConfPassword;
         private PictureBox pictureBoxHideConfPassword;
+        private MaskedTextBox TxtTelefone;
+        private MaskedTextBox TxtCPF;
+        private Label label2;
+        private ComboBox cmbBoxPerfil;
     }
 }
