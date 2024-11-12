@@ -111,10 +111,7 @@ namespace Telas_do_PIM.Forms
                 fmTelaManutencaoProduto.ShowDialog();
             }
         }
-        private void Rbtndashboard_MouseHover(object sender, EventArgs e)
-        {
-            rbtnDashboard.Checked = true;
-        }
+      
         private void rbtnCadastroFuncionario_MouseHover(object sender, EventArgs e)
         {
             rbtnCadastroFuncionario.Checked = true;

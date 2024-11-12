@@ -28,46 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaDeSelecao));
             label1 = new Label();
-            rbtnDashboard = new RadioButton();
             rbtnCadastroFuncionario = new RadioButton();
             rbtnMantutencaoFuncionario = new RadioButton();
             rbtnCadastroCliente = new RadioButton();
             rbtnManutencaoClientes = new RadioButton();
             rbtnManutencaoProdutos = new RadioButton();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(268, 55);
+            label1.Font = new Font("Georgia", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(137, 113);
             label1.Name = "label1";
-            label1.Size = new Size(99, 15);
+            label1.Size = new Size(229, 31);
             label1.TabIndex = 0;
             label1.Text = "Genesis Solutions";
-            // 
-            // rbtnDashboard
-            // 
-            rbtnDashboard.AutoSize = true;
-            rbtnDashboard.Enabled = false;
-            rbtnDashboard.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
-            rbtnDashboard.Location = new Point(82, 145);
-            rbtnDashboard.Name = "rbtnDashboard";
-            rbtnDashboard.Size = new Size(125, 19);
-            rbtnDashboard.TabIndex = 1;
-            rbtnDashboard.TabStop = true;
-            rbtnDashboard.Text = "Acessar Dashboard";
-            rbtnDashboard.UseVisualStyleBackColor = true;
-            rbtnDashboard.MouseEnter += Rbtndashboard_MouseHover;
             // 
             // rbtnCadastroFuncionario
             // 
             rbtnCadastroFuncionario.AutoSize = true;
             rbtnCadastroFuncionario.Enabled = false;
-            rbtnCadastroFuncionario.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
-            rbtnCadastroFuncionario.Location = new Point(82, 183);
+            rbtnCadastroFuncionario.Font = new Font("Georgia", 12F, FontStyle.Underline);
+            rbtnCadastroFuncionario.Location = new Point(60, 208);
             rbtnCadastroFuncionario.Name = "rbtnCadastroFuncionario";
-            rbtnCadastroFuncionario.Size = new Size(141, 19);
+            rbtnCadastroFuncionario.Size = new Size(183, 22);
             rbtnCadastroFuncionario.TabIndex = 2;
             rbtnCadastroFuncionario.TabStop = true;
             rbtnCadastroFuncionario.Text = "Cadastrar Funcionário";
@@ -79,10 +68,10 @@
             // 
             rbtnMantutencaoFuncionario.AutoSize = true;
             rbtnMantutencaoFuncionario.Enabled = false;
-            rbtnMantutencaoFuncionario.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
-            rbtnMantutencaoFuncionario.Location = new Point(353, 183);
+            rbtnMantutencaoFuncionario.Font = new Font("Georgia", 12F, FontStyle.Underline);
+            rbtnMantutencaoFuncionario.Location = new Point(60, 322);
             rbtnMantutencaoFuncionario.Name = "rbtnMantutencaoFuncionario";
-            rbtnMantutencaoFuncionario.Size = new Size(179, 19);
+            rbtnMantutencaoFuncionario.Size = new Size(228, 22);
             rbtnMantutencaoFuncionario.TabIndex = 3;
             rbtnMantutencaoFuncionario.TabStop = true;
             rbtnMantutencaoFuncionario.Text = "Manutenção de Funcionários";
@@ -94,10 +83,10 @@
             // 
             rbtnCadastroCliente.AutoSize = true;
             rbtnCadastroCliente.Enabled = false;
-            rbtnCadastroCliente.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
-            rbtnCadastroCliente.Location = new Point(82, 218);
+            rbtnCadastroCliente.Font = new Font("Georgia", 12F, FontStyle.Underline);
+            rbtnCadastroCliente.Location = new Point(60, 246);
             rbtnCadastroCliente.Name = "rbtnCadastroCliente";
-            rbtnCadastroCliente.Size = new Size(115, 19);
+            rbtnCadastroCliente.Size = new Size(149, 22);
             rbtnCadastroCliente.TabIndex = 4;
             rbtnCadastroCliente.TabStop = true;
             rbtnCadastroCliente.Text = "Cadastrar Cliente";
@@ -109,10 +98,10 @@
             // 
             rbtnManutencaoClientes.AutoSize = true;
             rbtnManutencaoClientes.Enabled = false;
-            rbtnManutencaoClientes.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
-            rbtnManutencaoClientes.Location = new Point(353, 218);
+            rbtnManutencaoClientes.Font = new Font("Georgia", 12F, FontStyle.Underline);
+            rbtnManutencaoClientes.Location = new Point(60, 360);
             rbtnManutencaoClientes.Name = "rbtnManutencaoClientes";
-            rbtnManutencaoClientes.Size = new Size(153, 19);
+            rbtnManutencaoClientes.Size = new Size(194, 22);
             rbtnManutencaoClientes.TabIndex = 6;
             rbtnManutencaoClientes.TabStop = true;
             rbtnManutencaoClientes.Text = "Manutenção de Clientes";
@@ -124,10 +113,10 @@
             // 
             rbtnManutencaoProdutos.AutoSize = true;
             rbtnManutencaoProdutos.Enabled = false;
-            rbtnManutencaoProdutos.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 0);
-            rbtnManutencaoProdutos.Location = new Point(353, 145);
+            rbtnManutencaoProdutos.Font = new Font("Georgia", 12F, FontStyle.Underline);
+            rbtnManutencaoProdutos.Location = new Point(60, 284);
             rbtnManutencaoProdutos.Name = "rbtnManutencaoProdutos";
-            rbtnManutencaoProdutos.Size = new Size(159, 19);
+            rbtnManutencaoProdutos.Size = new Size(202, 22);
             rbtnManutencaoProdutos.TabIndex = 7;
             rbtnManutencaoProdutos.TabStop = true;
             rbtnManutencaoProdutos.Text = "Manutenção de Produtos";
@@ -135,20 +124,32 @@
             rbtnManutencaoProdutos.MouseClick += rbtnManutencaoProdutos_Click;
             rbtnManutencaoProdutos.MouseEnter += rbtnManutencaoProdutos_MouseHover;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(504, -2);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(410, 540);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 29;
+            pictureBox1.TabStop = false;
+            // 
             // TelaDeSelecao
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.White;
+            ClientSize = new Size(914, 537);
+            Controls.Add(pictureBox1);
             Controls.Add(rbtnManutencaoProdutos);
             Controls.Add(rbtnManutencaoClientes);
             Controls.Add(rbtnCadastroCliente);
             Controls.Add(rbtnMantutencaoFuncionario);
             Controls.Add(rbtnCadastroFuncionario);
-            Controls.Add(rbtnDashboard);
             Controls.Add(label1);
             Name = "TelaDeSelecao";
             Text = "Genesis Solution";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -156,11 +157,11 @@
         #endregion
 
         private Label label1;
-        private RadioButton rbtnDashboard;
         private RadioButton rbtnCadastroFuncionario;
         private RadioButton rbtnMantutencaoFuncionario;
         private RadioButton rbtnCadastroCliente;
         private RadioButton rbtnManutencaoClientes;
         private RadioButton rbtnManutencaoProdutos;
+        private PictureBox pictureBox1;
     }
 }
