@@ -72,8 +72,8 @@
             rbtnCadastroFuncionario.TabStop = true;
             rbtnCadastroFuncionario.Text = "Cadastrar Funcionário";
             rbtnCadastroFuncionario.UseVisualStyleBackColor = true;
-            rbtnCadastroFuncionario.MouseClick += Rbtnfunc_Click;
-            rbtnCadastroFuncionario.MouseEnter += Rbtnfunc_MouseHover;
+            rbtnCadastroFuncionario.MouseClick += rbtnCadastroFuncionario_Click;
+            rbtnCadastroFuncionario.MouseEnter += rbtnCadastroFuncionario_MouseHover;
             // 
             // rbtnMantutencaoFuncionario
             // 
@@ -87,8 +87,8 @@
             rbtnMantutencaoFuncionario.TabStop = true;
             rbtnMantutencaoFuncionario.Text = "Manutenção de Funcionários";
             rbtnMantutencaoFuncionario.UseVisualStyleBackColor = true;
-            rbtnMantutencaoFuncionario.MouseClick += Rbtnadm_Click;
-            rbtnMantutencaoFuncionario.MouseEnter += Rbtnadm_MouseHover;
+            rbtnMantutencaoFuncionario.MouseClick += rbtnMantutencaoFuncionario_Click;
+            rbtnMantutencaoFuncionario.MouseEnter += rbtnMantutencaoFuncionario_MouseHover;
             // 
             // rbtnCadastroCliente
             // 
@@ -102,8 +102,8 @@
             rbtnCadastroCliente.TabStop = true;
             rbtnCadastroCliente.Text = "Cadastrar Cliente";
             rbtnCadastroCliente.UseVisualStyleBackColor = true;
-            rbtnCadastroCliente.MouseClick += Rbtncliente_Click;
-            rbtnCadastroCliente.MouseEnter += Rbtncliente_MouseHover;
+            rbtnCadastroCliente.MouseClick += rbtnCadastroClientes_Click;
+            rbtnCadastroCliente.MouseEnter += rbtnCadastroClientes_MouseHover;
             // 
             // rbtnManutencaoClientes
             // 
@@ -132,6 +132,8 @@
             rbtnManutencaoProdutos.TabStop = true;
             rbtnManutencaoProdutos.Text = "Manutenção de Produtos";
             rbtnManutencaoProdutos.UseVisualStyleBackColor = true;
+            rbtnManutencaoProdutos.MouseClick += rbtnManutencaoProdutos_Click;
+            rbtnManutencaoProdutos.MouseEnter += rbtnManutencaoProdutos_MouseHover;
             // 
             // TelaDeSelecao
             // 

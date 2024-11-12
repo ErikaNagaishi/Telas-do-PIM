@@ -64,7 +64,7 @@ namespace Telas_do_PIM.Forms
             }
         }
 
-        private void Rbtnfunc_Click(object sender, EventArgs e)
+        private void rbtnCadastroFuncionario_Click(object sender, EventArgs e)
         {
             using (var fmTelaCadastroFuncionario = Program.ServiceProvider.GetRequiredService<TelaCadastroFuncionario>())
             {
@@ -74,7 +74,7 @@ namespace Telas_do_PIM.Forms
             }
         }
 
-        private void Rbtnadm_Click(object sender, EventArgs e)
+        private void rbtnMantutencaoFuncionario_Click(object sender, EventArgs e)
         {
             using (var fmTelaManutencaoAdm = Program.ServiceProvider.GetRequiredService<TelaManutencaoFuncionario>())
             {
@@ -84,22 +84,10 @@ namespace Telas_do_PIM.Forms
             }
         }
 
-        private void Rbtncliente_Click(object sender, EventArgs e)
+        private void rbtnCadastroClientes_Click(object sender, EventArgs e)
         {
             using (var fmTelaCadastroCliente = Program.ServiceProvider.GetRequiredService<TelaCadastroCliente>())
             {
-<<<<<<< HEAD
-=======
-                this.Hide();
-                fmTelaCadastroCliente.StartPosition = FormStartPosition.CenterScreen;
-                fmTelaCadastroCliente.ShowDialog();
-            }
-        }
-        private void rbtnManutencaoClientes_Click(object sender, EventArgs e)
-        {
-            using (var fmTelaCadastroCliente = Program.ServiceProvider.GetRequiredService<TelaCadastroCliente>())
-            {
->>>>>>> 669d664c19ff73b1d882aab09441f300a675e12f
                 this.Hide();
                 fmTelaCadastroCliente.StartPosition = FormStartPosition.CenterScreen;
                 fmTelaCadastroCliente.ShowDialog();
@@ -114,19 +102,28 @@ namespace Telas_do_PIM.Forms
                 fmTelaManutencaoCliente.ShowDialog();
             }
         }
+        private void rbtnManutencaoProdutos_Click(object sender, EventArgs e)
+        {
+            using (var fmTelaManutencaoProduto = Program.ServiceProvider.GetRequiredService<TelaManutencaoProdutos>())
+            {
+                this.Hide();
+                fmTelaManutencaoProduto.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaManutencaoProduto.ShowDialog();
+            }
+        }
         private void Rbtndashboard_MouseHover(object sender, EventArgs e)
         {
             rbtnDashboard.Checked = true;
         }
-        private void Rbtnfunc_MouseHover(object sender, EventArgs e)
+        private void rbtnCadastroFuncionario_MouseHover(object sender, EventArgs e)
         {
             rbtnCadastroFuncionario.Checked = true;
         }
-        private void Rbtnadm_MouseHover(object sender, EventArgs e)
+        private void rbtnMantutencaoFuncionario_MouseHover(object sender, EventArgs e)
         {
             rbtnMantutencaoFuncionario.Checked = true;
         }
-        private void Rbtncliente_MouseHover(object sender, EventArgs e)
+        private void rbtnCadastroClientes_MouseHover(object sender, EventArgs e)
         {
             rbtnCadastroCliente.Checked = true;
         }
@@ -134,6 +131,10 @@ namespace Telas_do_PIM.Forms
         {
             rbtnManutencaoClientes.Checked = true;
         }
-        
+        private void rbtnManutencaoProdutos_MouseHover(object sender, EventArgs e)
+        {
+            rbtnManutencaoProdutos.Checked = true;
+        }
+
     }
 }

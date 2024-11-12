@@ -16,10 +16,6 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[ADM]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Clientes]",
          "ObjectType": 0
       },
@@ -92,7 +88,7 @@
          "ObjectType": 0
       }
    ],
-   "UiHint": "gesenissolutions.Genesis_Solutions_BD.dbo",
+   "UiHint": "genesissolutions.Genesis_Solutions_BD.dbo",
    "UncountableWords": null,
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,

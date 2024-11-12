@@ -15,5 +15,7 @@ public partial class Produto
 
     public int QtdEmEstoque { get; set; }
 
+    public byte[] ImagemProduto { get; set; }
+
     public virtual ICollection<LotesProduto> LotesProdutos { get; set; } = new List<LotesProduto>();
 }

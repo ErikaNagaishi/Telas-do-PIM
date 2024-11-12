@@ -49,10 +49,13 @@ namespace Telas_do_PIM
             services.AddTransient<TelaDeLogin>();
             services.AddTransient<TelaCadastroFuncionario>();
             services.AddTransient<TelaCadastroCliente>();
+            services.AddTransient<TelaCadastroProduto>();
             services.AddTransient<TelaDeSelecao>();
             services.AddTransient<TelaPrincipal>();
             services.AddTransient<TelaManutencaoFuncionario>();
             services.AddTransient<TelaManutencaoClientes>();
+            services.AddTransient<TelaManutencaoProdutos>();
+            services.AddTransient<TelaCarregamentoProdutos>();
 
         }
     }

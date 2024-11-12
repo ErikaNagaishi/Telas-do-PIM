@@ -13,8 +13,6 @@ public partial class GenesisSolutionsContext : DbContext
     {
     }
 
-    public virtual DbSet<Adm> Adms { get; set; }
-
     public virtual DbSet<Cliente> Clientes { get; set; }
 
     public virtual DbSet<ConteudoPedidosCliente> ConteudoPedidosClientes { get; set; }
@@ -53,52 +51,9 @@ public partial class GenesisSolutionsContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Adm>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("PK__ADM__3214EC27788252A7");
-
-            entity.ToTable("ADM");
-
-            entity.HasIndex(e => e.Email, "UQ__ADM__161CF72475F172AB").IsUnique();
-
-            entity.HasIndex(e => e.Cpf, "UQ__ADM__C1F8973136394FDF").IsUnique();
-
-            entity.HasIndex(e => e.Telefone, "UQ__ADM__D6F1694F0D1A98A1").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Cpf)
-                .IsRequired()
-                .HasMaxLength(11)
-                .IsUnicode(false)
-                .HasColumnName("CPF");
-            entity.Property(e => e.Email)
-                .IsRequired()
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("EMAIL");
-            entity.Property(e => e.Endereço)
-                .IsRequired()
-                .IsUnicode(false)
-                .HasColumnName("ENDEREÇO");
-            entity.Property(e => e.Nome)
-                .IsRequired()
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Senha)
-                .IsRequired()
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("SENHA");
-            entity.Property(e => e.Telefone)
-                .IsRequired()
-                .HasMaxLength(15)
-                .IsUnicode(false)
-                .HasColumnName("TELEFONE");
-        });
-
         modelBuilder.Entity<Cliente>(entity =>
         {
-            entity.HasKey(e => e.IdCliente).HasName("PK__Clientes__9BB2655B60D5A12F");
+            entity.HasKey(e => e.IdCliente).HasName("PK__Clientes__9BB2655BFE434EA2");
 
             entity.Property(e => e.IdCliente).HasColumnName("ID_cliente");
             entity.Property(e => e.Cep)
@@ -148,15 +103,15 @@ public partial class GenesisSolutionsContext : DbContext
 
             entity.HasOne(d => d.IdLoteNavigation).WithMany()
                 .HasForeignKey(d => d.IdLote)
-                .HasConstraintName("FK__Conteudo___ID_lo__07C12930");
+                .HasConstraintName("FK__Conteudo___ID_lo__6FE99F9F");
 
             entity.HasOne(d => d.IdPedidoNavigation).WithMany()
                 .HasForeignKey(d => d.IdPedido)
-                .HasConstraintName("FK__Conteudo___ID_pe__05D8E0BE");
+                .HasConstraintName("FK__Conteudo___ID_pe__6E01572D");
 
             entity.HasOne(d => d.IdProdutoNavigation).WithMany()
                 .HasForeignKey(d => d.IdProduto)
-                .HasConstraintName("FK__Conteudo___ID_pr__06CD04F7");
+                .HasConstraintName("FK__Conteudo___ID_pr__6EF57B66");
         });
 
         modelBuilder.Entity<ConteudoPedidosFornecedor>(entity =>
@@ -171,16 +126,16 @@ public partial class GenesisSolutionsContext : DbContext
 
             entity.HasOne(d => d.IdInsumoNavigation).WithMany()
                 .HasForeignKey(d => d.IdInsumo)
-                .HasConstraintName("FK__Conteudo___ID_in__1332DBDC");
+                .HasConstraintName("FK__Conteudo___ID_in__7B5B524B");
 
             entity.HasOne(d => d.IdPedidoNavigation).WithMany()
                 .HasForeignKey(d => d.IdPedido)
-                .HasConstraintName("FK__Conteudo___ID_pe__123EB7A3");
+                .HasConstraintName("FK__Conteudo___ID_pe__7A672E12");
         });
 
         modelBuilder.Entity<EntregaPedido>(entity =>
         {
-            entity.HasKey(e => e.IdEntrega).HasName("PK__Entrega___4AAEC7078A730F6A");
+            entity.HasKey(e => e.IdEntrega).HasName("PK__Entrega___4AAEC707276CB085");
 
             entity.ToTable("Entrega_Pedido");
 
@@ -198,16 +153,16 @@ public partial class GenesisSolutionsContext : DbContext
 
             entity.HasOne(d => d.IdEntregadorNavigation).WithMany(p => p.EntregaPedidos)
                 .HasForeignKey(d => d.IdEntregador)
-                .HasConstraintName("FK__Entrega_P__ID_en__7A672E12");
+                .HasConstraintName("FK__Entrega_P__ID_en__628FA481");
 
             entity.HasOne(d => d.IdPedidoNavigation).WithMany(p => p.EntregaPedidos)
                 .HasForeignKey(d => d.IdPedido)
-                .HasConstraintName("FK__Entrega_P__ID_pe__7C4F7684");
+                .HasConstraintName("FK__Entrega_P__ID_pe__6477ECF3");
         });
 
         modelBuilder.Entity<Entregadore>(entity =>
         {
-            entity.HasKey(e => e.IdEntregador).HasName("PK__Entregad__6B277A7EDA6B7D33");
+            entity.HasKey(e => e.IdEntregador).HasName("PK__Entregad__6B277A7E3D339159");
 
             entity.Property(e => e.IdEntregador).HasColumnName("ID_entregador");
             entity.Property(e => e.CpfEntregador).HasColumnName("CPF_entregador");
@@ -223,7 +178,7 @@ public partial class GenesisSolutionsContext : DbContext
 
         modelBuilder.Entity<Fornecedore>(entity =>
         {
-            entity.HasKey(e => e.IdFornecedor).HasName("PK__Forneced__0821580498AFE7CB");
+            entity.HasKey(e => e.IdFornecedor).HasName("PK__Forneced__082158042697C602");
 
             entity.Property(e => e.IdFornecedor).HasColumnName("ID_fornecedor");
             entity.Property(e => e.CnpjFornecedor).HasColumnName("CNPJ_fornecedor");
@@ -248,24 +203,24 @@ public partial class GenesisSolutionsContext : DbContext
 
             entity.HasOne(d => d.IdFornecedorNavigation).WithMany()
                 .HasForeignKey(d => d.IdFornecedor)
-                .HasConstraintName("FK__Fornecedo__ID_fo__160F4887");
+                .HasConstraintName("FK__Fornecedo__ID_fo__7E37BEF6");
 
             entity.HasOne(d => d.IdInsumoNavigation).WithMany()
                 .HasForeignKey(d => d.IdInsumo)
-                .HasConstraintName("FK__Fornecedo__ID_in__151B244E");
+                .HasConstraintName("FK__Fornecedo__ID_in__7D439ABD");
         });
 
         modelBuilder.Entity<Funcionario>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Funciona__3214EC27E9E855EF");
+            entity.HasKey(e => e.Id).HasName("PK__Funciona__3214EC2774BD3EAB");
 
             entity.ToTable("Funcionario");
 
-            entity.HasIndex(e => e.Email, "UQ__Funciona__161CF724A49F0C2A").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Funciona__161CF7248A8AE8A0").IsUnique();
 
-            entity.HasIndex(e => e.Cpf, "UQ__Funciona__C1F8973169FC9690").IsUnique();
+            entity.HasIndex(e => e.Cpf, "UQ__Funciona__C1F897316CCBB145").IsUnique();
 
-            entity.HasIndex(e => e.Telefone, "UQ__Funciona__D6F1694F8BDAC63B").IsUnique();
+            entity.HasIndex(e => e.Telefone, "UQ__Funciona__D6F1694F244D1189").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.Cpf)
@@ -300,12 +255,12 @@ public partial class GenesisSolutionsContext : DbContext
 
             entity.HasOne(d => d.IdPerfilNavigation).WithMany(p => p.Funcionarios)
                 .HasForeignKey(d => d.IdPerfil)
-                .HasConstraintName("FK__Funcionar__id_pe__2BFE89A6");
+                .HasConstraintName("FK__Funcionar__id_pe__07C12930");
         });
 
         modelBuilder.Entity<Insumo>(entity =>
         {
-            entity.HasKey(e => e.IdInsumo).HasName("PK__Insumos__3827B826ABCB82EF");
+            entity.HasKey(e => e.IdInsumo).HasName("PK__Insumos__3827B826B092E2C7");
 
             entity.Property(e => e.IdInsumo).HasColumnName("ID_insumo");
             entity.Property(e => e.NomeInsumo)
@@ -319,7 +274,7 @@ public partial class GenesisSolutionsContext : DbContext
 
         modelBuilder.Entity<LotesProduto>(entity =>
         {
-            entity.HasKey(e => e.IdLote).HasName("PK__Lotes_Pr__8F4FC3A07999F180");
+            entity.HasKey(e => e.IdLote).HasName("PK__Lotes_Pr__8F4FC3A07EA6465F");
 
             entity.ToTable("Lotes_Produtos");
 
@@ -335,7 +290,7 @@ public partial class GenesisSolutionsContext : DbContext
 
             entity.HasOne(d => d.IdProdutoNavigation).WithMany(p => p.LotesProdutos)
                 .HasForeignKey(d => d.IdProduto)
-                .HasConstraintName("FK__Lotes_Pro__ID_pr__01142BA1");
+                .HasConstraintName("FK__Lotes_Pro__ID_pr__693CA210");
         });
 
         modelBuilder.Entity<PedidosCliente>(entity =>
@@ -349,16 +304,16 @@ public partial class GenesisSolutionsContext : DbContext
 
             entity.HasOne(d => d.IdClienteNavigation).WithMany()
                 .HasForeignKey(d => d.IdCliente)
-                .HasConstraintName("FK__Pedidos_C__ID_cl__02FC7413");
+                .HasConstraintName("FK__Pedidos_C__ID_cl__6B24EA82");
 
             entity.HasOne(d => d.IdPedidoNavigation).WithMany()
                 .HasForeignKey(d => d.IdPedido)
-                .HasConstraintName("FK__Pedidos_C__ID_pe__03F0984C");
+                .HasConstraintName("FK__Pedidos_C__ID_pe__6C190EBB");
         });
 
         modelBuilder.Entity<PedidosFornecedor>(entity =>
         {
-            entity.HasKey(e => e.IdPedido).HasName("PK__Pedidos___E337E2C3656F60CB");
+            entity.HasKey(e => e.IdPedido).HasName("PK__Pedidos___E337E2C34F222275");
 
             entity.ToTable("Pedidos_Fornecedor");
 
@@ -367,12 +322,12 @@ public partial class GenesisSolutionsContext : DbContext
 
             entity.HasOne(d => d.IdFornecedorNavigation).WithMany(p => p.PedidosFornecedors)
                 .HasForeignKey(d => d.IdFornecedor)
-                .HasConstraintName("FK__Pedidos_F__ID_fo__0C85DE4D");
+                .HasConstraintName("FK__Pedidos_F__ID_fo__74AE54BC");
         });
 
         modelBuilder.Entity<Perfil>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Perfil__3214EC07F390936C");
+            entity.HasKey(e => e.Id).HasName("PK__Perfil__3214EC07D45F76FB");
 
             entity.ToTable("Perfil");
 
@@ -385,7 +340,7 @@ public partial class GenesisSolutionsContext : DbContext
 
         modelBuilder.Entity<PerfilTela>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__PERFIL_T__3214EC2752D4F03A");
+            entity.HasKey(e => e.Id).HasName("PK__Perfil_T__3214EC0753C84788");
 
             entity.ToTable("Perfil_Tela");
 
@@ -394,18 +349,21 @@ public partial class GenesisSolutionsContext : DbContext
 
             entity.HasOne(d => d.IdPerfilNavigation).WithMany(p => p.PerfilTelas)
                 .HasForeignKey(d => d.IdPerfil)
-                .HasConstraintName("FK__PERFIL_TE__ID_PE__3E1D39E1");
+                .HasConstraintName("FK__Perfil_Te__Id_Pe__0D7A0286");
 
             entity.HasOne(d => d.IdTelaNavigation).WithMany(p => p.PerfilTelas)
                 .HasForeignKey(d => d.IdTela)
-                .HasConstraintName("FK__PERFIL_TE__ID_TE__3F115E1A");
+                .HasConstraintName("FK__Perfil_Te__Id_Te__0E6E26BF");
         });
 
         modelBuilder.Entity<Produto>(entity =>
         {
-            entity.HasKey(e => e.IdProduto).HasName("PK__Produtos__FD71723B9069C574");
+            entity.HasKey(e => e.IdProduto).HasName("PK__Produtos__FD71723B4E30EA1A");
 
             entity.Property(e => e.IdProduto).HasColumnName("ID_produto");
+            entity.Property(e => e.ImagemProduto)
+                .HasMaxLength(1)
+                .HasColumnName("imagem_produto");
             entity.Property(e => e.NomeProduto)
                 .IsRequired()
                 .HasMaxLength(255)
@@ -419,7 +377,7 @@ public partial class GenesisSolutionsContext : DbContext
 
         modelBuilder.Entity<Tela>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__TELA__3214EC2704F5C8D9");
+            entity.HasKey(e => e.Id).HasName("PK__Tela__3214EC0767B41008");
 
             entity.ToTable("Tela");
 
@@ -436,7 +394,7 @@ public partial class GenesisSolutionsContext : DbContext
 
         modelBuilder.Entity<TodosPedidosCliente>(entity =>
         {
-            entity.HasKey(e => e.IdPedido).HasName("PK__Todos_Pe__E337E2C362A9BB1E");
+            entity.HasKey(e => e.IdPedido).HasName("PK__Todos_Pe__E337E2C3FB6ADCD8");
 
             entity.ToTable("Todos_Pedidos_Clientes");
 
@@ -454,12 +412,12 @@ public partial class GenesisSolutionsContext : DbContext
 
             entity.HasOne(d => d.IdEntregaNavigation).WithMany(p => p.TodosPedidosClientes)
                 .HasForeignKey(d => d.IdEntrega)
-                .HasConstraintName("FK__Todos_Ped__ID_en__7B5B524B");
+                .HasConstraintName("FK__Todos_Ped__ID_en__6383C8BA");
         });
 
         modelBuilder.Entity<TodosPedidosFornecedore>(entity =>
         {
-            entity.HasKey(e => e.IdPedido).HasName("PK__Todos_Pe__E337E2C3890E9110");
+            entity.HasKey(e => e.IdPedido).HasName("PK__Todos_Pe__E337E2C3EC55A63A");
 
             entity.ToTable("Todos_Pedidos_Fornecedores");
 
