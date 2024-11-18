@@ -50,18 +50,6 @@
             menuStrip1 = new MenuStrip();
             tsUsuario = new ToolStripMenuItem();
             logoffToolStripMenuItem = new ToolStripMenuItem();
-            painelAcompanhamento = new Panel();
-            splitContainer13 = new SplitContainer();
-            label21 = new Label();
-            linkLabel1 = new LinkLabel();
-            label26 = new Label();
-            label24 = new Label();
-            label23 = new Label();
-            pictureBox6 = new PictureBox();
-            pictureBoxNotaFiscal = new PictureBox();
-            pictureBox4 = new PictureBox();
-            pictureBox2 = new PictureBox();
-            progressBarPedido = new ProgressBar();
             painelPedido = new Panel();
             splitContainer6 = new SplitContainer();
             splitContainer9 = new SplitContainer();
@@ -72,7 +60,7 @@
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            dataGridViewImageColumn1 = new DataGridViewImageColumn();
+            TrashIcon = new DataGridViewImageColumn();
             label18 = new Label();
             textBoxValorResumo = new TextBox();
             splitContainer7 = new SplitContainer();
@@ -91,6 +79,18 @@
             painelCartao = new Panel();
             btnCancelarPedido = new Button();
             btnConfirmarPedido = new Button();
+            painelAcompanhamento = new Panel();
+            splitContainer13 = new SplitContainer();
+            label21 = new Label();
+            linkLabel2 = new LinkLabel();
+            linkLabel1 = new LinkLabel();
+            label26 = new Label();
+            label24 = new Label();
+            pictureBox6 = new PictureBox();
+            pictureBoxNotaFiscal = new PictureBox();
+            pictureBox4 = new PictureBox();
+            pictureBoxBag = new PictureBox();
+            progressBarPedido = new ProgressBar();
             painelCatalogo = new Panel();
             splitContainer3 = new SplitContainer();
             splitContainer2 = new SplitContainer();
@@ -114,21 +114,13 @@
             btnLimpar = new Button();
             printPreviewDialog1 = new PrintPreviewDialog();
             printDocument1 = new System.Drawing.Printing.PrintDocument();
+            pictureBox2 = new PictureBox();
             painelInformacoes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
             menuStrip1.SuspendLayout();
-            painelAcompanhamento.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer13).BeginInit();
-            splitContainer13.Panel1.SuspendLayout();
-            splitContainer13.Panel2.SuspendLayout();
-            splitContainer13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxNotaFiscal).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             painelPedido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer6).BeginInit();
             splitContainer6.Panel1.SuspendLayout();
@@ -162,6 +154,15 @@
             splitContainer12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxQrCode).BeginInit();
+            painelAcompanhamento.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer13).BeginInit();
+            splitContainer13.Panel1.SuspendLayout();
+            splitContainer13.Panel2.SuspendLayout();
+            splitContainer13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxNotaFiscal).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBag).BeginInit();
             painelCatalogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer3).BeginInit();
             splitContainer3.Panel1.SuspendLayout();
@@ -180,6 +181,7 @@
             splitContainer5.Panel2.SuspendLayout();
             splitContainer5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCarrinho).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -324,7 +326,7 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Georgia", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.Location = new Point(23, 59);
+            label12.Location = new Point(29, 80);
             label12.Name = "label12";
             label12.Size = new Size(135, 16);
             label12.TabIndex = 14;
@@ -371,6 +373,7 @@
             // splitContainer1.Panel1
             // 
             splitContainer1.Panel1.BackColor = Color.White;
+            splitContainer1.Panel1.Controls.Add(pictureBox2);
             splitContainer1.Panel1.Controls.Add(btnPedido);
             splitContainer1.Panel1.Controls.Add(btnCatalogo);
             splitContainer1.Panel1.Controls.Add(btnInformacoes);
@@ -379,10 +382,10 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(menuStrip1);
-            splitContainer1.Panel2.Controls.Add(painelCatalogo);
-            splitContainer1.Panel2.Controls.Add(painelInformacoes);
             splitContainer1.Panel2.Controls.Add(painelAcompanhamento);
             splitContainer1.Panel2.Controls.Add(painelPedido);
+            splitContainer1.Panel2.Controls.Add(painelCatalogo);
+            splitContainer1.Panel2.Controls.Add(painelInformacoes);
             splitContainer1.Size = new Size(1111, 523);
             splitContainer1.SplitterDistance = 192;
             splitContainer1.TabIndex = 16;
@@ -433,6 +436,7 @@
             menuStrip1.Size = new Size(915, 28);
             menuStrip1.TabIndex = 33;
             menuStrip1.Text = "menuStrip1";
+            menuStrip1.ItemClicked += menuStrip1_ItemClicked;
             // 
             // tsUsuario
             // 
@@ -451,157 +455,9 @@
             logoffToolStripMenuItem.Image = (Image)resources.GetObject("logoffToolStripMenuItem.Image");
             logoffToolStripMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             logoffToolStripMenuItem.Name = "logoffToolStripMenuItem";
-            logoffToolStripMenuItem.Size = new Size(113, 22);
+            logoffToolStripMenuItem.Size = new Size(184, 26);
             logoffToolStripMenuItem.Text = "Logout";
             logoffToolStripMenuItem.Click += logoffToolStripMenuItem_Click;
-            // 
-            // painelAcompanhamento
-            // 
-            painelAcompanhamento.Controls.Add(splitContainer13);
-            painelAcompanhamento.Dock = DockStyle.Fill;
-            painelAcompanhamento.Location = new Point(0, 0);
-            painelAcompanhamento.Margin = new Padding(3, 2, 3, 2);
-            painelAcompanhamento.Name = "painelAcompanhamento";
-            painelAcompanhamento.Size = new Size(915, 523);
-            painelAcompanhamento.TabIndex = 17;
-            // 
-            // splitContainer13
-            // 
-            splitContainer13.Dock = DockStyle.Fill;
-            splitContainer13.Location = new Point(0, 0);
-            splitContainer13.Margin = new Padding(3, 2, 3, 2);
-            splitContainer13.Name = "splitContainer13";
-            splitContainer13.Orientation = Orientation.Horizontal;
-            // 
-            // splitContainer13.Panel1
-            // 
-            splitContainer13.Panel1.Controls.Add(label21);
-            // 
-            // splitContainer13.Panel2
-            // 
-            splitContainer13.Panel2.BackgroundImage = (Image)resources.GetObject("splitContainer13.Panel2.BackgroundImage");
-            splitContainer13.Panel2.Controls.Add(linkLabel1);
-            splitContainer13.Panel2.Controls.Add(label26);
-            splitContainer13.Panel2.Controls.Add(label24);
-            splitContainer13.Panel2.Controls.Add(label23);
-            splitContainer13.Panel2.Controls.Add(pictureBox6);
-            splitContainer13.Panel2.Controls.Add(pictureBoxNotaFiscal);
-            splitContainer13.Panel2.Controls.Add(pictureBox4);
-            splitContainer13.Panel2.Controls.Add(pictureBox2);
-            splitContainer13.Panel2.Controls.Add(progressBarPedido);
-            splitContainer13.Size = new Size(915, 523);
-            splitContainer13.SplitterDistance = 55;
-            splitContainer13.SplitterWidth = 3;
-            splitContainer13.TabIndex = 0;
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Georgia", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label21.Location = new Point(324, 35);
-            label21.Name = "label21";
-            label21.Size = new Size(201, 18);
-            label21.TabIndex = 0;
-            label21.Text = "Acompanhe seu pedido";
-            // 
-            // linkLabel1
-            // 
-            linkLabel1.AutoSize = true;
-            linkLabel1.Font = new Font("Georgia", 9F);
-            linkLabel1.Location = new Point(521, 226);
-            linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(116, 15);
-            linkLabel1.TabIndex = 10;
-            linkLabel1.TabStop = true;
-            linkLabel1.Text = "Nota fiscal emitida";
-            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
-            // 
-            // label26
-            // 
-            label26.AutoSize = true;
-            label26.Font = new Font("Georgia", 9F);
-            label26.Location = new Point(286, 226);
-            label26.Name = "label26";
-            label26.Size = new Size(131, 15);
-            label26.TabIndex = 9;
-            label26.Text = "Pagamento Aprovado";
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Font = new Font("Georgia", 9F);
-            label24.Location = new Point(753, 226);
-            label24.Name = "label24";
-            label24.Size = new Size(126, 15);
-            label24.TabIndex = 7;
-            label24.Text = "Pronto para retirada";
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Georgia", 9F);
-            label23.Location = new Point(74, 226);
-            label23.Name = "label23";
-            label23.Size = new Size(97, 15);
-            label23.TabIndex = 6;
-            label23.Text = "Pedido Recebido";
-            // 
-            // pictureBox6
-            // 
-            pictureBox6.BackColor = Color.Transparent;
-            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(293, 152);
-            pictureBox6.Margin = new Padding(3, 2, 3, 2);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(56, 48);
-            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox6.TabIndex = 5;
-            pictureBox6.TabStop = false;
-            // 
-            // pictureBoxNotaFiscal
-            // 
-            pictureBoxNotaFiscal.BackColor = Color.Transparent;
-            pictureBoxNotaFiscal.Image = (Image)resources.GetObject("pictureBoxNotaFiscal.Image");
-            pictureBoxNotaFiscal.Location = new Point(542, 152);
-            pictureBoxNotaFiscal.Margin = new Padding(3, 2, 3, 2);
-            pictureBoxNotaFiscal.Name = "pictureBoxNotaFiscal";
-            pictureBoxNotaFiscal.Size = new Size(56, 48);
-            pictureBoxNotaFiscal.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBoxNotaFiscal.TabIndex = 4;
-            pictureBoxNotaFiscal.TabStop = false;
-            pictureBoxNotaFiscal.Click += pictureBoxNotaFiscal_Click;
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.BackColor = Color.Transparent;
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(794, 152);
-            pictureBox4.Margin = new Padding(3, 2, 3, 2);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(56, 48);
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox4.TabIndex = 3;
-            pictureBox4.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor = Color.Transparent;
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(74, 152);
-            pictureBox2.Margin = new Padding(3, 2, 3, 2);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(56, 48);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 1;
-            pictureBox2.TabStop = false;
-            // 
-            // progressBarPedido
-            // 
-            progressBarPedido.Location = new Point(73, 202);
-            progressBarPedido.Margin = new Padding(3, 2, 3, 2);
-            progressBarPedido.Name = "progressBarPedido";
-            progressBarPedido.Size = new Size(778, 22);
-            progressBarPedido.TabIndex = 0;
             // 
             // painelPedido
             // 
@@ -641,6 +497,7 @@
             // 
             // splitContainer9.Panel1
             // 
+            splitContainer9.Panel1.BackColor = Color.White;
             splitContainer9.Panel1.Controls.Add(label17);
             // 
             // splitContainer9.Panel2
@@ -654,9 +511,10 @@
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(160, 39);
+            label17.Font = new Font("Georgia", 9F);
+            label17.Location = new Point(175, 50);
             label17.Name = "label17";
-            label17.Size = new Size(109, 15);
+            label17.Size = new Size(117, 15);
             label17.TabIndex = 0;
             label17.Text = "Revisão da Compra";
             // 
@@ -674,6 +532,7 @@
             // 
             // splitContainer10.Panel2
             // 
+            splitContainer10.Panel2.BackColor = Color.White;
             splitContainer10.Panel2.Controls.Add(label18);
             splitContainer10.Panel2.Controls.Add(textBoxValorResumo);
             splitContainer10.Size = new Size(486, 440);
@@ -688,9 +547,9 @@
             dgvResumoPedido.AllowUserToOrderColumns = true;
             dgvResumoPedido.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvResumoPedido.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dgvResumoPedido.BackgroundColor = SystemColors.Control;
+            dgvResumoPedido.BackgroundColor = Color.White;
             dgvResumoPedido.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvResumoPedido.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewImageColumn1 });
+            dgvResumoPedido.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, TrashIcon });
             dgvResumoPedido.Dock = DockStyle.Fill;
             dgvResumoPedido.GridColor = SystemColors.GrayText;
             dgvResumoPedido.Location = new Point(0, 0);
@@ -738,27 +597,27 @@
             dataGridViewTextBoxColumn4.ReadOnly = true;
             dataGridViewTextBoxColumn4.Width = 58;
             // 
-            // dataGridViewImageColumn1
+            // TrashIcon
             // 
-            dataGridViewImageColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewImageColumn1.HeaderText = "#";
-            dataGridViewImageColumn1.MinimumWidth = 6;
-            dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            dataGridViewImageColumn1.ReadOnly = true;
-            dataGridViewImageColumn1.Width = 20;
+            TrashIcon.AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            TrashIcon.HeaderText = "#";
+            TrashIcon.Name = "TrashIcon";
+            TrashIcon.ReadOnly = true;
+            TrashIcon.Width = 20;
             // 
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(135, 41);
+            label18.Font = new Font("Georgia", 9F);
+            label18.Location = new Point(270, 38);
             label18.Name = "label18";
-            label18.Size = new Size(65, 15);
+            label18.Size = new Size(71, 15);
             label18.TabIndex = 5;
             label18.Text = "Preço Total";
             // 
             // textBoxValorResumo
             // 
-            textBoxValorResumo.Location = new Point(256, 36);
+            textBoxValorResumo.Location = new Point(354, 35);
             textBoxValorResumo.Margin = new Padding(3, 2, 3, 2);
             textBoxValorResumo.Name = "textBoxValorResumo";
             textBoxValorResumo.Size = new Size(110, 23);
@@ -778,6 +637,7 @@
             // 
             // splitContainer7.Panel2
             // 
+            splitContainer7.Panel2.BackColor = Color.White;
             splitContainer7.Panel2.Controls.Add(btnCancelarPedido);
             splitContainer7.Panel2.Controls.Add(btnConfirmarPedido);
             splitContainer7.Size = new Size(425, 523);
@@ -795,6 +655,7 @@
             // 
             // splitContainer8.Panel1
             // 
+            splitContainer8.Panel1.BackColor = Color.White;
             splitContainer8.Panel1.Controls.Add(rbtnCartao);
             splitContainer8.Panel1.Controls.Add(rbtnPix);
             splitContainer8.Panel1.Controls.Add(label19);
@@ -811,10 +672,12 @@
             // rbtnCartao
             // 
             rbtnCartao.AutoSize = true;
-            rbtnCartao.Location = new Point(172, 51);
+            rbtnCartao.Enabled = false;
+            rbtnCartao.Font = new Font("Georgia", 9F);
+            rbtnCartao.Location = new Point(248, 59);
             rbtnCartao.Margin = new Padding(3, 2, 3, 2);
             rbtnCartao.Name = "rbtnCartao";
-            rbtnCartao.Size = new Size(118, 19);
+            rbtnCartao.Size = new Size(125, 19);
             rbtnCartao.TabIndex = 8;
             rbtnCartao.TabStop = true;
             rbtnCartao.Text = "Cartão de Crédito";
@@ -824,10 +687,11 @@
             // rbtnPix
             // 
             rbtnPix.AutoSize = true;
-            rbtnPix.Location = new Point(87, 51);
+            rbtnPix.Font = new Font("Georgia", 9F);
+            rbtnPix.Location = new Point(90, 60);
             rbtnPix.Margin = new Padding(3, 2, 3, 2);
             rbtnPix.Name = "rbtnPix";
-            rbtnPix.Size = new Size(41, 19);
+            rbtnPix.Size = new Size(43, 19);
             rbtnPix.TabIndex = 7;
             rbtnPix.TabStop = true;
             rbtnPix.Text = "Pix";
@@ -837,9 +701,10 @@
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(116, 27);
+            label19.Font = new Font("Georgia", 9F);
+            label19.Location = new Point(149, 38);
             label19.Name = "label19";
-            label19.Size = new Size(105, 15);
+            label19.Size = new Size(113, 15);
             label19.TabIndex = 6;
             label19.Text = "Forma Pagamento";
             // 
@@ -864,6 +729,7 @@
             // 
             // splitContainer11.Panel1
             // 
+            splitContainer11.Panel1.BackColor = Color.White;
             splitContainer11.Panel1.Controls.Add(labelPixInfo);
             // 
             // splitContainer11.Panel2
@@ -877,9 +743,10 @@
             // labelPixInfo
             // 
             labelPixInfo.AutoSize = true;
+            labelPixInfo.Font = new Font("Georgia", 9F);
             labelPixInfo.Location = new Point(105, 14);
             labelPixInfo.Name = "labelPixInfo";
-            labelPixInfo.Size = new Size(178, 15);
+            labelPixInfo.Size = new Size(193, 15);
             labelPixInfo.TabIndex = 0;
             labelPixInfo.Text = "O Pix tem validade de 5 minutos";
             labelPixInfo.Visible = false;
@@ -894,6 +761,7 @@
             // 
             // splitContainer12.Panel1
             // 
+            splitContainer12.Panel1.BackColor = Color.White;
             splitContainer12.Panel1.Controls.Add(pictureBox1);
             splitContainer12.Panel1.Controls.Add(label22);
             splitContainer12.Panel1.Controls.Add(textBoxCopiaECola);
@@ -921,9 +789,10 @@
             // label22
             // 
             label22.AutoSize = true;
+            label22.Font = new Font("Georgia", 9F);
             label22.Location = new Point(37, 20);
             label22.Name = "label22";
-            label22.Size = new Size(74, 15);
+            label22.Size = new Size(76, 15);
             label22.TabIndex = 1;
             label22.Text = "Copia e Cola";
             // 
@@ -937,6 +806,7 @@
             // 
             // pictureBoxQrCode
             // 
+            pictureBoxQrCode.BackColor = Color.White;
             pictureBoxQrCode.Dock = DockStyle.Fill;
             pictureBoxQrCode.Location = new Point(0, 0);
             pictureBoxQrCode.Margin = new Padding(3, 2, 3, 2);
@@ -958,26 +828,184 @@
             // 
             // btnCancelarPedido
             // 
-            btnCancelarPedido.Location = new Point(47, 37);
+            btnCancelarPedido.BackColor = Color.Tomato;
+            btnCancelarPedido.Font = new Font("Georgia", 9F);
+            btnCancelarPedido.Location = new Point(11, 41);
             btnCancelarPedido.Margin = new Padding(3, 2, 3, 2);
             btnCancelarPedido.Name = "btnCancelarPedido";
-            btnCancelarPedido.Size = new Size(136, 22);
+            btnCancelarPedido.Size = new Size(136, 29);
             btnCancelarPedido.TabIndex = 1;
             btnCancelarPedido.Text = "Cancelar Pedido";
-            btnCancelarPedido.UseVisualStyleBackColor = true;
+            btnCancelarPedido.UseVisualStyleBackColor = false;
             btnCancelarPedido.Click += btnCancelarPedido_Click;
             // 
             // btnConfirmarPedido
             // 
+            btnConfirmarPedido.BackColor = Color.SeaGreen;
             btnConfirmarPedido.Enabled = false;
-            btnConfirmarPedido.Location = new Point(248, 36);
+            btnConfirmarPedido.Font = new Font("Georgia", 9F);
+            btnConfirmarPedido.Location = new Point(277, 41);
             btnConfirmarPedido.Margin = new Padding(3, 2, 3, 2);
             btnConfirmarPedido.Name = "btnConfirmarPedido";
-            btnConfirmarPedido.Size = new Size(136, 22);
+            btnConfirmarPedido.Size = new Size(136, 29);
             btnConfirmarPedido.TabIndex = 0;
             btnConfirmarPedido.Text = "Confirmar Pedido";
-            btnConfirmarPedido.UseVisualStyleBackColor = true;
+            btnConfirmarPedido.UseVisualStyleBackColor = false;
             btnConfirmarPedido.Click += btnConfirmarPedido_Click;
+            // 
+            // painelAcompanhamento
+            // 
+            painelAcompanhamento.Controls.Add(splitContainer13);
+            painelAcompanhamento.Dock = DockStyle.Fill;
+            painelAcompanhamento.Location = new Point(0, 0);
+            painelAcompanhamento.Margin = new Padding(3, 2, 3, 2);
+            painelAcompanhamento.Name = "painelAcompanhamento";
+            painelAcompanhamento.Size = new Size(915, 523);
+            painelAcompanhamento.TabIndex = 17;
+            // 
+            // splitContainer13
+            // 
+            splitContainer13.Dock = DockStyle.Fill;
+            splitContainer13.Location = new Point(0, 0);
+            splitContainer13.Margin = new Padding(3, 2, 3, 2);
+            splitContainer13.Name = "splitContainer13";
+            splitContainer13.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer13.Panel1
+            // 
+            splitContainer13.Panel1.Controls.Add(label21);
+            // 
+            // splitContainer13.Panel2
+            // 
+            splitContainer13.Panel2.BackgroundImage = (Image)resources.GetObject("splitContainer13.Panel2.BackgroundImage");
+            splitContainer13.Panel2.Controls.Add(linkLabel2);
+            splitContainer13.Panel2.Controls.Add(linkLabel1);
+            splitContainer13.Panel2.Controls.Add(label26);
+            splitContainer13.Panel2.Controls.Add(label24);
+            splitContainer13.Panel2.Controls.Add(pictureBox6);
+            splitContainer13.Panel2.Controls.Add(pictureBoxNotaFiscal);
+            splitContainer13.Panel2.Controls.Add(pictureBox4);
+            splitContainer13.Panel2.Controls.Add(pictureBoxBag);
+            splitContainer13.Panel2.Controls.Add(progressBarPedido);
+            splitContainer13.Size = new Size(915, 523);
+            splitContainer13.SplitterDistance = 55;
+            splitContainer13.SplitterWidth = 3;
+            splitContainer13.TabIndex = 0;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Georgia", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label21.Location = new Point(354, 35);
+            label21.Name = "label21";
+            label21.Size = new Size(201, 18);
+            label21.TabIndex = 0;
+            label21.Text = "Acompanhe seu pedido";
+            // 
+            // linkLabel2
+            // 
+            linkLabel2.AutoSize = true;
+            linkLabel2.BackColor = Color.Transparent;
+            linkLabel2.Location = new Point(73, 226);
+            linkLabel2.Name = "linkLabel2";
+            linkLabel2.Size = new Size(96, 15);
+            linkLabel2.TabIndex = 11;
+            linkLabel2.TabStop = true;
+            linkLabel2.Text = "Pedido Recebido";
+            linkLabel2.LinkClicked += linkLabel2_LinkClicked;
+            // 
+            // linkLabel1
+            // 
+            linkLabel1.AutoSize = true;
+            linkLabel1.BackColor = Color.Transparent;
+            linkLabel1.Font = new Font("Georgia", 9F);
+            linkLabel1.Location = new Point(521, 226);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(116, 15);
+            linkLabel1.TabIndex = 10;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "Nota fiscal emitida";
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.BackColor = Color.Transparent;
+            label26.Font = new Font("Georgia", 9F);
+            label26.Location = new Point(270, 226);
+            label26.Name = "label26";
+            label26.Size = new Size(131, 15);
+            label26.TabIndex = 9;
+            label26.Text = "Pagamento Aprovado";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.BackColor = Color.Transparent;
+            label24.Font = new Font("Georgia", 9F);
+            label24.Location = new Point(753, 226);
+            label24.Name = "label24";
+            label24.Size = new Size(126, 15);
+            label24.TabIndex = 7;
+            label24.Text = "Pronto para retirada";
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.BackColor = Color.Transparent;
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(301, 150);
+            pictureBox6.Margin = new Padding(3, 2, 3, 2);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(56, 48);
+            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox6.TabIndex = 5;
+            pictureBox6.TabStop = false;
+            // 
+            // pictureBoxNotaFiscal
+            // 
+            pictureBoxNotaFiscal.BackColor = Color.Transparent;
+            pictureBoxNotaFiscal.Image = (Image)resources.GetObject("pictureBoxNotaFiscal.Image");
+            pictureBoxNotaFiscal.Location = new Point(542, 152);
+            pictureBoxNotaFiscal.Margin = new Padding(3, 2, 3, 2);
+            pictureBoxNotaFiscal.Name = "pictureBoxNotaFiscal";
+            pictureBoxNotaFiscal.Size = new Size(56, 48);
+            pictureBoxNotaFiscal.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxNotaFiscal.TabIndex = 4;
+            pictureBoxNotaFiscal.TabStop = false;
+            pictureBoxNotaFiscal.Click += pictureBoxNotaFiscal_Click;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.BackColor = Color.Transparent;
+            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
+            pictureBox4.Location = new Point(794, 152);
+            pictureBox4.Margin = new Padding(3, 2, 3, 2);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(56, 48);
+            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox4.TabIndex = 3;
+            pictureBox4.TabStop = false;
+            // 
+            // pictureBoxBag
+            // 
+            pictureBoxBag.BackColor = Color.Transparent;
+            pictureBoxBag.Image = (Image)resources.GetObject("pictureBoxBag.Image");
+            pictureBoxBag.Location = new Point(74, 152);
+            pictureBoxBag.Margin = new Padding(3, 2, 3, 2);
+            pictureBoxBag.Name = "pictureBoxBag";
+            pictureBoxBag.Size = new Size(56, 48);
+            pictureBoxBag.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxBag.TabIndex = 1;
+            pictureBoxBag.TabStop = false;
+            pictureBoxBag.Click += pictureBoxBag_Click;
+            // 
+            // progressBarPedido
+            // 
+            progressBarPedido.Location = new Point(73, 202);
+            progressBarPedido.Margin = new Padding(3, 2, 3, 2);
+            progressBarPedido.Name = "progressBarPedido";
+            progressBarPedido.Size = new Size(778, 22);
+            progressBarPedido.TabIndex = 0;
             // 
             // painelCatalogo
             // 
@@ -1258,6 +1286,16 @@
             // 
             printDocument1.PrintPage += PrintPage;
             // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(58, 14);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(69, 63);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 17;
+            pictureBox2.TabStop = false;
+            // 
             // TelaPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1279,17 +1317,6 @@
             splitContainer1.ResumeLayout(false);
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
-            painelAcompanhamento.ResumeLayout(false);
-            splitContainer13.Panel1.ResumeLayout(false);
-            splitContainer13.Panel1.PerformLayout();
-            splitContainer13.Panel2.ResumeLayout(false);
-            splitContainer13.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer13).EndInit();
-            splitContainer13.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBoxNotaFiscal).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             painelPedido.ResumeLayout(false);
             splitContainer6.Panel1.ResumeLayout(false);
             splitContainer6.Panel2.ResumeLayout(false);
@@ -1328,6 +1355,17 @@
             splitContainer12.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxQrCode).EndInit();
+            painelAcompanhamento.ResumeLayout(false);
+            splitContainer13.Panel1.ResumeLayout(false);
+            splitContainer13.Panel1.PerformLayout();
+            splitContainer13.Panel2.ResumeLayout(false);
+            splitContainer13.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer13).EndInit();
+            splitContainer13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxNotaFiscal).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxBag).EndInit();
             painelCatalogo.ResumeLayout(false);
             splitContainer3.Panel1.ResumeLayout(false);
             splitContainer3.Panel2.ResumeLayout(false);
@@ -1349,6 +1387,7 @@
             ((System.ComponentModel.ISupportInitialize)splitContainer5).EndInit();
             splitContainer5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvCarrinho).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 
@@ -1396,11 +1435,6 @@
         private SplitContainer splitContainer8;
         private Label label17;
         private DataGridView dgvResumoPedido;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridViewImageColumn dataGridViewImageColumn1;
         private Button btnConfirmarPedido;
         private SplitContainer splitContainer9;
         private RadioButton rbtnCartao;
@@ -1430,14 +1464,20 @@
         private PictureBox pictureBox6;
         private PictureBox pictureBoxNotaFiscal;
         private PictureBox pictureBox4;
-        private PictureBox pictureBox2;
+        private PictureBox pictureBoxBag;
         private ProgressBar progressBarPedido;
         private Label label26;
         private Label label24;
-        private Label label23;
         private PrintPreviewDialog printPreviewDialog1;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private LinkLabel linkLabel1;
         private Label label25;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewImageColumn TrashIcon;
+        private LinkLabel linkLabel2;
+        private PictureBox pictureBox2;
     }
 }

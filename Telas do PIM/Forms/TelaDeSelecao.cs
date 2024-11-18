@@ -13,6 +13,8 @@ namespace Telas_do_PIM.Forms
             InitializeComponent();
             FormClosing += FormClosingAction;
             VerificaAcessosFuncionario();
+
+            tsUsuario.Text = Program.funcionarioLogado.Nome;
         }
 
         private void VerificaAcessosFuncionario()

@@ -1,19 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Configuration;
 using Telas_do_PIM.Forms;
+using Telas_do_PIM.Job;
 using Telas_do_PIM.Models;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Telas_do_PIM
 {
-    internal static class Program
+    static class Program
     {
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static async Task Main()
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
@@ -28,9 +31,30 @@ namespace Telas_do_PIM
                 ServiceProvider = serviceProvider;
                 var form = serviceProvider.GetRequiredService<TelaDeLogin>();
                 form.StartPosition = FormStartPosition.CenterScreen;
+                CreateHostBuilder().Build().RunAsync();
                 Application.Run(form);
             }
         }
+        private static IHostBuilder CreateHostBuilder()
+        {
+            var _configuration = new ConfigurationBuilder()
+           .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+           .Build();
+            var connection = _configuration.GetSection("ConnectionStrings:AzureDB").Value;
+            return Host.CreateDefaultBuilder()
+                .ConfigureServices(services =>
+                {
+                    services.AddDbContext<GenesisSolutionsContext>(
+                    options => options
+                            .UseLazyLoadingProxies()
+                            .UseSqlServer(connection)
+                            .EnableSensitiveDataLogging()
+                            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                            .EnableDetailedErrors(), ServiceLifetime.Scoped);
+                    services.AddHostedService<JobConsultaStatusPagamento>();
+                });
+        }
+
         public static IServiceProvider ServiceProvider { get; set; }
         public static Funcionario? funcionarioLogado { get; set; }
         public static Cliente? clienteLogado { get; set; }
@@ -42,13 +66,19 @@ namespace Telas_do_PIM
 
             var connection = _configuration.GetSection("ConnectionStrings:AzureDB").Value;
 
+            //Context para o banco de dados
             services.AddDbContext<GenesisSolutionsContext>(
                 options => options
+                            .UseLazyLoadingProxies()
                             .UseSqlServer(connection)
-                            .EnableSensitiveDataLogging());
+                            .EnableSensitiveDataLogging()
+                            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                            .EnableDetailedErrors(),ServiceLifetime.Scoped);
 
+            //Carregar o arquivo config json
             services.AddSingleton<IConfiguration>(_configuration);
 
+            //Registrar os forms
             services.AddTransient<TelaDeLogin>();
             services.AddTransient<TelaCadastroFuncionario>();
             services.AddTransient<TelaCadastroCliente>();
@@ -60,6 +90,7 @@ namespace Telas_do_PIM
             services.AddTransient<TelaManutencaoProdutos>();
             services.AddTransient<TelaCarregamentoProdutos>();
             services.AddTransient<TelaEsqueceuSenha>();
+
 
         }
     }

@@ -4,14 +4,14 @@ using MercadoPago.Config;
 using MercadoPago.Resource.Payment;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Drawing;
 using System.Globalization;
-using System.Windows.Forms;
 using Telas_do_PIM.Models;
 using Telas_do_PIM.UserControls;
-using QRCoder;
 using Microsoft.IdentityModel.Tokens;
 using System.Drawing.Printing;
+using System.Data;
+using System.Runtime.CompilerServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Telas_do_PIM.Forms
 {
@@ -22,6 +22,9 @@ namespace Telas_do_PIM.Forms
         private List<UCProduto> carrinho = new();
         private List<UCProduto> ucProdutos = new();
         Bitmap bitmap;
+        System.Windows.Forms.Timer timerStatusPedido;
+
+        private PedidosCliente? ultimoPedido;
         public TelaPrincipal(GenesisSolutionsContext genesisSolutionsContext)
         {
             genesisContext = genesisSolutionsContext;
@@ -29,6 +32,80 @@ namespace Telas_do_PIM.Forms
             FormClosing += FormClosingAction;
             dgvCarrinho.CellClick += dgvCarrinho_CellClick;
             this.textBoxPreco.Text = valorTotal.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
+
+            tsUsuario.Text = Program.clienteLogado.RazaoSocial;
+
+            ultimoPedido = genesisContext.PedidosClientes.AsNoTracking().Where(x => x.IdCliente == Program.clienteLogado.IdCliente).OrderByDescending(e => e.IdPedido).ToList().FirstOrDefault();
+            if (ultimoPedido is not null)
+            {
+                genesisContext.Entry<PedidosCliente>(ultimoPedido).State = EntityState.Detached;
+            }
+            CarregaDataGridResumo();
+        }
+
+        public void CarregaDataGridResumo()
+        {
+            if (ultimoPedido is not null)
+            {
+                if (dgvResumoPedido.Rows.Count == 0)
+                {
+                    try
+                    {
+                        dgvResumoPedido.Columns.Remove("TrashIcon");
+                    }
+                    catch { }
+                    ultimoPedido.PedidosClienteDetalhes.ToList().ForEach(x =>
+                    {
+                        dgvResumoPedido.Rows.Add(dgvResumoPedido.Rows.Count, x.IdProdutoNavigation.NomeProduto, x.Quantidade, x.ValorUnitario * x.Quantidade);
+                    });
+                    btnCancelarPedido.Enabled = false;
+                    textBoxValorResumo.Text = ultimoPedido.ValorTotal.Value.ToString("C", CultureInfo.GetCultureInfo("pt-BR")); ;
+                }
+                if (ultimoPedido.StatusPagamento == "pending")
+                {
+                    timerStatusPedido = new System.Windows.Forms.Timer
+                    {
+                        Interval = 1000
+                    };
+                    timerStatusPedido.Tick += (sender, e) => AguardaStatusPagamento(sender, e, ultimoPedido);
+                    timerStatusPedido.Start();
+                    btnCancelarPedido.Enabled = true;
+
+                    if (ultimoPedido.FormaPagamento == "pix")
+                    {
+                        textBoxCopiaECola.Text = ultimoPedido.QrCode;
+
+                        using (MemoryStream ms = new MemoryStream(ultimoPedido.QrCodeImage))
+                        {
+                            pictureBoxQrCode.Image = Image.FromStream(ms);
+                            pictureBoxQrCode.BringToFront();
+                            pictureBoxQrCode.Visible = true;
+                        }
+                        painelPix.BringToFront();
+                        painelPix.Visible = true;
+                    }
+                }
+            }
+            if(ultimoPedido is not null && ultimoPedido.StatusPagamento == "pending")
+            {
+                progressBarPedido.Value = 10;
+                btnCancelarPedido.Enabled = false;
+            }
+            if (ultimoPedido is not null && ultimoPedido.StatusPagamento == "cancelled")
+            {
+                progressBarPedido.Value = 45;
+                btnCancelarPedido.Enabled = false;
+            }
+            if (ultimoPedido is not null && ultimoPedido.StatusPagamento == "approved")
+            {
+                progressBarPedido.Value = 65;
+                btnCancelarPedido.Enabled = false;
+            }
+            if (ultimoPedido is not null && ultimoPedido.StatusPagamento == "available")
+            {
+                progressBarPedido.Value = 100;
+                btnCancelarPedido.Enabled = false;
+            }
         }
 
         private void btnInformacoes_Click(object sender, EventArgs e)
@@ -98,12 +175,28 @@ namespace Telas_do_PIM.Forms
         private void btnCatalogo_Click(object sender, EventArgs e)
         {
             painelCatalogo.BringToFront();
+            if (ultimoPedido is not null && ultimoPedido.StatusPagamento == "pending")
+                btnComprar.Enabled = false;
             CarregaProdutos();
         }
 
         private void btnPedido_Click(object sender, EventArgs e)
         {
-
+            if(dgvResumoPedido.Rows.Count == 0)
+            {
+                pictureBoxBag.Enabled = false;
+                pictureBoxNotaFiscal.Enabled = false;
+                linkLabel2.Enabled = false;
+                linkLabel1.Enabled = false;
+            }
+            else
+            {
+                pictureBoxBag.Enabled = true;
+                pictureBoxNotaFiscal.Enabled = true;
+                linkLabel2.Enabled = true;
+                linkLabel1.Enabled = true;
+            }
+            painelAcompanhamento.BringToFront();
         }
 
         private void TelaPrincipal_Load(object sender, EventArgs e)
@@ -128,6 +221,7 @@ namespace Telas_do_PIM.Forms
                 produtos = genesisContext.Produtos.AsNoTracking()
                                     .Where(e => e.NomeProduto.ToLower().Contains(filtro.ToLower())).ToList();
 
+            produtos.ForEach(a => genesisContext.Entry<Produto>(a).State = EntityState.Detached);
             List<List<Produto>> rowProdutos = new();
 
             //Agrupar os produtos de 2 em dois para separa-los por duas colunas
@@ -257,24 +351,79 @@ namespace Telas_do_PIM.Forms
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
+            btnCancelarPedido.Enabled = true ;
+            progressBarPedido.BackColor = Color.Green;
+            progressBarPedido.Value = 10;
+            var pedido_detalhe = new List<PedidosClienteDetalhe>();
+
+            if(dgvResumoPedido.Rows.Count > 0)
+            {
+                if (ultimoPedido is not null && (ultimoPedido.StatusPagamento == "pending" || ultimoPedido.StatusPagamento == "created"))
+                {
+                    MessageBox.Show("Conclua o pedido anterior para prosseguir com um novo pedido");
+                    return;
+                }
+            }
+            dgvResumoPedido.Rows.Clear();
+
             carrinho.ForEach(e =>
             {
-                var produto = genesisContext.Produtos.First(produto => produto.NomeProduto == e.Nome);
+                var produto = genesisContext.Produtos.AsNoTracking().First(produto => produto.NomeProduto == e.Nome);
 
                 produto.QtdEmEstoque -= e.Qtd;
 
                 genesisContext.Produtos.Update(produto);
-            });
-            genesisContext.SaveChanges();
 
+                pedido_detalhe.Add(new PedidosClienteDetalhe()
+                {
+                    IdProduto = produto.IdProduto,
+                    Quantidade = e.Qtd,
+                    ValorUnitario = e.Valor,
+                });
+                genesisContext.SaveChanges();
+                genesisContext.Entry<Produto>(produto).State = EntityState.Detached;
+
+            });
+
+            var pedido = new PedidosCliente()
+            {
+                IdCliente = Program.clienteLogado.IdCliente,
+                ValorTotal = this.valorTotal,
+                StatusPagamento = "created",
+                FormaPagamento = "pix",
+                PedidosClienteDetalhes = pedido_detalhe,
+                DataLimitePagamento = DateTime.Now.AddMinutes(20)
+            };
+
+            genesisContext.PedidosClientes.Add(pedido);
+
+            genesisContext.SaveChanges();
+            genesisContext.Entry<PedidosCliente>(pedido).State = EntityState.Detached;
+
+            ultimoPedido = pedido;
 
             foreach (DataGridViewRow selRow in dgvCarrinho.Rows.OfType<DataGridViewRow>().ToArray())
             {
                 dgvCarrinho.Rows.Remove(selRow);
+                selRow.Cells.RemoveAt(selRow.Cells.Count - 1);
+
                 dgvResumoPedido.Rows.Add(selRow);
             }
 
-                textBoxValorResumo.Text = this.textBoxPreco.Text;
+            try
+            {
+                dgvResumoPedido.Columns.Remove("TrashIcon");
+            }
+            catch { }
+
+            textBoxValorResumo.Text = this.textBoxPreco.Text;
+
+            //rbtnCartao.Enabled = true;
+            rbtnPix.Enabled = true;
+
+            dgvCarrinho.Rows.Clear();
+            //valorTotal = 0;
+            //this.textBoxPreco.Text = valorTotal.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
 
             painelPedido.BringToFront();
         }
@@ -310,10 +459,14 @@ namespace Telas_do_PIM.Forms
 
         private async void btnConfirmarPedido_Click(object sender, EventArgs e)
         {
+            btnConfirmarPedido.Enabled = false;
+            btnCancelarPedido.Enabled = false;
             rbtnCartao.Enabled = false;
             rbtnPix.Enabled = false;
             if (rbtnPix.Checked)
             {
+                var pedido = genesisContext.PedidosClientes.AsNoTracking().Where(x => x.IdCliente == Program.clienteLogado.IdCliente).OrderByDescending(e => e.IdPedido).ToList().FirstOrDefault();
+                ultimoPedido = pedido;
                 painelPix.Visible = true;
                 painelPix.BringToFront();
                 //MercadoPagoConfig.AccessToken = "TEST-5286284997561521-111720-2c4a1178c9f376e8dc7091f198e95be2-260945420";
@@ -321,13 +474,13 @@ namespace Telas_do_PIM.Forms
                 var requestOptions = new RequestOptions();
                 requestOptions.CustomHeaders.Add("x-idempotency-key", UniqueId.CreateRandomId());
 
-                var dataDeExpiracao = DateTime.Now.AddMinutes(5);
+                var dataDeExpiracao = DateTime.Now.AddMinutes(20);
 
                 var request = new PaymentCreateRequest
                 {
                     TransactionAmount = valorTotal,
                     PaymentMethodId = "pix",
-                    DateOfExpiration = DateTime.Now.AddMinutes(20),
+                    DateOfExpiration = dataDeExpiracao,
                     Payer = new PaymentPayerRequest
                     {
                         Email = Program.clienteLogado.Email
@@ -345,6 +498,16 @@ namespace Telas_do_PIM.Forms
 
                 textBoxCopiaECola.Text = copiaECola;
 
+                pedido.StatusPagamento = payment.Status;
+                pedido.IdPagamentoMp = payment.Id;
+                pedido.QrCode = copiaECola;
+                pedido.QrCodeImage = data;
+
+                genesisContext.PedidosClientes.Update(pedido);
+
+                genesisContext.SaveChanges();
+                genesisContext.Entry<PedidosCliente>(pedido).State = EntityState.Detached;
+
                 var id = payment.Id;
 
                 using (MemoryStream ms = new MemoryStream(data))
@@ -353,59 +516,88 @@ namespace Telas_do_PIM.Forms
                     pictureBoxQrCode.BringToFront();
                     pictureBoxQrCode.Visible = true;
                 }
-                var pedidoPago = false;
-                while (!pedidoPago)
+
+                timerStatusPedido = new System.Windows.Forms.Timer
                 {
-                    var resultado = client.Get(id.Value);
-
-                    if (resultado.Status == "approved")
-                    {
-                        pedidoPago = true;
-                        break;
-                    }
-                    if (resultado.Status == "cancelled" || resultado.Status == "rejected")
-                    {
-                        break;
-                    }
-
-                    if (dataDeExpiracao.Subtract(DateTime.Now).TotalMinutes < 0)
-                        break;
-
-                    Thread.Sleep(10000);
-                }
-
-                if (pedidoPago)
-                {
-                    MessageBox.Show("Pedido pago com sucesso");
-                    painelAcompanhamento.BringToFront();
-                    progressBarPedido.Value = 65;
-                }
-                else
-                {
-                    carrinho.ForEach(e =>
-                    {
-                        var produto = genesisContext.Produtos.First(produto => produto.NomeProduto == e.Nome);
-
-                        produto.QtdEmEstoque += e.Qtd;
-
-                        genesisContext.Produtos.Update(produto);
-                    });
-                    genesisContext.SaveChanges();
-
-                    painelCatalogo.BringToFront();
-
-                    carrinho.Clear();
-                    dgvCarrinho.Rows.Clear();
-                    valorTotal = 0;
-                    this.textBoxPreco.Text = valorTotal.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
-                    MessageBox.Show("Pagamento não realizado, favor realizar a compra novamente");
-                }
-
+                    Interval = 1000
+                };
+                timerStatusPedido.Tick += (sender, e) => AguardaStatusPagamento(sender, e, pedido);
+                timerStatusPedido.Start();
             }
             else
             {
 
             }
+        }
+        public void AguardaStatusPagamento(object? sender, EventArgs e, PedidosCliente pedido)
+        {
+            var statusPedido = genesisContext.PedidosClientes.AsNoTracking().First(e => e.IdPedido == pedido.IdPedido).StatusPagamento;
+
+            if (statusPedido == "approved")
+            {
+                timerStatusPedido.Stop();
+                MessageBox.Show("Pedido pago com sucesso");
+                painelAcompanhamento.BringToFront();
+                progressBarPedido.Value = 65;
+                textBoxCopiaECola.Text = string.Empty;
+                pictureBoxQrCode.Image = null;
+                this.valorTotal = 0;
+                //dgvResumoPedido.Rows.Clear();
+                this.textBoxValorResumo.Text = valorTotal.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
+                this.textBoxPreco.Text = valorTotal.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
+                ultimoPedido = genesisContext.PedidosClientes.AsNoTracking().First(e => e.IdPedido == pedido.IdPedido);
+                carrinho.Clear();
+
+            }
+            else if (statusPedido == "cancelled" || statusPedido == "rejected")
+            {
+                progressBarPedido.Value = 65;
+                carrinho.ForEach(e =>
+                {
+                    var produto = genesisContext.Produtos.AsNoTracking().First(produto => produto.NomeProduto == e.Nome);
+
+                    produto.QtdEmEstoque += e.Qtd;
+
+                    //var produtoDoCarrinho = ucProdutos.First(produto => produto.Nome == e.Nome);
+
+                    //produtoDoCarrinho.Qtd += e.Qtd;
+                    //produtoDoCarrinho.MaxQtdUpDown = produtoDoCarrinho.MaxQtd;
+
+                    CarregaProdutos();
+
+                    genesisContext.Produtos.Update(produto);
+                    genesisContext.SaveChanges();
+                    genesisContext.Entry<Produto>(produto).State = EntityState.Detached;
+                });
+                carrinho.Clear();
+
+                painelCatalogo.BringToFront();
+                this.valorTotal = 0;
+                this.textBoxValorResumo.Text = valorTotal.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
+                this.textBoxPreco.Text = valorTotal.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
+                dgvResumoPedido.Rows.Clear();
+                timerStatusPedido.Stop();
+                textBoxCopiaECola.Text = string.Empty;
+                pictureBoxQrCode.Image = null;
+                MessageBox.Show("Pagamento não realizado, favor realizar a compra novamente");
+            }
+            if (statusPedido == "available")
+            {
+                timerStatusPedido.Stop();
+                MessageBox.Show("Pedido disponível para retirada");
+                painelAcompanhamento.BringToFront();
+                progressBarPedido.Value = 100;
+                textBoxCopiaECola.Text = string.Empty;
+                pictureBoxQrCode.Image = null;
+                this.valorTotal = 0;
+                //dgvResumoPedido.Rows.Clear();
+                this.textBoxValorResumo.Text = valorTotal.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
+                this.textBoxPreco.Text = valorTotal.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
+                ultimoPedido = genesisContext.PedidosClientes.AsNoTracking().First(e => e.IdPedido == pedido.IdPedido);
+                carrinho.Clear();
+
+            }
+
         }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -414,25 +606,50 @@ namespace Telas_do_PIM.Forms
 
         private void btnCancelarPedido_Click(object sender, EventArgs e)
         {
-            painelCatalogo.BringToFront();
-
-
+            if(timerStatusPedido is not null)
+                timerStatusPedido.Stop();
             switch (MessageBox.Show(this, "Tem certeza que deseja cancelar o pedido?", "Confirme", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
-                //Stay on this form
                 case DialogResult.Yes:
-                    carrinho.Clear();
-                    dgvCarrinho.Rows.Clear();
-                    valorTotal = 0;
-                    this.textBoxPreco.Text = valorTotal.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
+                    painelCatalogo.BringToFront();
+                    progressBarPedido.BackColor = Color.Red;
+                    btnConfirmarPedido.Enabled = true;
                     carrinho.ForEach(e =>
                     {
-                        var produto = genesisContext.Produtos.First(produto => produto.NomeProduto == e.Nome);
+                        var produto = genesisContext.Produtos.AsNoTracking().First(produto => produto.NomeProduto == e.Nome);
 
                         produto.QtdEmEstoque += e.Qtd;
 
+                        //var produtoDoCarrinho = ucProdutos.First(produto => produto.Nome == e.Nome);
+
+                        ////produtoDoCarrinho.Qtd += e.Qtd;
+                        //produtoDoCarrinho.MaxQtdUpDown = produtoDoCarrinho.MaxQtd;
+
+
                         genesisContext.Produtos.Update(produto);
+                        genesisContext.SaveChanges();
+                        genesisContext.Entry<Produto>(produto).State = EntityState.Detached;
+                        e.ValorTotal = 0;
+                        e.Qtd = 0;
                     });
+
+                    btnComprar.Enabled = false;
+                    this.carrinho.Clear();
+                    carrinho.Clear();
+                    dgvCarrinho.Rows.Clear();
+                    dgvResumoPedido.Rows.Clear();
+                    valorTotal = 0;
+                    this.textBoxPreco.Text = valorTotal.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
+
+                    CarregaProdutos();
+
+                    if (ultimoPedido is not null)
+                    {
+                        ultimoPedido.StatusPagamento = "cancelled";
+                        genesisContext.PedidosClientes.Update(ultimoPedido);
+                        genesisContext.SaveChanges();
+                        genesisContext.Entry<PedidosCliente>(ultimoPedido).State = EntityState.Detached;
+                    }
                     break;
                 default:
                     break;
@@ -479,6 +696,31 @@ namespace Telas_do_PIM.Forms
             printPreviewDialog1.Document = printDocument1;
             printPreviewDialog1.PrintPreviewControl.Zoom = 1;
             printPreviewDialog1.ShowDialog();
+        }
+
+        private void pictureBoxBag_Click(object sender, EventArgs e)
+        {
+            rbtnCartao.Enabled = false;
+            rbtnPix.Enabled = false;
+
+            CarregaDataGridResumo();
+
+            painelPedido.BringToFront();
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            rbtnCartao.Enabled = false;
+            rbtnPix.Enabled = false;
+
+            CarregaDataGridResumo();
+
+            painelPedido.BringToFront();
         }
     }
 }

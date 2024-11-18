@@ -7,11 +7,27 @@ namespace Telas_do_PIM.Models;
 
 public partial class PedidosCliente
 {
+    public int IdPedido { get; set; }
+
     public int? IdCliente { get; set; }
 
-    public int? IdPedido { get; set; }
+    public long? IdPagamentoMp { get; set; }
+
+    public string StatusPagamento { get; set; }
+
+    public decimal? ValorTotal { get; set; }
+
+    public string FormaPagamento { get; set; }
+
+    public DateTime? DataLimitePagamento { get; set; }
+
+    public string QrCode { get; set; }
+
+    public byte[] QrCodeImage { get; set; }
+
+    public DateTime? DataPagamento { get; set; }
 
     public virtual Cliente IdClienteNavigation { get; set; }
 
-    public virtual TodosPedidosCliente IdPedidoNavigation { get; set; }
+    public virtual ICollection<PedidosClienteDetalhe> PedidosClienteDetalhes { get; set; } = new List<PedidosClienteDetalhe>();
 }

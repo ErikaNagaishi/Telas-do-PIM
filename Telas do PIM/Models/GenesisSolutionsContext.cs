@@ -35,6 +35,8 @@ public partial class GenesisSolutionsContext : DbContext
 
     public virtual DbSet<PedidosCliente> PedidosClientes { get; set; }
 
+    public virtual DbSet<PedidosClienteDetalhe> PedidosClienteDetalhes { get; set; }
+
     public virtual DbSet<PedidosFornecedor> PedidosFornecedors { get; set; }
 
     public virtual DbSet<Perfil> Perfils { get; set; }
@@ -295,20 +297,63 @@ public partial class GenesisSolutionsContext : DbContext
 
         modelBuilder.Entity<PedidosCliente>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Pedidos_Cliente");
+            entity.HasKey(e => e.IdPedido).HasName("PK__Pedidos___6FF01489585045B0");
 
-            entity.Property(e => e.IdCliente).HasColumnName("ID_cliente");
-            entity.Property(e => e.IdPedido).HasColumnName("ID_pedido");
+            entity.ToTable("Pedidos_Cliente");
 
-            entity.HasOne(d => d.IdClienteNavigation).WithMany()
+            entity.Property(e => e.IdPedido).HasColumnName("id_pedido");
+            entity.Property(e => e.DataLimitePagamento)
+                .HasColumnType("datetime")
+                .HasColumnName("data_limite_pagamento");
+            entity.Property(e => e.DataPagamento)
+                .HasColumnType("datetime")
+                .HasColumnName("data_pagamento");
+            entity.Property(e => e.FormaPagamento)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("forma_pagamento");
+            entity.Property(e => e.IdCliente).HasColumnName("id_cliente");
+            entity.Property(e => e.IdPagamentoMp).HasColumnName("id_pagamento_mp");
+            entity.Property(e => e.QrCode)
+                .IsUnicode(false)
+                .HasColumnName("qr_code");
+            entity.Property(e => e.QrCodeImage).HasColumnName("qr_code_image");
+            entity.Property(e => e.StatusPagamento)
+                .IsRequired()
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("status_pagamento");
+            entity.Property(e => e.ValorTotal)
+                .HasColumnType("decimal(20, 2)")
+                .HasColumnName("valor_total");
+
+            entity.HasOne(d => d.IdClienteNavigation).WithMany(p => p.PedidosClientes)
                 .HasForeignKey(d => d.IdCliente)
-                .HasConstraintName("FK__Pedidos_C__ID_cl__6B24EA82");
+                .HasConstraintName("FK__Pedidos_C__id_cl__503BEA1C");
+        });
 
-            entity.HasOne(d => d.IdPedidoNavigation).WithMany()
+        modelBuilder.Entity<PedidosClienteDetalhe>(entity =>
+        {
+            entity.HasKey(e => e.IdDetalhe).HasName("PK__Pedidos___4F131145B8F68A5F");
+
+            entity.ToTable("Pedidos_Cliente_Detalhe");
+
+            entity.Property(e => e.IdDetalhe).HasColumnName("id_detalhe");
+            entity.Property(e => e.IdPedido).HasColumnName("id_pedido");
+            entity.Property(e => e.IdProduto).HasColumnName("id_produto");
+            entity.Property(e => e.Quantidade).HasColumnName("quantidade");
+            entity.Property(e => e.ValorUnitario)
+                .HasColumnType("decimal(20, 2)")
+                .HasColumnName("valor_unitario");
+
+            entity.HasOne(d => d.IdPedidoNavigation).WithMany(p => p.PedidosClienteDetalhes)
                 .HasForeignKey(d => d.IdPedido)
-                .HasConstraintName("FK__Pedidos_C__ID_pe__6C190EBB");
+                .HasConstraintName("FK__Pedidos_C__id_pe__531856C7");
+
+            entity.HasOne(d => d.IdProdutoNavigation).WithMany(p => p.PedidosClienteDetalhes)
+                .HasForeignKey(d => d.IdProduto)
+                .HasConstraintName("FK__Pedidos_C__id_pr__540C7B00");
         });
 
         modelBuilder.Entity<PedidosFornecedor>(entity =>
@@ -360,10 +405,10 @@ public partial class GenesisSolutionsContext : DbContext
         {
             entity.HasKey(e => e.IdProduto).HasName("PK__Produtos__FD71723B4E30EA1A");
 
+            entity.HasIndex(e => e.NomeProduto, "UQ_NomeProduto").IsUnique();
+
             entity.Property(e => e.IdProduto).HasColumnName("ID_produto");
-            entity.Property(e => e.ImagemProduto)
-                .HasMaxLength(1)
-                .HasColumnName("imagem_produto");
+            entity.Property(e => e.ImagemProduto).HasColumnName("imagem_produto");
             entity.Property(e => e.NomeProduto)
                 .IsRequired()
                 .HasMaxLength(255)

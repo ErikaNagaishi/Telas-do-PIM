@@ -25,6 +25,8 @@ namespace Telas_do_PIM.Forms
             dataGridView1.CellEndEdit += dataGridView1_CellEndEdit;
 
             dataGridView1.RowsAdded += DataGridView1_RowsAdded;
+
+            tsUsuario.Text = Program.funcionarioLogado.Nome;
         }
 
         private void DataGridView1_RowsAdded(object? sender, DataGridViewRowsAddedEventArgs e)

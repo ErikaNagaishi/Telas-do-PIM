@@ -22,4 +22,6 @@ public partial class Cliente
     public string Cep { get; set; }
 
     public string Numero { get; set; }
+
+    public virtual ICollection<PedidosCliente> PedidosClientes { get; set; } = new List<PedidosCliente>();
 }

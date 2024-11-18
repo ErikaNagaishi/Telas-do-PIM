@@ -13,6 +13,7 @@ namespace Telas_do_PIM.Forms
         {
             genesisContext = genesisSolutionsContext;
             InitializeComponent();
+
         }
 
         public List<Produto> ProdutosCadastrados { get => produtosCadastrados; }

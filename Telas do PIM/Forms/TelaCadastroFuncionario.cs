@@ -25,6 +25,8 @@ namespace Telas_do_PIM.Forms
             var perfis = genesisContext.Perfils.Select(e => e.Id + " - " + e.Perfil1).ToArray();
 
             cmbBoxPerfil.Items.AddRange(perfis);
+
+            tsUsuario.Text = Program.funcionarioLogado.Nome;
         }
         private void FormClosingAction(object? sender, FormClosingEventArgs e)
         {

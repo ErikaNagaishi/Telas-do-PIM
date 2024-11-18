@@ -18,4 +18,6 @@ public partial class Produto
     public byte[] ImagemProduto { get; set; }
 
     public virtual ICollection<LotesProduto> LotesProdutos { get; set; } = new List<LotesProduto>();
+
+    public virtual ICollection<PedidosClienteDetalhe> PedidosClienteDetalhes { get; set; } = new List<PedidosClienteDetalhe>();
 }

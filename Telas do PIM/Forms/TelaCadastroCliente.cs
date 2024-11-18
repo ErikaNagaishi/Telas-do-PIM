@@ -33,6 +33,8 @@ namespace Telas_do_PIM.Forms
                 tsUsuario.Visible = false;
                 tsUsuario.Enabled = false;
             }
+
+            tsUsuario.Text = Program.funcionarioLogado.Nome;
         }
 
         private void textCEP_Leave(object? sender, EventArgs e)

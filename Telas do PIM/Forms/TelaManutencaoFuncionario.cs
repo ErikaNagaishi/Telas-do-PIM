@@ -30,6 +30,8 @@ namespace Telas_do_PIM.Forms
             dataGridView1.KeyDown += dataGridView1_KeyDown;
 
             dataGridView1.RowsAdded += DataGridView1_RowsAdded;
+
+            tsUsuario.Text = Program.funcionarioLogado.Nome;
         }
 
         private void DataGridView1_RowsAdded(object? sender, DataGridViewRowsAddedEventArgs e)
