@@ -8,10 +8,12 @@ namespace Telas_do_PIM.Forms
     public partial class TelaCadastroCliente : Form
     {
         private readonly GenesisSolutionsContext genesisContext;
-        private readonly TelaDeSelecao _telaDeSelecao;
-        public TelaCadastroCliente(GenesisSolutionsContext genesisSolutionsContext, TelaDeSelecao telaDeSelecao)
+
+        public bool cadastroCliente = false;
+
+        public bool telaAnteriorSelecao = true;
+        public TelaCadastroCliente(GenesisSolutionsContext genesisSolutionsContext)
         {
-            _telaDeSelecao = telaDeSelecao;
             genesisContext = genesisSolutionsContext;
             InitializeComponent();
             FormClosing += FormClosingAction;
@@ -25,6 +27,12 @@ namespace Telas_do_PIM.Forms
 
             pictureBoxHidePassword.Hide();
             pictureBoxHideConfPassword.Hide();
+
+            if(Program.funcionarioLogado == null)
+            {
+                tsUsuario.Visible = false;
+                tsUsuario.Enabled = false;
+            }
         }
 
         private void textCEP_Leave(object? sender, EventArgs e)
@@ -40,7 +48,7 @@ namespace Telas_do_PIM.Forms
             {
 
                 var cepResultado = new ViaCepClient().Search(cep);
-                if(cepResultado is not null)
+                if (cepResultado is not null)
                 {
                     TxtEndereco.Text = cepResultado.Street;
                 }
@@ -116,13 +124,26 @@ namespace Telas_do_PIM.Forms
 
                 MessageBox.Show("Cliente Cadastrado com sucesso!");
 
-                //Chamar novamente o mesmo form para resetar os campos de textbox
-                using (var fmTelaCadastroCliente = Program.ServiceProvider.GetRequiredService<TelaCadastroCliente>())
+                if (!cadastroCliente)
                 {
-                    this.Visible = false;
-                    this.Hide();
-                    fmTelaCadastroCliente.StartPosition = FormStartPosition.CenterScreen;
-                    fmTelaCadastroCliente.ShowDialog();
+                    //Chamar novamente o mesmo form para resetar os campos de textbox
+                    using (var fmTelaCadastroCliente = Program.ServiceProvider.GetRequiredService<TelaCadastroCliente>())
+                    {
+                        this.Visible = false;
+                        this.Hide();
+                        fmTelaCadastroCliente.StartPosition = FormStartPosition.CenterScreen;
+                        fmTelaCadastroCliente.ShowDialog();
+                    }
+                }
+                else
+                {
+                    using (var fmTelaLogin = Program.ServiceProvider.GetRequiredService<TelaDeLogin>())
+                    {
+                        this.Visible = false;
+                        this.Hide();
+                        fmTelaLogin.StartPosition = FormStartPosition.CenterScreen;
+                        fmTelaLogin.ShowDialog();
+                    }
                 }
             }
         }
@@ -212,7 +233,7 @@ namespace Telas_do_PIM.Forms
                 resto = 11 - resto;
             string digito = resto.ToString();
             // Concatena o primeiro dígito verificador ao CNPJ original
-               cnpj += digito;
+            cnpj += digito;
 
             // Segunda parte dos cálculos
             int[] multiplicador2 = new int[13] { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -249,9 +270,24 @@ namespace Telas_do_PIM.Forms
 
         private void BtnVoltar_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            _telaDeSelecao.StartPosition = FormStartPosition.CenterScreen;
-            _telaDeSelecao.ShowDialog();
+            if (telaAnteriorSelecao)
+            {
+                using (var fmTelaDeSelecao = Program.ServiceProvider.GetRequiredService<TelaDeSelecao>())
+                {
+                    this.Hide();
+                    fmTelaDeSelecao.StartPosition = FormStartPosition.CenterScreen;
+                    fmTelaDeSelecao.ShowDialog();
+                }
+            }
+            else
+            {
+                using (var fmTelaDeManutencaoClientes = Program.ServiceProvider.GetRequiredService<TelaManutencaoClientes>())
+                {
+                    this.Hide();
+                    fmTelaDeManutencaoClientes.StartPosition = FormStartPosition.CenterScreen;
+                    fmTelaDeManutencaoClientes.ShowDialog();
+                }
+            }
         }
 
         private void pictureBoxHidePassword_Click(object sender, EventArgs e)
@@ -282,6 +318,18 @@ namespace Telas_do_PIM.Forms
             pictureBoxHidePassword.Show();
             pictureBoxShowPassword.Hide();
             TxtSenha.PasswordChar = '\0';
+        }
+
+        private void logoffToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.funcionarioLogado = null;
+
+            using (var fmTelaDeLogin = Program.ServiceProvider.GetRequiredService<TelaDeLogin>())
+            {
+                this.Hide();
+                fmTelaDeLogin.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaDeLogin.ShowDialog();
+            }
         }
     }
 }

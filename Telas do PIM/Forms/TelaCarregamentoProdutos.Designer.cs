@@ -39,17 +39,19 @@
             // 
             // upDownCaixas
             // 
-            upDownCaixas.Location = new Point(33, 124);
+            upDownCaixas.Location = new Point(38, 165);
+            upDownCaixas.Margin = new Padding(3, 4, 3, 4);
             upDownCaixas.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             upDownCaixas.Name = "upDownCaixas";
-            upDownCaixas.Size = new Size(120, 23);
+            upDownCaixas.Size = new Size(137, 27);
             upDownCaixas.TabIndex = 0;
             // 
             // btnConfirmar
             // 
-            btnConfirmar.Location = new Point(47, 162);
+            btnConfirmar.Location = new Point(54, 216);
+            btnConfirmar.Margin = new Padding(3, 4, 3, 4);
             btnConfirmar.Name = "btnConfirmar";
-            btnConfirmar.Size = new Size(75, 23);
+            btnConfirmar.Size = new Size(86, 31);
             btnConfirmar.TabIndex = 1;
             btnConfirmar.Text = "Confirmar";
             btnConfirmar.UseVisualStyleBackColor = true;
@@ -58,51 +60,55 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(33, 25);
+            label1.Location = new Point(38, 33);
             label1.Name = "label1";
-            label1.Size = new Size(122, 15);
+            label1.Size = new Size(155, 20);
             label1.TabIndex = 2;
             label1.Text = "Carregamento de lote";
             // 
             // comboBoxProduto
             // 
             comboBoxProduto.FormattingEnabled = true;
-            comboBoxProduto.Location = new Point(33, 76);
+            comboBoxProduto.Location = new Point(38, 101);
+            comboBoxProduto.Margin = new Padding(3, 4, 3, 4);
             comboBoxProduto.Name = "comboBoxProduto";
-            comboBoxProduto.Size = new Size(120, 23);
+            comboBoxProduto.Size = new Size(137, 28);
             comboBoxProduto.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(33, 58);
+            label2.Location = new Point(38, 77);
             label2.Name = "label2";
-            label2.Size = new Size(50, 15);
+            label2.Size = new Size(62, 20);
             label2.TabIndex = 4;
             label2.Text = "Produto";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(33, 106);
+            label3.Location = new Point(38, 141);
             label3.Name = "label3";
-            label3.Size = new Size(69, 15);
+            label3.Size = new Size(87, 20);
             label3.TabIndex = 5;
             label3.Text = "Quantidade";
             // 
             // TelaCarregamentoProdutos
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(190, 197);
+            ClientSize = new Size(217, 263);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(comboBoxProduto);
             Controls.Add(label1);
             Controls.Add(btnConfirmar);
             Controls.Add(upDownCaixas);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
             Name = "TelaCarregamentoProdutos";
-            Text = "TelaCarregamentoProdutos";
+            Text = "Genesis Solutions";
             Load += TelaCarregamentoProdutos_Load;
             ((System.ComponentModel.ISupportInitialize)upDownCaixas).EndInit();
             ResumeLayout(false);

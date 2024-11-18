@@ -1,5 +1,6 @@
 ﻿using DataGridViewAutoFilter;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using MoreLinq;
 using Newtonsoft.Json;
 using Telas_do_PIM.Models;
@@ -8,14 +9,14 @@ namespace Telas_do_PIM.Forms
 {
     public partial class TelaManutencaoFuncionario : Form
     {
-        private readonly TelaDeSelecao _telaDeSelecao;
 
         private readonly GenesisSolutionsContext genesisContext;
 
         private List<Funcionario> funcionariosAlterados = new();
-        public TelaManutencaoFuncionario(GenesisSolutionsContext genesisSolutionsContext, TelaDeSelecao telaDeSelecao)
+        private bool telaAnteriorSelecao = true;
+
+        public TelaManutencaoFuncionario(GenesisSolutionsContext genesisSolutionsContext)
         {
-            _telaDeSelecao = telaDeSelecao;
             genesisContext = genesisSolutionsContext;
             InitializeComponent();
             FormClosing += FormClosingAction;
@@ -27,16 +28,24 @@ namespace Telas_do_PIM.Forms
 
             dataGridView1.DataBindingComplete += dataGridView1_DataBindingComplete;
             dataGridView1.KeyDown += dataGridView1_KeyDown;
+
+            dataGridView1.RowsAdded += DataGridView1_RowsAdded;
+        }
+
+        private void DataGridView1_RowsAdded(object? sender, DataGridViewRowsAddedEventArgs e)
+        {
+            CarregaImagemLixeira();
+            CarregaComboBoxPerfil();
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex < 0 || e.ColumnIndex < 0)
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
                 return;
 
             DataGridViewCheckBoxCell cell = this.dataGridView1.CurrentCell as DataGridViewCheckBoxCell;
 
-            if (cell != null && !cell.ReadOnly )
+            if (cell != null && !cell.ReadOnly)
             {
                 cell.Value = cell.Value == null || !((bool)cell.Value);
                 ValidaAlteracoes(e);
@@ -44,10 +53,10 @@ namespace Telas_do_PIM.Forms
             var currentRow = dataGridView1.Rows[e.RowIndex];
             var currentColumn = dataGridView1.Columns[e.ColumnIndex];
 
-            if(currentRow != null && currentColumn != null && currentColumn.HeaderText == "Excluir")
+            if (currentRow != null && currentColumn != null && currentColumn.HeaderText == "Excluir")
             {
                 var funcionario = GeraFuncionarioDeRow(currentRow);
-                if(funcionario.Id.Equals(Program.funcionarioLogado.Id))
+                if (funcionario.Id.Equals(Program.funcionarioLogado.Id))
                 {
                     MessageBox.Show($"Você não pode remover o seu usuário");
                     return;
@@ -267,9 +276,24 @@ namespace Telas_do_PIM.Forms
 
         private void btnVoltar_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            _telaDeSelecao.StartPosition = FormStartPosition.CenterScreen;
-            _telaDeSelecao.ShowDialog();
+            if (telaAnteriorSelecao)
+            {
+                using (var fmTelaDeSelecao = Program.ServiceProvider.GetRequiredService<TelaDeSelecao>())
+                {
+                    this.Hide();
+                    fmTelaDeSelecao.StartPosition = FormStartPosition.CenterScreen;
+                    fmTelaDeSelecao.ShowDialog();
+                }
+            }
+            else
+            {
+                using (var fmTelaDeManutencaoClientes = Program.ServiceProvider.GetRequiredService<TelaManutencaoClientes>())
+                {
+                    this.Hide();
+                    fmTelaDeManutencaoClientes.StartPosition = FormStartPosition.CenterScreen;
+                    fmTelaDeManutencaoClientes.ShowDialog();
+                }
+            }
         }
 
         private void btnConfirmar_Click(object sender, EventArgs e)
@@ -291,6 +315,29 @@ namespace Telas_do_PIM.Forms
                         MessageBox.Show($"Erro ao atualizar funcionários\n{ex.Message}");
                     }
                     break;
+            }
+        }
+
+        private void logoffToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.funcionarioLogado = null;
+
+            using (var fmTelaDeLogin = Program.ServiceProvider.GetRequiredService<TelaDeLogin>())
+            {
+                this.Hide();
+                fmTelaDeLogin.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaDeLogin.ShowDialog();
+            }
+        }
+
+        private void btnAddFuncionario_Click(object sender, EventArgs e)
+        {
+            using (var fmTelaCadastroFuncionario = Program.ServiceProvider.GetRequiredService<TelaCadastroFuncionario>())
+            {
+                this.Hide();
+                fmTelaCadastroFuncionario.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaCadastroFuncionario.telaAnteriorSelecao = false;
+                fmTelaCadastroFuncionario.ShowDialog();
             }
         }
     }

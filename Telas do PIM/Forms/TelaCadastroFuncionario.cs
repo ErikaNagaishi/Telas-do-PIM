@@ -6,12 +6,12 @@ namespace Telas_do_PIM.Forms
 {
     public partial class TelaCadastroFuncionario : Form
     {
-        private readonly TelaDeSelecao _telaDeSelecao;
 
         private readonly GenesisSolutionsContext genesisContext;
-        public TelaCadastroFuncionario(GenesisSolutionsContext genesisSolutionsContext, TelaDeSelecao telaDeSelecao)
+        public bool telaAnteriorSelecao = true;
+
+        public TelaCadastroFuncionario(GenesisSolutionsContext genesisSolutionsContext)
         {
-            _telaDeSelecao = telaDeSelecao;
             genesisContext = genesisSolutionsContext;
             InitializeComponent();
             FormClosing += FormClosingAction;
@@ -129,7 +129,7 @@ namespace Telas_do_PIM.Forms
                 return false;
             }
 
-            if(genesisContext.Funcionarios.Any(f => f.Cpf.Equals(TxtCPF.Text)))
+            if (genesisContext.Funcionarios.Any(f => f.Cpf.Equals(TxtCPF.Text)))
             {
                 MessageBox.Show("CPF já está cadastrado");
                 return false;
@@ -140,7 +140,7 @@ namespace Telas_do_PIM.Forms
                 MessageBox.Show("Email já está cadastrado");
                 return false;
             }
-            if(cmbBoxPerfil.SelectedIndex == -1)
+            if (cmbBoxPerfil.SelectedIndex == -1)
             {
                 MessageBox.Show("Informe um perfil");
                 return false;
@@ -213,9 +213,24 @@ namespace Telas_do_PIM.Forms
 
         private void btnVoltar_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            _telaDeSelecao.StartPosition = FormStartPosition.CenterScreen;
-            _telaDeSelecao.ShowDialog();
+            if (telaAnteriorSelecao)
+            {
+                using (var fmTelaDeSelecao = Program.ServiceProvider.GetRequiredService<TelaDeSelecao>())
+                {
+                    this.Hide();
+                    fmTelaDeSelecao.StartPosition = FormStartPosition.CenterScreen;
+                    fmTelaDeSelecao.ShowDialog();
+                }
+            }
+            else
+            {
+                using (var fmTelaDeManutencaoFuncionarios = Program.ServiceProvider.GetRequiredService<TelaManutencaoFuncionario>())
+                {
+                    this.Hide();
+                    fmTelaDeManutencaoFuncionarios.StartPosition = FormStartPosition.CenterScreen;
+                    fmTelaDeManutencaoFuncionarios.ShowDialog();
+                }
+            }
         }
 
         private void pictureBoxHidePassword_Click(object sender, EventArgs e)
@@ -248,5 +263,16 @@ namespace Telas_do_PIM.Forms
             TxtSenha.PasswordChar = '\0';
         }
 
+        private void logoffToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.funcionarioLogado = null;
+
+            using (var fmTelaDeLogin = Program.ServiceProvider.GetRequiredService<TelaDeLogin>())
+            {
+                this.Hide();
+                fmTelaDeLogin.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaDeLogin.ShowDialog();
+            }
+        }
     }
 }

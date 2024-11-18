@@ -1,5 +1,4 @@
 ﻿using DataGridViewAutoFilter;
-using Telas_do_PIM.configuration;
 
 namespace Telas_do_PIM.Forms
 {
@@ -32,6 +31,7 @@ namespace Telas_do_PIM.Forms
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaManutencaoFuncionario));
             funcionarioBindingSource = new BindingSource(components);
             statusStrip1 = new StatusStrip();
             statusLabelFilter = new ToolStripStatusLabel();
@@ -50,6 +50,10 @@ namespace Telas_do_PIM.Forms
             idPerfilNavigationDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             funcionarioBindingSource1 = new BindingSource(components);
             splitContainer1 = new SplitContainer();
+            menuStrip1 = new MenuStrip();
+            tsUsuario = new ToolStripMenuItem();
+            logoffToolStripMenuItem = new ToolStripMenuItem();
+            btnAddFuncionario = new Button();
             ((System.ComponentModel.ISupportInitialize)funcionarioBindingSource).BeginInit();
             statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -58,21 +62,24 @@ namespace Telas_do_PIM.Forms
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // statusStrip1
             // 
+            statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { statusLabelFilter, statusLabelShowAll });
-            statusStrip1.Location = new Point(0, 428);
+            statusStrip1.Location = new Point(0, 574);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(800, 22);
+            statusStrip1.Padding = new Padding(1, 0, 16, 0);
+            statusStrip1.Size = new Size(914, 26);
             statusStrip1.TabIndex = 1;
             statusStrip1.Text = "statusStrip1";
             // 
             // statusLabelFilter
             // 
             statusLabelFilter.Name = "statusLabelFilter";
-            statusLabelFilter.Size = new Size(0, 17);
+            statusLabelFilter.Size = new Size(0, 20);
             statusLabelFilter.Visible = false;
             // 
             // statusLabelShowAll
@@ -81,15 +88,16 @@ namespace Telas_do_PIM.Forms
             statusLabelShowAll.IsLink = true;
             statusLabelShowAll.LinkBehavior = LinkBehavior.HoverUnderline;
             statusLabelShowAll.Name = "statusLabelShowAll";
-            statusLabelShowAll.Size = new Size(80, 17);
+            statusLabelShowAll.Size = new Size(102, 20);
             statusLabelShowAll.Text = "Mostrar tudo";
             statusLabelShowAll.Click += statusLabelShowAll_Click;
             // 
             // btnVoltar
             // 
-            btnVoltar.Location = new Point(0, 2);
+            btnVoltar.Location = new Point(0, 3);
+            btnVoltar.Margin = new Padding(3, 4, 3, 4);
             btnVoltar.Name = "btnVoltar";
-            btnVoltar.Size = new Size(75, 23);
+            btnVoltar.Size = new Size(86, 31);
             btnVoltar.TabIndex = 2;
             btnVoltar.Text = "Voltar";
             btnVoltar.UseVisualStyleBackColor = true;
@@ -98,9 +106,10 @@ namespace Telas_do_PIM.Forms
             // btnConfirmar
             // 
             btnConfirmar.Enabled = false;
-            btnConfirmar.Location = new Point(663, 3);
+            btnConfirmar.Location = new Point(758, 4);
+            btnConfirmar.Margin = new Padding(3, 4, 3, 4);
             btnConfirmar.Name = "btnConfirmar";
-            btnConfirmar.Size = new Size(137, 23);
+            btnConfirmar.Size = new Size(157, 31);
             btnConfirmar.TabIndex = 3;
             btnConfirmar.Text = "Confirmar alterações";
             btnConfirmar.UseVisualStyleBackColor = true;
@@ -115,9 +124,12 @@ namespace Telas_do_PIM.Forms
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, nome, cpf, telefone, endereco, email, senha, idPerfilDataGridViewTextBoxColumn, idPerfilNavigationDataGridViewTextBoxColumn });
             dataGridView1.DataSource = funcionarioBindingSource1;
             dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 0);
+            dataGridView1.Location = new Point(0, 28);
+            dataGridView1.Margin = new Padding(3, 4, 3, 4);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(800, 399);
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(914, 507);
             dataGridView1.TabIndex = 4;
             // 
             // id
@@ -125,6 +137,7 @@ namespace Telas_do_PIM.Forms
             id.DataPropertyName = "Id";
             id.FilteringEnabled = false;
             id.HeaderText = "Id";
+            id.MinimumWidth = 6;
             id.Name = "id";
             id.ReadOnly = true;
             id.Resizable = DataGridViewTriState.True;
@@ -134,6 +147,7 @@ namespace Telas_do_PIM.Forms
             nome.DataPropertyName = "Nome";
             nome.FilteringEnabled = false;
             nome.HeaderText = "Nome";
+            nome.MinimumWidth = 6;
             nome.Name = "nome";
             nome.Resizable = DataGridViewTriState.True;
             // 
@@ -142,6 +156,7 @@ namespace Telas_do_PIM.Forms
             cpf.DataPropertyName = "Cpf";
             cpf.FilteringEnabled = false;
             cpf.HeaderText = "Cpf";
+            cpf.MinimumWidth = 6;
             cpf.Name = "cpf";
             cpf.Resizable = DataGridViewTriState.True;
             // 
@@ -150,6 +165,7 @@ namespace Telas_do_PIM.Forms
             telefone.DataPropertyName = "Telefone";
             telefone.FilteringEnabled = false;
             telefone.HeaderText = "Telefone";
+            telefone.MinimumWidth = 6;
             telefone.Name = "telefone";
             telefone.Resizable = DataGridViewTriState.True;
             // 
@@ -158,6 +174,7 @@ namespace Telas_do_PIM.Forms
             endereco.DataPropertyName = "Endereço";
             endereco.FilteringEnabled = false;
             endereco.HeaderText = "Endereço";
+            endereco.MinimumWidth = 6;
             endereco.Name = "endereco";
             endereco.Resizable = DataGridViewTriState.True;
             // 
@@ -166,6 +183,7 @@ namespace Telas_do_PIM.Forms
             email.DataPropertyName = "Email";
             email.FilteringEnabled = false;
             email.HeaderText = "Email";
+            email.MinimumWidth = 6;
             email.Name = "email";
             email.Resizable = DataGridViewTriState.True;
             // 
@@ -174,6 +192,7 @@ namespace Telas_do_PIM.Forms
             senha.DataPropertyName = "Senha";
             senha.FilteringEnabled = false;
             senha.HeaderText = "Senha";
+            senha.MinimumWidth = 6;
             senha.Name = "senha";
             senha.ReadOnly = true;
             senha.Resizable = DataGridViewTriState.True;
@@ -183,6 +202,7 @@ namespace Telas_do_PIM.Forms
             // 
             idPerfilDataGridViewTextBoxColumn.DataPropertyName = "IdPerfil";
             idPerfilDataGridViewTextBoxColumn.HeaderText = "IdPerfil";
+            idPerfilDataGridViewTextBoxColumn.MinimumWidth = 6;
             idPerfilDataGridViewTextBoxColumn.Name = "idPerfilDataGridViewTextBoxColumn";
             idPerfilDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.True;
             idPerfilDataGridViewTextBoxColumn.SortMode = DataGridViewColumnSortMode.Programmatic;
@@ -192,6 +212,7 @@ namespace Telas_do_PIM.Forms
             // 
             idPerfilNavigationDataGridViewTextBoxColumn.DataPropertyName = "IdPerfilNavigation";
             idPerfilNavigationDataGridViewTextBoxColumn.HeaderText = "IdPerfilNavigation";
+            idPerfilNavigationDataGridViewTextBoxColumn.MinimumWidth = 6;
             idPerfilNavigationDataGridViewTextBoxColumn.Name = "idPerfilNavigationDataGridViewTextBoxColumn";
             idPerfilNavigationDataGridViewTextBoxColumn.Visible = false;
             // 
@@ -203,30 +224,79 @@ namespace Telas_do_PIM.Forms
             // 
             splitContainer1.Dock = DockStyle.Fill;
             splitContainer1.Location = new Point(0, 0);
+            splitContainer1.Margin = new Padding(3, 4, 3, 4);
             splitContainer1.Name = "splitContainer1";
             splitContainer1.Orientation = Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
             splitContainer1.Panel1.Controls.Add(dataGridView1);
+            splitContainer1.Panel1.Controls.Add(menuStrip1);
             // 
             // splitContainer1.Panel2
             // 
+            splitContainer1.Panel2.Controls.Add(btnAddFuncionario);
             splitContainer1.Panel2.Controls.Add(btnVoltar);
             splitContainer1.Panel2.Controls.Add(btnConfirmar);
-            splitContainer1.Size = new Size(800, 428);
-            splitContainer1.SplitterDistance = 399;
+            splitContainer1.Size = new Size(914, 574);
+            splitContainer1.SplitterDistance = 535;
+            splitContainer1.SplitterWidth = 5;
             splitContainer1.TabIndex = 5;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { tsUsuario });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.RightToLeft = RightToLeft.Yes;
+            menuStrip1.Size = new Size(914, 28);
+            menuStrip1.TabIndex = 32;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // tsUsuario
+            // 
+            tsUsuario.BackgroundImageLayout = ImageLayout.Stretch;
+            tsUsuario.DropDownItems.AddRange(new ToolStripItem[] { logoffToolStripMenuItem });
+            tsUsuario.Image = (Image)resources.GetObject("tsUsuario.Image");
+            tsUsuario.ImageAlign = ContentAlignment.MiddleRight;
+            tsUsuario.Name = "tsUsuario";
+            tsUsuario.RightToLeft = RightToLeft.Yes;
+            tsUsuario.Size = new Size(93, 24);
+            tsUsuario.Text = "Usuário";
+            // 
+            // logoffToolStripMenuItem
+            // 
+            logoffToolStripMenuItem.Image = (Image)resources.GetObject("logoffToolStripMenuItem.Image");
+            logoffToolStripMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
+            logoffToolStripMenuItem.Name = "logoffToolStripMenuItem";
+            logoffToolStripMenuItem.Size = new Size(139, 26);
+            logoffToolStripMenuItem.Text = "Logout";
+            logoffToolStripMenuItem.Click += logoffToolStripMenuItem_Click;
+            // 
+            // btnAddFuncionario
+            // 
+            btnAddFuncionario.Location = new Point(358, 2);
+            btnAddFuncionario.Margin = new Padding(3, 4, 3, 4);
+            btnAddFuncionario.Name = "btnAddFuncionario";
+            btnAddFuncionario.Size = new Size(177, 31);
+            btnAddFuncionario.TabIndex = 10;
+            btnAddFuncionario.Text = "Adicionar Funcionário";
+            btnAddFuncionario.UseVisualStyleBackColor = true;
+            btnAddFuncionario.Click += btnAddFuncionario_Click;
             // 
             // TelaManutencaoFuncionario
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(914, 600);
             Controls.Add(splitContainer1);
             Controls.Add(statusStrip1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
             Name = "TelaManutencaoFuncionario";
-            Text = "TelaManutencaoAdm";
+            Text = "Genesis Solutions";
             Load += TelaManutencaoAdm_Load;
             ((System.ComponentModel.ISupportInitialize)funcionarioBindingSource).EndInit();
             statusStrip1.ResumeLayout(false);
@@ -234,9 +304,12 @@ namespace Telas_do_PIM.Forms
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)funcionarioBindingSource1).EndInit();
             splitContainer1.Panel1.ResumeLayout(false);
+            splitContainer1.Panel1.PerformLayout();
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -260,5 +333,9 @@ namespace Telas_do_PIM.Forms
         private DataGridViewTextBoxColumn idPerfilDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn idPerfilNavigationDataGridViewTextBoxColumn;
         private SplitContainer splitContainer1;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem tsUsuario;
+        private ToolStripMenuItem logoffToolStripMenuItem;
+        private Button btnAddFuncionario;
     }
 }

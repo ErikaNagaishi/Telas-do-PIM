@@ -1,5 +1,6 @@
 ﻿using DataGridViewAutoFilter;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using MoreLinq;
 using Newtonsoft.Json;
 using System;
@@ -36,7 +37,14 @@ namespace Telas_do_PIM.Forms
 
             dataGridView1.DataBindingComplete += dataGridView1_DataBindingComplete;
             dataGridView1.KeyDown += dataGridView1_KeyDown;
+            dataGridView1.RowsAdded += DataGridView1_RowsAdded;
         }
+
+        private void DataGridView1_RowsAdded(object? sender, DataGridViewRowsAddedEventArgs e)
+        {
+            CarregaImagemLixeira();
+        }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
@@ -157,6 +165,21 @@ namespace Telas_do_PIM.Forms
         {
             Image trashBinIcon = new Bitmap(Properties.Resources.trashBinImg.ToBitmap(), 23, 23);
 
+            bool existeExcluir = false;
+            for (int column = 0; column <= dataGridView1.Columns.Count - 1; column++)
+            {
+                if (dataGridView1.Columns[column].Name == "Excluir")
+                {
+                    existeExcluir = true;
+                    break;
+                }
+            }
+
+            if (!existeExcluir)
+            {
+                return;
+            }
+
             for (int row = 0; row <= dataGridView1.Rows.Count - 1; row++)
             {
                 dataGridView1.Rows[row].Cells["Excluir"].Value = trashBinIcon;
@@ -251,6 +274,29 @@ namespace Telas_do_PIM.Forms
             CarregaImagemLixeira();
 
             EnableGridFilter(true);
+        }
+
+        private void logoffToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.funcionarioLogado = null;
+
+            using (var fmTelaDeLogin = Program.ServiceProvider.GetRequiredService<TelaDeLogin>())
+            {
+                this.Hide();
+                fmTelaDeLogin.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaDeLogin.ShowDialog();
+            }
+        }
+
+        private void btnAddCliente_Click(object sender, EventArgs e)
+        {
+            using (var fmTelaCadastroCliente = Program.ServiceProvider.GetRequiredService<TelaCadastroCliente>())
+            {
+                this.Hide();
+                fmTelaCadastroCliente.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaCadastroCliente.telaAnteriorSelecao = false;
+                fmTelaCadastroCliente.ShowDialog();
+            }
         }
     }
 }

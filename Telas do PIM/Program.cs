@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Configuration;
 using Telas_do_PIM.Forms;
 using Telas_do_PIM.Models;
 
@@ -46,6 +47,8 @@ namespace Telas_do_PIM
                             .UseSqlServer(connection)
                             .EnableSensitiveDataLogging());
 
+            services.AddSingleton<IConfiguration>(_configuration);
+
             services.AddTransient<TelaDeLogin>();
             services.AddTransient<TelaCadastroFuncionario>();
             services.AddTransient<TelaCadastroCliente>();
@@ -56,6 +59,7 @@ namespace Telas_do_PIM
             services.AddTransient<TelaManutencaoClientes>();
             services.AddTransient<TelaManutencaoProdutos>();
             services.AddTransient<TelaCarregamentoProdutos>();
+            services.AddTransient<TelaEsqueceuSenha>();
 
         }
     }

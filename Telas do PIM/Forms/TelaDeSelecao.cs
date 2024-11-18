@@ -20,14 +20,14 @@ namespace Telas_do_PIM.Forms
             var perfilUsuario = Program.funcionarioLogado.IdPerfil;
 
             //Buscar os nomes dos radioButton que redirecionam para cada form
-            var telasComAcesso = genesisContext.PerfilTelas.Where(e=> e.IdPerfil == perfilUsuario).Select(e=> e.IdTelaNavigation.IdentificacaoTela).ToList();
+            var telasComAcesso = genesisContext.PerfilTelas.Where(e => e.IdPerfil == perfilUsuario).Select(e => e.IdTelaNavigation.IdentificacaoTela).ToList();
 
             //Reflection. Buscar todos os radioButtons desse form
-            var radioButtons = this.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic).Where(e=> e.Name.Contains("rbtn")).ToList();
+            var radioButtons = this.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic).Where(e => e.Name.Contains("rbtn")).ToList();
 
             radioButtons.ForEach(rbtn =>
             {
-                if(telasComAcesso.Any(e=> e.Equals(rbtn.Name)))
+                if (telasComAcesso.Any(e => e.Equals(rbtn.Name)))
                 {
                     var radioButton = (RadioButton?)rbtn.GetValue(this);
                     if (radioButton != null)
@@ -111,7 +111,7 @@ namespace Telas_do_PIM.Forms
                 fmTelaManutencaoProduto.ShowDialog();
             }
         }
-      
+
         private void rbtnCadastroFuncionario_MouseHover(object sender, EventArgs e)
         {
             rbtnCadastroFuncionario.Checked = true;
@@ -131,6 +131,19 @@ namespace Telas_do_PIM.Forms
         private void rbtnManutencaoProdutos_MouseHover(object sender, EventArgs e)
         {
             rbtnManutencaoProdutos.Checked = true;
+        }
+
+
+        private void logoffToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.funcionarioLogado = null;
+
+            using (var fmTelaDeLogin = Program.ServiceProvider.GetRequiredService<TelaDeLogin>())
+            {
+                this.Hide();
+                fmTelaDeLogin.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaDeLogin.ShowDialog();
+            }
         }
 
     }

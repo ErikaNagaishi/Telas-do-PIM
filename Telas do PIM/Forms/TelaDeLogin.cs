@@ -127,5 +127,26 @@ namespace Telas_do_PIM.Forms
         {
 
         }
+
+        private void linkEsqueceuSenha_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using (var fmTelaEsqueceuSenha = Program.ServiceProvider.GetRequiredService<TelaEsqueceuSenha>())
+            {
+                this.Hide();
+                fmTelaEsqueceuSenha.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaEsqueceuSenha.ShowDialog();
+            }
+        }
+
+        private void btnCadastrar_Click(object sender, EventArgs e)
+        {
+            using (var fmTelaCadastroCliente = Program.ServiceProvider.GetRequiredService<TelaCadastroCliente>())
+            {
+                this.Hide();
+                fmTelaCadastroCliente.StartPosition = FormStartPosition.CenterScreen;
+                fmTelaCadastroCliente.cadastroCliente = true;
+                fmTelaCadastroCliente.ShowDialog();
+            }
+        }
     }
 }

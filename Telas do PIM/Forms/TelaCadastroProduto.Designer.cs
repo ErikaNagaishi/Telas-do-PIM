@@ -46,9 +46,10 @@
             // btnCadastro
             // 
             btnCadastro.Font = new Font("Georgia", 9F);
-            btnCadastro.Location = new Point(58, 313);
+            btnCadastro.Location = new Point(66, 417);
+            btnCadastro.Margin = new Padding(3, 4, 3, 4);
             btnCadastro.Name = "btnCadastro";
-            btnCadastro.Size = new Size(175, 23);
+            btnCadastro.Size = new Size(200, 31);
             btnCadastro.TabIndex = 5;
             btnCadastro.Text = "Cadastrar";
             btnCadastro.UseVisualStyleBackColor = true;
@@ -57,19 +58,20 @@
             // comboxNome
             // 
             comboxNome.Font = new Font("Georgia", 9F);
-            comboxNome.Location = new Point(58, 64);
+            comboxNome.Location = new Point(66, 85);
+            comboxNome.Margin = new Padding(3, 4, 3, 4);
             comboxNome.MaxLength = 50;
             comboxNome.Name = "comboxNome";
-            comboxNome.Size = new Size(175, 21);
+            comboxNome.Size = new Size(199, 25);
             comboxNome.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Georgia", 9F);
-            label1.Location = new Point(85, 23);
+            label1.Location = new Point(97, 31);
             label1.Name = "label1";
-            label1.Size = new Size(122, 15);
+            label1.Size = new Size(142, 18);
             label1.TabIndex = 3;
             label1.Text = "Cadastro de produto";
             // 
@@ -77,9 +79,9 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Georgia", 9F);
-            label2.Location = new Point(58, 46);
+            label2.Location = new Point(66, 61);
             label2.Name = "label2";
-            label2.Size = new Size(105, 15);
+            label2.Size = new Size(125, 18);
             label2.TabIndex = 4;
             label2.Text = "Nome do produto";
             // 
@@ -87,9 +89,9 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Georgia", 9F);
-            label3.Location = new Point(58, 90);
+            label3.Location = new Point(66, 120);
             label3.Name = "label3";
-            label3.Size = new Size(39, 15);
+            label3.Size = new Size(44, 18);
             label3.TabIndex = 5;
             label3.Text = "Valor";
             // 
@@ -97,18 +99,19 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Georgia", 9F);
-            label4.Location = new Point(58, 135);
+            label4.Location = new Point(66, 180);
             label4.Name = "label4";
-            label4.Size = new Size(112, 15);
+            label4.Size = new Size(131, 18);
             label4.TabIndex = 7;
             label4.Text = "Caixas em estoque";
             // 
             // btnImagem
             // 
             btnImagem.Font = new Font("Georgia", 9F);
-            btnImagem.Location = new Point(58, 182);
+            btnImagem.Location = new Point(66, 243);
+            btnImagem.Margin = new Padding(3, 4, 3, 4);
             btnImagem.Name = "btnImagem";
-            btnImagem.Size = new Size(175, 23);
+            btnImagem.Size = new Size(200, 31);
             btnImagem.TabIndex = 4;
             btnImagem.Text = "Escolher imagem";
             btnImagem.UseVisualStyleBackColor = true;
@@ -116,9 +119,10 @@
             // 
             // pictureProduto
             // 
-            pictureProduto.Location = new Point(58, 211);
+            pictureProduto.Location = new Point(66, 281);
+            pictureProduto.Margin = new Padding(3, 4, 3, 4);
             pictureProduto.Name = "pictureProduto";
-            pictureProduto.Size = new Size(175, 89);
+            pictureProduto.Size = new Size(200, 119);
             pictureProduto.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureProduto.TabIndex = 10;
             pictureProduto.TabStop = false;
@@ -126,9 +130,10 @@
             // upDownEstoque
             // 
             upDownEstoque.Font = new Font("Georgia", 9F);
-            upDownEstoque.Location = new Point(58, 153);
+            upDownEstoque.Location = new Point(66, 204);
+            upDownEstoque.Margin = new Padding(3, 4, 3, 4);
             upDownEstoque.Name = "upDownEstoque";
-            upDownEstoque.Size = new Size(175, 21);
+            upDownEstoque.Size = new Size(200, 25);
             upDownEstoque.TabIndex = 3;
             // 
             // upDownValor
@@ -136,17 +141,18 @@
             upDownValor.DecimalPlaces = 2;
             upDownValor.Font = new Font("Georgia", 9F);
             upDownValor.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
-            upDownValor.Location = new Point(58, 108);
+            upDownValor.Location = new Point(66, 144);
+            upDownValor.Margin = new Padding(3, 4, 3, 4);
             upDownValor.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             upDownValor.Name = "upDownValor";
-            upDownValor.Size = new Size(175, 21);
+            upDownValor.Size = new Size(200, 25);
             upDownValor.TabIndex = 2;
             // 
             // TelaCadastroProduto
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(294, 348);
+            ClientSize = new Size(336, 464);
             Controls.Add(upDownValor);
             Controls.Add(upDownEstoque);
             Controls.Add(pictureProduto);
@@ -157,10 +163,12 @@
             Controls.Add(label1);
             Controls.Add(comboxNome);
             Controls.Add(btnCadastro);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "TelaCadastroProduto";
-            Text = "TelaCadastroProduto";
+            Text = "Genesis Solutions";
             ((System.ComponentModel.ISupportInitialize)pictureProduto).EndInit();
             ((System.ComponentModel.ISupportInitialize)upDownEstoque).EndInit();
             ((System.ComponentModel.ISupportInitialize)upDownValor).EndInit();
