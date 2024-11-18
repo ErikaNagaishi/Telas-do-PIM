@@ -63,6 +63,16 @@ namespace Telas_do_PIM.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _4750688_tropical_verde_folhas_em_aquarela_fundo_eps_gratis_vetor {
+            get {
+                object obj = ResourceManager.GetObject("4750688-tropical-verde-folhas-em-aquarela-fundo-eps-gratis-vetor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Banana_pratapng {
             get {
                 object obj = ResourceManager.GetObject("Banana_pratapng", resourceCulture);
