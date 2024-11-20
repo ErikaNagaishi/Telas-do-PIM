@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Telas_do_PIM.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Web.Helpers;
 
 namespace Telas_do_PIM.Forms
 {
@@ -146,12 +147,12 @@ namespace Telas_do_PIM.Forms
             {
                 if (cliente is not null)
                 {
-                    cliente.SenhaCliente = textBoxConfirmeSenha.Text;
+                    cliente.SenhaCliente = Program.Encrypt(textBoxConfirmeSenha.Text);
                     genesisSolutionsContext.Clientes.Update(cliente);
                 }
                 else if (funcionario is not null)
                 {
-                    funcionario.Senha = textBoxConfirmeSenha.Text;
+                    funcionario.Senha = Program.Encrypt(textBoxConfirmeSenha.Text);
 
                     genesisSolutionsContext.Funcionarios.Update(funcionario);
                 }

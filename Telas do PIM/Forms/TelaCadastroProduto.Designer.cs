@@ -38,6 +38,8 @@
             pictureProduto = new PictureBox();
             upDownEstoque = new NumericUpDown();
             upDownValor = new NumericUpDown();
+            comboBoxCategoria = new ComboBox();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureProduto).BeginInit();
             ((System.ComponentModel.ISupportInitialize)upDownEstoque).BeginInit();
             ((System.ComponentModel.ISupportInitialize)upDownValor).BeginInit();
@@ -46,10 +48,9 @@
             // btnCadastro
             // 
             btnCadastro.Font = new Font("Georgia", 9F);
-            btnCadastro.Location = new Point(66, 417);
-            btnCadastro.Margin = new Padding(3, 4, 3, 4);
+            btnCadastro.Location = new Point(58, 366);
             btnCadastro.Name = "btnCadastro";
-            btnCadastro.Size = new Size(200, 31);
+            btnCadastro.Size = new Size(175, 23);
             btnCadastro.TabIndex = 5;
             btnCadastro.Text = "Cadastrar";
             btnCadastro.UseVisualStyleBackColor = true;
@@ -58,20 +59,19 @@
             // comboxNome
             // 
             comboxNome.Font = new Font("Georgia", 9F);
-            comboxNome.Location = new Point(66, 85);
-            comboxNome.Margin = new Padding(3, 4, 3, 4);
+            comboxNome.Location = new Point(58, 64);
             comboxNome.MaxLength = 50;
             comboxNome.Name = "comboxNome";
-            comboxNome.Size = new Size(199, 25);
+            comboxNome.Size = new Size(175, 21);
             comboxNome.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Georgia", 9F);
-            label1.Location = new Point(97, 31);
+            label1.Location = new Point(85, 23);
             label1.Name = "label1";
-            label1.Size = new Size(142, 18);
+            label1.Size = new Size(122, 15);
             label1.TabIndex = 3;
             label1.Text = "Cadastro de produto";
             // 
@@ -79,9 +79,9 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Georgia", 9F);
-            label2.Location = new Point(66, 61);
+            label2.Location = new Point(58, 46);
             label2.Name = "label2";
-            label2.Size = new Size(125, 18);
+            label2.Size = new Size(105, 15);
             label2.TabIndex = 4;
             label2.Text = "Nome do produto";
             // 
@@ -89,9 +89,9 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Georgia", 9F);
-            label3.Location = new Point(66, 120);
+            label3.Location = new Point(58, 90);
             label3.Name = "label3";
-            label3.Size = new Size(44, 18);
+            label3.Size = new Size(39, 15);
             label3.TabIndex = 5;
             label3.Text = "Valor";
             // 
@@ -99,19 +99,18 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Georgia", 9F);
-            label4.Location = new Point(66, 180);
+            label4.Location = new Point(58, 135);
             label4.Name = "label4";
-            label4.Size = new Size(131, 18);
+            label4.Size = new Size(112, 15);
             label4.TabIndex = 7;
             label4.Text = "Caixas em estoque";
             // 
             // btnImagem
             // 
             btnImagem.Font = new Font("Georgia", 9F);
-            btnImagem.Location = new Point(66, 243);
-            btnImagem.Margin = new Padding(3, 4, 3, 4);
+            btnImagem.Location = new Point(58, 235);
             btnImagem.Name = "btnImagem";
-            btnImagem.Size = new Size(200, 31);
+            btnImagem.Size = new Size(175, 23);
             btnImagem.TabIndex = 4;
             btnImagem.Text = "Escolher imagem";
             btnImagem.UseVisualStyleBackColor = true;
@@ -119,10 +118,9 @@
             // 
             // pictureProduto
             // 
-            pictureProduto.Location = new Point(66, 281);
-            pictureProduto.Margin = new Padding(3, 4, 3, 4);
+            pictureProduto.Location = new Point(58, 264);
             pictureProduto.Name = "pictureProduto";
-            pictureProduto.Size = new Size(200, 119);
+            pictureProduto.Size = new Size(175, 89);
             pictureProduto.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureProduto.TabIndex = 10;
             pictureProduto.TabStop = false;
@@ -130,10 +128,9 @@
             // upDownEstoque
             // 
             upDownEstoque.Font = new Font("Georgia", 9F);
-            upDownEstoque.Location = new Point(66, 204);
-            upDownEstoque.Margin = new Padding(3, 4, 3, 4);
+            upDownEstoque.Location = new Point(58, 153);
             upDownEstoque.Name = "upDownEstoque";
-            upDownEstoque.Size = new Size(200, 25);
+            upDownEstoque.Size = new Size(175, 21);
             upDownEstoque.TabIndex = 3;
             // 
             // upDownValor
@@ -141,18 +138,37 @@
             upDownValor.DecimalPlaces = 2;
             upDownValor.Font = new Font("Georgia", 9F);
             upDownValor.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
-            upDownValor.Location = new Point(66, 144);
-            upDownValor.Margin = new Padding(3, 4, 3, 4);
+            upDownValor.Location = new Point(58, 108);
             upDownValor.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             upDownValor.Name = "upDownValor";
-            upDownValor.Size = new Size(200, 25);
+            upDownValor.Size = new Size(175, 21);
             upDownValor.TabIndex = 2;
+            // 
+            // comboBoxCategoria
+            // 
+            comboBoxCategoria.FormattingEnabled = true;
+            comboBoxCategoria.Location = new Point(58, 206);
+            comboBoxCategoria.Name = "comboBoxCategoria";
+            comboBoxCategoria.Size = new Size(121, 23);
+            comboBoxCategoria.TabIndex = 11;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Georgia", 9F);
+            label5.Location = new Point(58, 188);
+            label5.Name = "label5";
+            label5.Size = new Size(63, 15);
+            label5.TabIndex = 12;
+            label5.Text = "Categoria";
             // 
             // TelaCadastroProduto
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(336, 464);
+            ClientSize = new Size(294, 402);
+            Controls.Add(label5);
+            Controls.Add(comboBoxCategoria);
             Controls.Add(upDownValor);
             Controls.Add(upDownEstoque);
             Controls.Add(pictureProduto);
@@ -164,7 +180,6 @@
             Controls.Add(comboxNome);
             Controls.Add(btnCadastro);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "TelaCadastroProduto";
@@ -189,5 +204,7 @@
         private PictureBox pictureProduto;
         private NumericUpDown upDownEstoque;
         private NumericUpDown upDownValor;
+        private ComboBox comboBoxCategoria;
+        private Label label5;
     }
 }

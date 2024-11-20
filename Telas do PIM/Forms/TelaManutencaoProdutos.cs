@@ -23,17 +23,24 @@ namespace Telas_do_PIM.Forms
             dataGridView1.KeyDown += dataGridView1_KeyDown;
             dataGridView1.CellClick += dataGridView1_CellClick;
             dataGridView1.CellEndEdit += dataGridView1_CellEndEdit;
+            dataGridView1.Sorted += dataGridView1_Sorted;
 
             dataGridView1.RowsAdded += DataGridView1_RowsAdded;
 
             tsUsuario.Text = Program.funcionarioLogado.Nome;
         }
 
-        private void DataGridView1_RowsAdded(object? sender, DataGridViewRowsAddedEventArgs e)
+        private void dataGridView1_Sorted(object? sender, EventArgs e)
         {
-            CarregaImagemLixeira();
+            CarregaComboBoxCategoria();
         }
 
+        private void DataGridView1_RowsAdded(object? sender, DataGridViewRowsAddedEventArgs e)
+        {
+            //CarregaComboBoxCategoria();
+            CarregaImagemLixeira();
+        }
+        [STAThread]
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
@@ -61,9 +68,11 @@ namespace Telas_do_PIM.Forms
                         {
                             genesisContext.ChangeTracker.Clear();
 
-                            genesisContext.Produtos.Remove(produto);
+                            produto.Excluido = true;
+                            genesisContext.Produtos.Update(produto);
                             genesisContext.SaveChanges();
 
+                            genesisContext.ChangeTracker.Clear();
                             dataGridView1.Rows.Remove(currentRow);
                             MessageBox.Show("Produto removido com sucesso");
 
@@ -75,17 +84,35 @@ namespace Telas_do_PIM.Forms
                         break;
                 }
             }
+
             return;
 
         }
         private Produto GeraProdutoDeRow(DataGridViewRow row)
         {
+            var categoriaValor = row.Cells["Categoria"].Value?.ToString();
+            int idCategoria = 0;
+            if (categoriaValor != null)
+                idCategoria = int.Parse(categoriaValor.ToString().Split('-')[0].ToString());
+            byte[] imagemEmByte;
+
+            try
+            {
+                imagemEmByte = (byte[])row.Cells["ImagemProduto"].Value;
+            }
+            catch
+            {
+                imagemEmByte = null;
+            }
+
             return new Produto()
             {
                 IdProduto = (int)row.Cells["idProduto"].Value,
                 NomeProduto = row.Cells["nomeProduto"].Value.ToString(),
                 QtdEmEstoque = (int)row.Cells["qtdEmEstoque"].Value,
-                ValorVenda = (decimal)row.Cells["valorVenda"].Value
+                ValorVenda = (decimal)row.Cells["valorVenda"].Value,
+                ImagemProduto = (imagemEmByte is not null) ? imagemEmByte : null,
+                IdCategorizacao = idCategoria
             };
         }
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -100,7 +127,7 @@ namespace Telas_do_PIM.Forms
 
             var produtoBanco = genesisContext.Produtos.AsNoTracking().First(e => e.IdProduto.Equals(produto.IdProduto));
 
-            if (!(JsonConvert.SerializeObject(produtoBanco) == JsonConvert.SerializeObject(produto)))
+            if (!IsEqualTo(produtoBanco, produto))
             {
                 if (produtosAlterados.Any(e => e.IdProduto.Equals(produto.IdProduto)))
                 {
@@ -115,6 +142,23 @@ namespace Telas_do_PIM.Forms
                 if (produtosAlterados.Count == 0) btnConfirmar.Enabled = false;
             }
         }
+        public bool IsEqualTo(Produto a, Produto b)
+        {
+            foreach (var prop in typeof(Produto).GetProperties())
+            {
+                var value1 = prop.GetValue(a);
+                var value2 = prop.GetValue(b);
+
+                if (value1.GetType().Name.Contains("Proxy"))
+                    continue;
+
+                if (!value1.Equals(value2))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private void btnAddProduto_Click(object sender, EventArgs e)
         {
             using (var formCadastroProduto = Program.ServiceProvider.GetRequiredService<TelaCadastroProduto>())
@@ -126,17 +170,6 @@ namespace Telas_do_PIM.Forms
                 //Caso algum produto tenha sido adicionado, será adicionado as informações no datagrid do form
                 if (qtdProdutosInseridos > 0)
                 {
-                    //    var produtosBanco = genesisContext.Produtos.AsNoTracking();
-                    //    var produtos = produtosBanco.OrderByDescending(e=> e.IdProduto).Skip(Math.Max(0, produtosBanco.Count() - qtdProdutosInseridos));
-                    //    foreach (var produto in formCadastroProduto.ProdutosCadastrados)
-                    //    {
-                    //        var ultimoId = produtos.First(e => e.NomeProduto.Equals(produto.NomeProduto)).IdProduto;
-                    //        Byte[] data = new Byte[0];
-                    //        data = (Byte[])(produto.ImagemProduto);
-                    //        MemoryStream mem = new MemoryStream(data);
-
-                    //        dataGridView1.Rows.Add(ultimoId, produto.NomeProduto, produto.ValorVenda, produto.QtdEmEstoque, Image.FromStream(mem));
-                    //    }
                     using (var fmTelaManutencaoProduto = Program.ServiceProvider.GetRequiredService<TelaManutencaoProdutos>())
                     {
                         this.Hide();
@@ -176,6 +209,7 @@ namespace Telas_do_PIM.Forms
 
         private void dataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+            CarregaComboBoxCategoria();
             string filterStatus = DataGridViewAutoFilterColumnHeaderCell.GetFilterStatus(dataGridView1);
             if (string.IsNullOrEmpty(filterStatus))
             {
@@ -219,8 +253,10 @@ namespace Telas_do_PIM.Forms
                 case DialogResult.Yes:
                     try
                     {
+                        genesisContext.ChangeTracker.Clear();
                         genesisContext.Produtos.UpdateRange(produtosAlterados);
                         genesisContext.SaveChanges();
+                        genesisContext.ChangeTracker.Clear();
                         btnConfirmar.Enabled = false;
                         produtosAlterados.Clear();
                         MessageBox.Show("Alteração realizada com sucesso");
@@ -287,17 +323,22 @@ namespace Telas_do_PIM.Forms
             for (int row = 0; row <= dataGridView1.Rows.Count - 1; row++)
             {
                 dataGridView1.Rows[row].Cells["Excluir"].Value = trashBinIcon;
-
-                //System.Drawing.Bitmap bitmap = null;
-                //ImageConverter converter = new ImageConverter();
-                //System.Drawing.Image img =
-                //(System.Drawing.Image)converter.ConvertFrom(arr);
-                //bitmap = (System.Drawing.Bitmap)img;
             }
         }
         private void TelaMnatuencaoProdutos_Load(object sender, EventArgs e)
         {
-            var produtosTable = genesisContext.Produtos.AsNoTracking().ToList().ToDataTable();
+            var produtosTable = genesisContext.Produtos.AsNoTracking().ToList().Where(e => !e.Excluido).ToDataTable();
+
+            var categorias = genesisContext.Categorizacaos.AsNoTracking().Select(e => e.IdCategorizacao + " - " + e.Nome).ToArray();
+
+            DataGridViewComboBoxColumn categoriaColuna = new();
+
+            categoriaColuna.HeaderText = "Categoria";
+            categoriaColuna.Name = "Categoria";
+            categoriaColuna.Sorted = true;
+
+            categoriaColuna.Items.AddRange(categorias);
+            dataGridView1.Columns.Add(categoriaColuna);
 
             DataGridViewImageColumn iconColumn = new DataGridViewImageColumn();
             iconColumn.HeaderText = "Excluir";
@@ -312,8 +353,38 @@ namespace Telas_do_PIM.Forms
             Image trashBinIcon = new Bitmap(Properties.Resources.trashBinImg.ToBitmap(), 23, 23);
 
             CarregaImagemLixeira();
+            //CarregaComboBoxCategoria();
 
             EnableGridFilter(true);
+        }
+
+        private void CarregaComboBoxCategoria()
+        {
+            var produtos = genesisContext.Produtos.AsNoTracking().ToList().Where(e => !e.Excluido);
+            var categorias = genesisContext.Categorizacaos.AsNoTracking().ToList();
+
+            if (categorias.Count > 0)
+            {
+                for (int row = 0; row <= dataGridView1.Rows.Count - 1; row++)
+                {
+                    var produto = GeraProdutoDeRow(dataGridView1.Rows[row]);
+
+                    if (produtosAlterados.Any(e => e.IdProduto.Equals(produto.IdProduto)))
+                    {
+                        var produtooAlterado = produtosAlterados.First(e => e.IdProduto.Equals(produto.IdProduto));
+                        var idCategoria = produtooAlterado.IdCategorizacao;
+
+                        dataGridView1.Rows[row].Cells["Categoria"].Value = idCategoria + " - " + categorias.First(e => e.IdCategorizacao.Equals(idCategoria)).Nome;
+                    }
+                    else
+                    {
+                        var idCategoria = produtos.FirstOrDefault(e => e.IdProduto.Equals(produto.IdProduto))?.IdCategorizacao;
+
+                        if (idCategoria != null)
+                            dataGridView1.Rows[row].Cells["Categoria"].Value = idCategoria + " - " + categorias.First(e => e.IdCategorizacao.Equals(idCategoria)).Nome;
+                    }
+                }
+            }
         }
 
         private void logoffToolStripMenuItem_Click(object sender, EventArgs e)
@@ -325,6 +396,67 @@ namespace Telas_do_PIM.Forms
                 this.Hide();
                 fmTelaDeLogin.StartPosition = FormStartPosition.CenterScreen;
                 fmTelaDeLogin.ShowDialog();
+            }
+        }
+
+        private void btnCategoria_Click(object sender, EventArgs e)
+        {
+            using (var formCadastroCategoria = Program.ServiceProvider.GetRequiredService<TelaCadastroCategoria>())
+            {
+                formCadastroCategoria.StartPosition = FormStartPosition.CenterScreen;
+                formCadastroCategoria.ShowDialog();
+                var qtdCategoriasInseridas = formCadastroCategoria.CategoriasCadastradas.Count;
+                //Caso algum produto tenha sido adicionado, será adicionado as informações no datagrid do form
+                if (qtdCategoriasInseridas > 0)
+                {
+                    using (var fmTelaManutencaoProduto = Program.ServiceProvider.GetRequiredService<TelaManutencaoProdutos>())
+                    {
+                        this.Hide();
+                        fmTelaManutencaoProduto.StartPosition = FormStartPosition.CenterScreen;
+                        fmTelaManutencaoProduto.ShowDialog();
+                    }
+                }
+            }
+        }
+
+        private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                return;
+
+            var currentRow = dataGridView1.Rows[e.RowIndex];
+            var currentColumn = dataGridView1.Columns[e.ColumnIndex];
+            if (currentRow != null && currentColumn != null && currentColumn.HeaderText == "ImagemProduto")
+            {
+                var produto = GeraProdutoDeRow(currentRow);
+
+
+                string? arquivoProduto = null;
+                byte[]? imagemProduto = null;
+                try
+                {
+                    using (var fmTelaAtualizaImagemProduto = Program.ServiceProvider.GetRequiredService<TelaAtualizaImagemProduto>())
+                    {
+                        //this.Hide();
+                        fmTelaAtualizaImagemProduto.StartPosition = FormStartPosition.CenterScreen;
+                        fmTelaAtualizaImagemProduto.produto = produto;
+                        fmTelaAtualizaImagemProduto.ShowDialog();
+
+                        if (fmTelaAtualizaImagemProduto.produtoAlterado)
+                        {
+                            using (var fmTelaManutencaoProduto = Program.ServiceProvider.GetRequiredService<TelaManutencaoProdutos>())
+                            {
+                                this.Hide();
+                                fmTelaManutencaoProduto.StartPosition = FormStartPosition.CenterScreen;
+                                fmTelaManutencaoProduto.ShowDialog();
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Não foi possível carregar a imagem");
+                }
             }
         }
     }

@@ -71,7 +71,7 @@
             label1.ForeColor = SystemColors.ControlText;
             label1.Location = new Point(142, 38);
             label1.Name = "label1";
-            label1.Size = new Size(229, 31);
+            label1.Size = new Size(174, 25);
             label1.TabIndex = 0;
             label1.Text = "Genesis Solutions";
             // 
@@ -81,7 +81,7 @@
             label3.Font = new Font("Georgia", 9.75F);
             label3.Location = new Point(104, 93);
             label3.Name = "label3";
-            label3.Size = new Size(54, 20);
+            label3.Size = new Size(44, 16);
             label3.TabIndex = 2;
             label3.Text = "Nome";
             // 
@@ -91,7 +91,7 @@
             label4.Font = new Font("Georgia", 9.75F);
             label4.Location = new Point(104, 136);
             label4.Name = "label4";
-            label4.Size = new Size(52, 20);
+            label4.Size = new Size(40, 16);
             label4.TabIndex = 3;
             label4.Text = "CNPJ";
             // 
@@ -101,7 +101,7 @@
             label5.Font = new Font("Georgia", 9.75F);
             label5.Location = new Point(104, 180);
             label5.Name = "label5";
-            label5.Size = new Size(41, 20);
+            label5.Size = new Size(31, 16);
             label5.TabIndex = 4;
             label5.Text = "CEP";
             // 
@@ -111,7 +111,7 @@
             label6.Font = new Font("Georgia", 9.75F);
             label6.Location = new Point(104, 224);
             label6.Name = "label6";
-            label6.Size = new Size(80, 20);
+            label6.Size = new Size(66, 16);
             label6.TabIndex = 5;
             label6.Text = "Endereço";
             // 
@@ -121,7 +121,7 @@
             label7.Font = new Font("Georgia", 9.75F);
             label7.Location = new Point(104, 268);
             label7.Name = "label7";
-            label7.Size = new Size(60, 20);
+            label7.Size = new Size(47, 16);
             label7.TabIndex = 6;
             label7.Text = "E-mail";
             // 
@@ -131,7 +131,7 @@
             label8.Font = new Font("Georgia", 9.75F);
             label8.Location = new Point(104, 312);
             label8.Name = "label8";
-            label8.Size = new Size(56, 20);
+            label8.Size = new Size(44, 16);
             label8.TabIndex = 7;
             label8.Text = "Senha";
             // 
@@ -141,7 +141,7 @@
             label9.Font = new Font("Georgia", 9.75F);
             label9.Location = new Point(104, 356);
             label9.Name = "label9";
-            label9.Size = new Size(178, 20);
+            label9.Size = new Size(143, 16);
             label9.TabIndex = 8;
             label9.Text = "Confirmação da senha";
             // 
@@ -150,7 +150,7 @@
             TxtNome.Location = new Point(104, 112);
             TxtNome.MaxLength = 255;
             TxtNome.Name = "TxtNome";
-            TxtNome.Size = new Size(252, 26);
+            TxtNome.Size = new Size(252, 22);
             TxtNome.TabIndex = 1;
             // 
             // TxtEmail
@@ -158,7 +158,7 @@
             TxtEmail.Location = new Point(104, 287);
             TxtEmail.MaxLength = 100;
             TxtEmail.Name = "TxtEmail";
-            TxtEmail.Size = new Size(252, 26);
+            TxtEmail.Size = new Size(252, 22);
             TxtEmail.TabIndex = 6;
             // 
             // TxtSenha
@@ -167,7 +167,7 @@
             TxtSenha.MaxLength = 255;
             TxtSenha.Name = "TxtSenha";
             TxtSenha.PasswordChar = '*';
-            TxtSenha.Size = new Size(252, 26);
+            TxtSenha.Size = new Size(252, 22);
             TxtSenha.TabIndex = 7;
             // 
             // TxtConfSenha
@@ -176,13 +176,12 @@
             TxtConfSenha.MaxLength = 255;
             TxtConfSenha.Name = "TxtConfSenha";
             TxtConfSenha.PasswordChar = '*';
-            TxtConfSenha.Size = new Size(252, 26);
+            TxtConfSenha.Size = new Size(252, 22);
             TxtConfSenha.TabIndex = 8;
             // 
             // BtnCadastrar
             // 
             BtnCadastrar.BackColor = Color.SeaGreen;
-            BtnCadastrar.Enabled = false;
             BtnCadastrar.Font = new Font("Georgia", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnCadastrar.ForeColor = Color.Snow;
             BtnCadastrar.Location = new Point(104, 403);
@@ -212,7 +211,7 @@
             label10.Font = new Font("Georgia", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label10.Location = new Point(362, 224);
             label10.Name = "label10";
-            label10.Size = new Size(97, 20);
+            label10.Size = new Size(79, 16);
             label10.TabIndex = 18;
             label10.Text = "Numeração";
             // 
@@ -221,7 +220,7 @@
             TxtNumeracao.Location = new Point(363, 243);
             TxtNumeracao.MaxLength = 20;
             TxtNumeracao.Name = "TxtNumeracao";
-            TxtNumeracao.Size = new Size(78, 26);
+            TxtNumeracao.Size = new Size(78, 22);
             TxtNumeracao.TabIndex = 5;
             // 
             // pictureBoxShowPassword
@@ -273,7 +272,7 @@
             TxtCEP.Location = new Point(104, 199);
             TxtCEP.Mask = "00000-999";
             TxtCEP.Name = "TxtCEP";
-            TxtCEP.Size = new Size(252, 26);
+            TxtCEP.Size = new Size(252, 22);
             TxtCEP.TabIndex = 23;
             TxtCEP.TextMaskFormat = MaskFormat.IncludePrompt;
             // 
@@ -283,7 +282,7 @@
             TxtEndereco.Location = new Point(104, 243);
             TxtEndereco.MaxLength = 100;
             TxtEndereco.Name = "TxtEndereco";
-            TxtEndereco.Size = new Size(254, 26);
+            TxtEndereco.Size = new Size(254, 22);
             TxtEndereco.TabIndex = 24;
             // 
             // TxtCNPJ
@@ -291,7 +290,7 @@
             TxtCNPJ.Location = new Point(104, 155);
             TxtCNPJ.Mask = "00,000,000/0000-00";
             TxtCNPJ.Name = "TxtCNPJ";
-            TxtCNPJ.Size = new Size(252, 26);
+            TxtCNPJ.Size = new Size(252, 22);
             TxtCNPJ.TabIndex = 25;
             TxtCNPJ.TextMaskFormat = MaskFormat.IncludePrompt;
             // 
@@ -325,7 +324,7 @@
             tsUsuario.ImageAlign = ContentAlignment.MiddleRight;
             tsUsuario.Name = "tsUsuario";
             tsUsuario.RightToLeft = RightToLeft.Yes;
-            tsUsuario.Size = new Size(93, 24);
+            tsUsuario.Size = new Size(79, 24);
             tsUsuario.Text = "Usuário";
             // 
             // logoffToolStripMenuItem
@@ -333,13 +332,13 @@
             logoffToolStripMenuItem.Image = (Image)resources.GetObject("logoffToolStripMenuItem.Image");
             logoffToolStripMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             logoffToolStripMenuItem.Name = "logoffToolStripMenuItem";
-            logoffToolStripMenuItem.Size = new Size(224, 26);
+            logoffToolStripMenuItem.Size = new Size(116, 26);
             logoffToolStripMenuItem.Text = "Logout";
             logoffToolStripMenuItem.Click += logoffToolStripMenuItem_Click;
             // 
             // TelaCadastroCliente
             // 
-            AutoScaleDimensions = new SizeF(9F, 18F);
+            AutoScaleDimensions = new SizeF(8F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(914, 537);

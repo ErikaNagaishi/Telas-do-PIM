@@ -23,5 +23,7 @@ public partial class Cliente
 
     public string Numero { get; set; }
 
+    public bool SenhaCriptografada { get; set; }
+
     public virtual ICollection<PedidosCliente> PedidosClientes { get; set; } = new List<PedidosCliente>();
 }

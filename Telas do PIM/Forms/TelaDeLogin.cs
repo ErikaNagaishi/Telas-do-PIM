@@ -1,5 +1,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
+using System.Security.Policy;
+using System.Web.Helpers;
 using Telas_do_PIM.Models;
 
 namespace Telas_do_PIM.Forms
@@ -68,10 +70,12 @@ namespace Telas_do_PIM.Forms
             {
                 try
                 {
-                    if (genesisContext.Funcionarios.Any(e => e.Email == usuario && e.Senha == senha))
+                    if (genesisContext.Funcionarios.Any(e => e.Email == usuario 
+                                && ((e.SenhaCriptografada && Program.Encrypt(senha) == e.Senha) || (!e.SenhaCriptografada && e.Senha == senha))))
                     {
                         //MessageBox.Show("Acesso Liberado!");
-                        Program.funcionarioLogado = genesisContext.Funcionarios.First(e => e.Email == usuario && e.Senha == senha);
+                        Program.funcionarioLogado = genesisContext.Funcionarios.First(e => e.Email == usuario
+                                && ((e.SenhaCriptografada && Program.Encrypt(senha) == e.Senha) || (!e.SenhaCriptografada && e.Senha == senha)));
                         this.Hide();
 
                         using (var fmTelaDeSelecao = Program.ServiceProvider.GetRequiredService<TelaDeSelecao>())
@@ -82,9 +86,11 @@ namespace Telas_do_PIM.Forms
                         }
 
                     }
-                    if (genesisContext.Clientes.Any(e => e.Email == usuario && e.SenhaCliente == senha))
+                    if (genesisContext.Clientes.Any(e => e.Email == usuario
+                                                    && ((Program.Encrypt(senha) == e.SenhaCliente && e.SenhaCriptografada) || (e.SenhaCliente == senha && !e.SenhaCriptografada))))
                     {
-                        Program.clienteLogado = genesisContext.Clientes.First(e => e.Email == usuario && e.SenhaCliente == senha);
+                        Program.clienteLogado = genesisContext.Clientes.First(e => e.Email == usuario
+                                                    && ((Program.Encrypt(senha) == e.SenhaCliente && e.SenhaCriptografada) || (e.SenhaCliente == senha && !e.SenhaCriptografada)));
                         this.Hide();
                         using (var fmTelaPrincipalCliente = Program.ServiceProvider.GetRequiredService<TelaPrincipal>())
                         {
@@ -145,6 +151,8 @@ namespace Telas_do_PIM.Forms
                 this.Hide();
                 fmTelaCadastroCliente.StartPosition = FormStartPosition.CenterScreen;
                 fmTelaCadastroCliente.cadastroCliente = true;
+                fmTelaCadastroCliente.telaAnteriorSelecao = false;
+
                 fmTelaCadastroCliente.ShowDialog();
             }
         }

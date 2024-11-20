@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
+using System.Web.Helpers;
 using Telas_do_PIM.Models;
 
 namespace Telas_do_PIM.Forms
@@ -80,9 +81,10 @@ namespace Telas_do_PIM.Forms
                     Cpf = TxtCPF.Text,
                     Telefone = TxtTelefone.Text,
                     Email = TxtEmail.Text,
-                    Senha = TxtSenha.Text,
+                    Senha = Program.Encrypt(TxtSenha.Text),
                     Endereço = TxtEndereco.Text,
-                    IdPerfil = idPerfil
+                    IdPerfil = idPerfil,
+                    SenhaCriptografada = true
 
                 };
                 genesisContext.Funcionarios.Add(funcionario);

@@ -45,55 +45,17 @@
             painelInformacoes = new Panel();
             label25 = new Label();
             splitContainer1 = new SplitContainer();
+            pictureBox2 = new PictureBox();
             btnPedido = new Button();
             btnCatalogo = new Button();
             menuStrip1 = new MenuStrip();
             tsUsuario = new ToolStripMenuItem();
             logoffToolStripMenuItem = new ToolStripMenuItem();
-            painelPedido = new Panel();
-            splitContainer6 = new SplitContainer();
-            splitContainer9 = new SplitContainer();
-            label17 = new Label();
-            splitContainer10 = new SplitContainer();
-            dgvResumoPedido = new DataGridView();
-            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
-            TrashIcon = new DataGridViewImageColumn();
-            label18 = new Label();
-            textBoxValorResumo = new TextBox();
-            splitContainer7 = new SplitContainer();
-            splitContainer8 = new SplitContainer();
-            rbtnCartao = new RadioButton();
-            rbtnPix = new RadioButton();
-            label19 = new Label();
-            painelPix = new Panel();
-            splitContainer11 = new SplitContainer();
-            labelPixInfo = new Label();
-            splitContainer12 = new SplitContainer();
-            pictureBox1 = new PictureBox();
-            label22 = new Label();
-            textBoxCopiaECola = new TextBox();
-            pictureBoxQrCode = new PictureBox();
-            painelCartao = new Panel();
-            btnCancelarPedido = new Button();
-            btnConfirmarPedido = new Button();
-            painelAcompanhamento = new Panel();
-            splitContainer13 = new SplitContainer();
-            label21 = new Label();
-            linkLabel2 = new LinkLabel();
-            linkLabel1 = new LinkLabel();
-            label26 = new Label();
-            label24 = new Label();
-            pictureBox6 = new PictureBox();
-            pictureBoxNotaFiscal = new PictureBox();
-            pictureBox4 = new PictureBox();
-            pictureBoxBag = new PictureBox();
-            progressBarPedido = new ProgressBar();
             painelCatalogo = new Panel();
             splitContainer3 = new SplitContainer();
             splitContainer2 = new SplitContainer();
+            label23 = new Label();
+            comboBoxCategoria = new ComboBox();
             label20 = new Label();
             textBoxPesquisa = new TextBox();
             label14 = new Label();
@@ -112,15 +74,75 @@
             label16 = new Label();
             btnComprar = new Button();
             btnLimpar = new Button();
+            painelPedido = new Panel();
+            splitContainer6 = new SplitContainer();
+            splitContainer9 = new SplitContainer();
+            label17 = new Label();
+            splitContainer10 = new SplitContainer();
+            dgvResumoPedido = new DataGridView();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
+            TrashIcon = new DataGridViewImageColumn();
+            label18 = new Label();
+            textBoxValorResumo = new TextBox();
+            splitContainer7 = new SplitContainer();
+            splitContainer8 = new SplitContainer();
+            rbtnCartao = new RadioButton();
+            rbtnPix = new RadioButton();
+            label19 = new Label();
+            painelCartao = new Panel();
+            painelPix = new Panel();
+            splitContainer11 = new SplitContainer();
+            labelPixInfo = new Label();
+            splitContainer12 = new SplitContainer();
+            pictureBox1 = new PictureBox();
+            label22 = new Label();
+            textBoxCopiaECola = new TextBox();
+            pictureBoxQrCode = new PictureBox();
+            btnCancelarPedido = new Button();
+            btnConfirmarPedido = new Button();
+            painelAcompanhamento = new Panel();
+            splitContainer13 = new SplitContainer();
+            label21 = new Label();
+            linkLabel2 = new LinkLabel();
+            linkLabel1 = new LinkLabel();
+            label26 = new Label();
+            label24 = new Label();
+            pictureBox6 = new PictureBox();
+            pictureBoxNotaFiscal = new PictureBox();
+            pictureBox4 = new PictureBox();
+            pictureBoxBag = new PictureBox();
+            progressBarPedido = new ProgressBar();
             printPreviewDialog1 = new PrintPreviewDialog();
             printDocument1 = new System.Drawing.Printing.PrintDocument();
-            pictureBox2 = new PictureBox();
+            label27 = new Label();
             painelInformacoes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
             splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             menuStrip1.SuspendLayout();
+            painelCatalogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer3).BeginInit();
+            splitContainer3.Panel1.SuspendLayout();
+            splitContainer3.Panel2.SuspendLayout();
+            splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
+            splitContainer2.Panel1.SuspendLayout();
+            splitContainer2.Panel2.SuspendLayout();
+            splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer4).BeginInit();
+            splitContainer4.Panel1.SuspendLayout();
+            splitContainer4.Panel2.SuspendLayout();
+            splitContainer4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer5).BeginInit();
+            splitContainer5.Panel1.SuspendLayout();
+            splitContainer5.Panel2.SuspendLayout();
+            splitContainer5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCarrinho).BeginInit();
             painelPedido.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer6).BeginInit();
             splitContainer6.Panel1.SuspendLayout();
@@ -163,25 +185,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBoxNotaFiscal).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBag).BeginInit();
-            painelCatalogo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer3).BeginInit();
-            splitContainer3.Panel1.SuspendLayout();
-            splitContainer3.Panel2.SuspendLayout();
-            splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer2).BeginInit();
-            splitContainer2.Panel1.SuspendLayout();
-            splitContainer2.Panel2.SuspendLayout();
-            splitContainer2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer4).BeginInit();
-            splitContainer4.Panel1.SuspendLayout();
-            splitContainer4.Panel2.SuspendLayout();
-            splitContainer4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer5).BeginInit();
-            splitContainer5.Panel1.SuspendLayout();
-            splitContainer5.Panel2.SuspendLayout();
-            splitContainer5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvCarrinho).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -189,7 +192,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Georgia", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(13, 39);
+            label1.Location = new Point(13, 65);
             label1.Name = "label1";
             label1.Size = new Size(225, 25);
             label1.TabIndex = 0;
@@ -200,40 +203,40 @@
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Georgia", 12F);
-            label2.Location = new Point(13, 81);
+            label2.Location = new Point(13, 124);
             label2.Name = "label2";
-            label2.Size = new Size(867, 18);
+            label2.Size = new Size(857, 18);
             label2.TabIndex = 1;
-            label2.Text = "Olá, seja muito bem vindo a nossa central de vendas!\u2028Antes de adquirir nossos produtos, se atente as informações abaixo:";
+            label2.Text = "Olá, seja muito bem vindo a nossa central de vendas! Antes de adquirir nossos produtos, se atente as informações abaixo:";
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Georgia", 12F);
-            label3.Location = new Point(13, 115);
+            label3.Location = new Point(13, 158);
             label3.Name = "label3";
-            label3.Size = new Size(660, 18);
+            label3.Size = new Size(772, 18);
             label3.TabIndex = 2;
-            label3.Text = "É necessário possuir um CNPJ para efetuarmos seu cadastro para assim realizar sua compra;";
+            label3.Text = "É necessário possuir um CNPJ para efetuarmos ou você efetuar seu cadastro para assim realizar sua compra;";
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.BackColor = Color.Transparent;
             label4.Font = new Font("Georgia", 12F);
-            label4.Location = new Point(13, 154);
+            label4.Location = new Point(13, 197);
             label4.Name = "label4";
-            label4.Size = new Size(293, 18);
+            label4.Size = new Size(283, 18);
             label4.TabIndex = 3;
-            label4.Text = "Cada caixa possui 20kg de cada produto;";
+            label4.Text = "Cada caixa possui 5kg de cada produto;";
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.BackColor = Color.Transparent;
             label5.Font = new Font("Georgia", 12F);
-            label5.Location = new Point(13, 193);
+            label5.Location = new Point(13, 266);
             label5.Name = "label5";
             label5.Size = new Size(388, 18);
             label5.TabIndex = 4;
@@ -244,7 +247,7 @@
             label6.AutoSize = true;
             label6.BackColor = Color.Transparent;
             label6.Font = new Font("Georgia", 12F);
-            label6.Location = new Point(13, 234);
+            label6.Location = new Point(13, 307);
             label6.Name = "label6";
             label6.Size = new Size(816, 18);
             label6.TabIndex = 5;
@@ -255,29 +258,29 @@
             label7.AutoSize = true;
             label7.BackColor = Color.Transparent;
             label7.Font = new Font("Georgia", 12F);
-            label7.Location = new Point(13, 274);
+            label7.Location = new Point(13, 347);
             label7.Name = "label7";
-            label7.Size = new Size(925, 18);
+            label7.Size = new Size(897, 18);
             label7.TabIndex = 6;
-            label7.Text = "Nossos produtos são feitos com todo cuidado e carinho, e sempre mantendo um ambiente saudável para cada tipo de plantação.\u2028\u2028";
+            label7.Text = "Nossos produtos são feitos com todo cuidado e carinho, e sempre mantendo um ambiente saudável para cada tipo de plantação.";
             // 
             // label8
             // 
             label8.AutoSize = true;
             label8.BackColor = Color.Transparent;
             label8.Font = new Font("Georgia", 12F);
-            label8.Location = new Point(13, 362);
+            label8.Location = new Point(18, 452);
             label8.Name = "label8";
-            label8.Size = new Size(331, 18);
+            label8.Size = new Size(317, 18);
             label8.TabIndex = 7;
-            label8.Text = "Qualquer dúvida, entre em contato conosco:\u2028";
+            label8.Text = "Qualquer dúvida, entre em contato conosco:";
             // 
             // label9
             // 
             label9.AutoSize = true;
             label9.BackColor = Color.Transparent;
             label9.Font = new Font("Georgia", 9F);
-            label9.Location = new Point(13, 399);
+            label9.Location = new Point(18, 501);
             label9.Name = "label9";
             label9.Size = new Size(122, 15);
             label9.TabIndex = 8;
@@ -288,7 +291,7 @@
             label10.AutoSize = true;
             label10.BackColor = Color.Transparent;
             label10.Font = new Font("Georgia", 9F);
-            label10.Location = new Point(13, 434);
+            label10.Location = new Point(18, 536);
             label10.Name = "label10";
             label10.Size = new Size(256, 15);
             label10.TabIndex = 9;
@@ -316,7 +319,7 @@
             label11.AutoSize = true;
             label11.BackColor = Color.Transparent;
             label11.Font = new Font("Georgia", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label11.Location = new Point(577, 431);
+            label11.Location = new Point(595, 536);
             label11.Name = "label11";
             label11.Size = new Size(235, 18);
             label11.TabIndex = 13;
@@ -334,7 +337,9 @@
             // 
             // painelInformacoes
             // 
+            painelInformacoes.BackColor = Color.White;
             painelInformacoes.BackgroundImage = (Image)resources.GetObject("painelInformacoes.BackgroundImage");
+            painelInformacoes.Controls.Add(label27);
             painelInformacoes.Controls.Add(label25);
             painelInformacoes.Controls.Add(label4);
             painelInformacoes.Controls.Add(label1);
@@ -350,7 +355,7 @@
             painelInformacoes.Dock = DockStyle.Fill;
             painelInformacoes.Location = new Point(0, 0);
             painelInformacoes.Name = "painelInformacoes";
-            painelInformacoes.Size = new Size(915, 523);
+            painelInformacoes.Size = new Size(915, 585);
             painelInformacoes.TabIndex = 15;
             // 
             // label25
@@ -358,7 +363,7 @@
             label25.AutoSize = true;
             label25.BackColor = Color.Transparent;
             label25.Font = new Font("Georgia", 12F);
-            label25.Location = new Point(8, 319);
+            label25.Location = new Point(13, 391);
             label25.Name = "label25";
             label25.Size = new Size(615, 18);
             label25.TabIndex = 14;
@@ -382,13 +387,23 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(menuStrip1);
-            splitContainer1.Panel2.Controls.Add(painelAcompanhamento);
-            splitContainer1.Panel2.Controls.Add(painelPedido);
-            splitContainer1.Panel2.Controls.Add(painelCatalogo);
             splitContainer1.Panel2.Controls.Add(painelInformacoes);
-            splitContainer1.Size = new Size(1111, 523);
-            splitContainer1.SplitterDistance = 192;
+            splitContainer1.Panel2.Controls.Add(painelAcompanhamento);
+            splitContainer1.Panel2.Controls.Add(painelCatalogo);
+            splitContainer1.Panel2.Controls.Add(painelPedido);
+            splitContainer1.Size = new Size(1110, 585);
+            splitContainer1.SplitterDistance = 191;
             splitContainer1.TabIndex = 16;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(58, 14);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(69, 63);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 17;
+            pictureBox2.TabStop = false;
             // 
             // btnPedido
             // 
@@ -455,9 +470,295 @@
             logoffToolStripMenuItem.Image = (Image)resources.GetObject("logoffToolStripMenuItem.Image");
             logoffToolStripMenuItem.ImageAlign = ContentAlignment.MiddleLeft;
             logoffToolStripMenuItem.Name = "logoffToolStripMenuItem";
-            logoffToolStripMenuItem.Size = new Size(184, 26);
+            logoffToolStripMenuItem.Size = new Size(113, 22);
             logoffToolStripMenuItem.Text = "Logout";
             logoffToolStripMenuItem.Click += logoffToolStripMenuItem_Click;
+            // 
+            // painelCatalogo
+            // 
+            painelCatalogo.Controls.Add(splitContainer3);
+            painelCatalogo.Dock = DockStyle.Fill;
+            painelCatalogo.Location = new Point(0, 0);
+            painelCatalogo.Margin = new Padding(3, 2, 3, 2);
+            painelCatalogo.Name = "painelCatalogo";
+            painelCatalogo.Size = new Size(915, 585);
+            painelCatalogo.TabIndex = 14;
+            // 
+            // splitContainer3
+            // 
+            splitContainer3.BorderStyle = BorderStyle.FixedSingle;
+            splitContainer3.Dock = DockStyle.Fill;
+            splitContainer3.IsSplitterFixed = true;
+            splitContainer3.Location = new Point(0, 0);
+            splitContainer3.Name = "splitContainer3";
+            // 
+            // splitContainer3.Panel1
+            // 
+            splitContainer3.Panel1.Controls.Add(splitContainer2);
+            // 
+            // splitContainer3.Panel2
+            // 
+            splitContainer3.Panel2.Controls.Add(splitContainer4);
+            splitContainer3.Size = new Size(915, 585);
+            splitContainer3.SplitterDistance = 517;
+            splitContainer3.TabIndex = 2;
+            // 
+            // splitContainer2
+            // 
+            splitContainer2.Dock = DockStyle.Fill;
+            splitContainer2.Location = new Point(0, 0);
+            splitContainer2.Name = "splitContainer2";
+            splitContainer2.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            splitContainer2.Panel1.Controls.Add(label23);
+            splitContainer2.Panel1.Controls.Add(comboBoxCategoria);
+            splitContainer2.Panel1.Controls.Add(label20);
+            splitContainer2.Panel1.Controls.Add(textBoxPesquisa);
+            splitContainer2.Panel1.Controls.Add(label14);
+            splitContainer2.Panel1.Controls.Add(label13);
+            // 
+            // splitContainer2.Panel2
+            // 
+            splitContainer2.Panel2.AutoScroll = true;
+            splitContainer2.Panel2.Controls.Add(tableProdutos);
+            splitContainer2.Size = new Size(515, 583);
+            splitContainer2.SplitterDistance = 99;
+            splitContainer2.TabIndex = 1;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(300, 55);
+            label23.Name = "label23";
+            label23.Size = new Size(58, 15);
+            label23.TabIndex = 5;
+            label23.Text = "Categoria";
+            // 
+            // comboBoxCategoria
+            // 
+            comboBoxCategoria.FormattingEnabled = true;
+            comboBoxCategoria.Location = new Point(300, 73);
+            comboBoxCategoria.Name = "comboBoxCategoria";
+            comboBoxCategoria.Size = new Size(121, 23);
+            comboBoxCategoria.TabIndex = 4;
+            comboBoxCategoria.SelectedIndexChanged += comboBoxCategoria_SelectedIndexChanged;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(17, 55);
+            label20.Name = "label20";
+            label20.Size = new Size(57, 15);
+            label20.TabIndex = 3;
+            label20.Text = "Pesquisar";
+            // 
+            // textBoxPesquisa
+            // 
+            textBoxPesquisa.Location = new Point(17, 72);
+            textBoxPesquisa.Margin = new Padding(3, 2, 3, 2);
+            textBoxPesquisa.Name = "textBoxPesquisa";
+            textBoxPesquisa.Size = new Size(151, 23);
+            textBoxPesquisa.TabIndex = 2;
+            textBoxPesquisa.TextChanged += textBoxPesquisa_TextChanged;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label14.Location = new Point(130, 34);
+            label14.Name = "label14";
+            label14.Size = new Size(213, 15);
+            label14.TabIndex = 1;
+            label14.Text = "Selecione o(s) produto(s) desejado(s)";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(169, 3);
+            label13.Name = "label13";
+            label13.Size = new Size(122, 15);
+            label13.TabIndex = 0;
+            label13.Text = "Catálogo de Produtos";
+            // 
+            // tableProdutos
+            // 
+            tableProdutos.AutoScroll = true;
+            tableProdutos.ColumnCount = 2;
+            tableProdutos.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableProdutos.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableProdutos.Dock = DockStyle.Fill;
+            tableProdutos.Location = new Point(0, 0);
+            tableProdutos.Margin = new Padding(3, 2, 3, 2);
+            tableProdutos.Name = "tableProdutos";
+            tableProdutos.RowCount = 1;
+            tableProdutos.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableProdutos.Size = new Size(515, 480);
+            tableProdutos.TabIndex = 0;
+            // 
+            // splitContainer4
+            // 
+            splitContainer4.Dock = DockStyle.Fill;
+            splitContainer4.Location = new Point(0, 0);
+            splitContainer4.Margin = new Padding(3, 2, 3, 2);
+            splitContainer4.Name = "splitContainer4";
+            splitContainer4.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer4.Panel1
+            // 
+            splitContainer4.Panel1.Controls.Add(label15);
+            // 
+            // splitContainer4.Panel2
+            // 
+            splitContainer4.Panel2.Controls.Add(splitContainer5);
+            splitContainer4.Size = new Size(392, 583);
+            splitContainer4.SplitterDistance = 85;
+            splitContainer4.SplitterWidth = 3;
+            splitContainer4.TabIndex = 0;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label15.Location = new Point(154, 34);
+            label15.Name = "label15";
+            label15.Size = new Size(60, 15);
+            label15.TabIndex = 0;
+            label15.Text = "Carrinho";
+            // 
+            // splitContainer5
+            // 
+            splitContainer5.Dock = DockStyle.Fill;
+            splitContainer5.Location = new Point(0, 0);
+            splitContainer5.Margin = new Padding(3, 2, 3, 2);
+            splitContainer5.Name = "splitContainer5";
+            splitContainer5.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainer5.Panel1
+            // 
+            splitContainer5.Panel1.Controls.Add(dgvCarrinho);
+            // 
+            // splitContainer5.Panel2
+            // 
+            splitContainer5.Panel2.Controls.Add(textBoxPreco);
+            splitContainer5.Panel2.Controls.Add(label16);
+            splitContainer5.Panel2.Controls.Add(btnComprar);
+            splitContainer5.Panel2.Controls.Add(btnLimpar);
+            splitContainer5.Size = new Size(392, 495);
+            splitContainer5.SplitterDistance = 374;
+            splitContainer5.SplitterWidth = 3;
+            splitContainer5.TabIndex = 1;
+            // 
+            // dgvCarrinho
+            // 
+            dgvCarrinho.AllowUserToAddRows = false;
+            dgvCarrinho.AllowUserToDeleteRows = false;
+            dgvCarrinho.AllowUserToOrderColumns = true;
+            dgvCarrinho.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCarrinho.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvCarrinho.BackgroundColor = SystemColors.Control;
+            dgvCarrinho.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCarrinho.Columns.AddRange(new DataGridViewColumn[] { numero, Item, Quantidade, Valor, Excluir });
+            dgvCarrinho.Dock = DockStyle.Fill;
+            dgvCarrinho.GridColor = SystemColors.GrayText;
+            dgvCarrinho.Location = new Point(0, 0);
+            dgvCarrinho.Margin = new Padding(3, 2, 3, 2);
+            dgvCarrinho.Name = "dgvCarrinho";
+            dgvCarrinho.ReadOnly = true;
+            dgvCarrinho.RowHeadersVisible = false;
+            dgvCarrinho.RowHeadersWidth = 51;
+            dgvCarrinho.ScrollBars = ScrollBars.Vertical;
+            dgvCarrinho.Size = new Size(392, 374);
+            dgvCarrinho.TabIndex = 0;
+            // 
+            // numero
+            // 
+            numero.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            numero.HeaderText = "No";
+            numero.MinimumWidth = 6;
+            numero.Name = "numero";
+            numero.ReadOnly = true;
+            numero.Width = 48;
+            // 
+            // Item
+            // 
+            Item.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Item.HeaderText = "Item";
+            Item.MinimumWidth = 25;
+            Item.Name = "Item";
+            Item.ReadOnly = true;
+            // 
+            // Quantidade
+            // 
+            Quantidade.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            Quantidade.HeaderText = "Qtd";
+            Quantidade.MinimumWidth = 15;
+            Quantidade.Name = "Quantidade";
+            Quantidade.ReadOnly = true;
+            Quantidade.Width = 52;
+            // 
+            // Valor
+            // 
+            Valor.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            Valor.HeaderText = "Valor";
+            Valor.MinimumWidth = 20;
+            Valor.Name = "Valor";
+            Valor.ReadOnly = true;
+            Valor.Width = 58;
+            // 
+            // Excluir
+            // 
+            Excluir.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            Excluir.HeaderText = "#";
+            Excluir.MinimumWidth = 6;
+            Excluir.Name = "Excluir";
+            Excluir.ReadOnly = true;
+            Excluir.Width = 20;
+            // 
+            // textBoxPreco
+            // 
+            textBoxPreco.Location = new Point(276, 33);
+            textBoxPreco.Margin = new Padding(3, 2, 3, 2);
+            textBoxPreco.Name = "textBoxPreco";
+            textBoxPreco.ReadOnly = true;
+            textBoxPreco.Size = new Size(110, 23);
+            textBoxPreco.TabIndex = 3;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label16.Location = new Point(178, 38);
+            label16.Name = "label16";
+            label16.Size = new Size(71, 15);
+            label16.TabIndex = 2;
+            label16.Text = "Preço Total";
+            // 
+            // btnComprar
+            // 
+            btnComprar.Enabled = false;
+            btnComprar.Font = new Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnComprar.Location = new Point(276, 69);
+            btnComprar.Margin = new Padding(3, 2, 3, 2);
+            btnComprar.Name = "btnComprar";
+            btnComprar.Size = new Size(109, 22);
+            btnComprar.TabIndex = 1;
+            btnComprar.Text = "Comprar";
+            btnComprar.UseVisualStyleBackColor = true;
+            btnComprar.Click += btnComprar_Click;
+            // 
+            // btnLimpar
+            // 
+            btnLimpar.Font = new Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLimpar.Location = new Point(13, 69);
+            btnLimpar.Margin = new Padding(3, 2, 3, 2);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.Size = new Size(82, 22);
+            btnLimpar.TabIndex = 0;
+            btnLimpar.Text = "Limpar";
+            btnLimpar.UseVisualStyleBackColor = true;
+            btnLimpar.Click += btnLimpar_Click;
             // 
             // painelPedido
             // 
@@ -466,7 +767,7 @@
             painelPedido.Location = new Point(0, 0);
             painelPedido.Margin = new Padding(3, 2, 3, 2);
             painelPedido.Name = "painelPedido";
-            painelPedido.Size = new Size(915, 523);
+            painelPedido.Size = new Size(915, 585);
             painelPedido.TabIndex = 17;
             // 
             // splitContainer6
@@ -483,7 +784,7 @@
             // splitContainer6.Panel2
             // 
             splitContainer6.Panel2.Controls.Add(splitContainer7);
-            splitContainer6.Size = new Size(915, 523);
+            splitContainer6.Size = new Size(915, 585);
             splitContainer6.SplitterDistance = 486;
             splitContainer6.TabIndex = 0;
             // 
@@ -503,8 +804,8 @@
             // splitContainer9.Panel2
             // 
             splitContainer9.Panel2.Controls.Add(splitContainer10);
-            splitContainer9.Size = new Size(486, 523);
-            splitContainer9.SplitterDistance = 80;
+            splitContainer9.Size = new Size(486, 585);
+            splitContainer9.SplitterDistance = 89;
             splitContainer9.SplitterWidth = 3;
             splitContainer9.TabIndex = 7;
             // 
@@ -535,8 +836,8 @@
             splitContainer10.Panel2.BackColor = Color.White;
             splitContainer10.Panel2.Controls.Add(label18);
             splitContainer10.Panel2.Controls.Add(textBoxValorResumo);
-            splitContainer10.Size = new Size(486, 440);
-            splitContainer10.SplitterDistance = 357;
+            splitContainer10.Size = new Size(486, 493);
+            splitContainer10.SplitterDistance = 400;
             splitContainer10.SplitterWidth = 3;
             splitContainer10.TabIndex = 0;
             // 
@@ -559,7 +860,7 @@
             dgvResumoPedido.RowHeadersVisible = false;
             dgvResumoPedido.RowHeadersWidth = 51;
             dgvResumoPedido.ScrollBars = ScrollBars.Vertical;
-            dgvResumoPedido.Size = new Size(486, 357);
+            dgvResumoPedido.Size = new Size(486, 400);
             dgvResumoPedido.TabIndex = 1;
             // 
             // dataGridViewTextBoxColumn1
@@ -620,6 +921,7 @@
             textBoxValorResumo.Location = new Point(354, 35);
             textBoxValorResumo.Margin = new Padding(3, 2, 3, 2);
             textBoxValorResumo.Name = "textBoxValorResumo";
+            textBoxValorResumo.ReadOnly = true;
             textBoxValorResumo.Size = new Size(110, 23);
             textBoxValorResumo.TabIndex = 4;
             // 
@@ -640,8 +942,8 @@
             splitContainer7.Panel2.BackColor = Color.White;
             splitContainer7.Panel2.Controls.Add(btnCancelarPedido);
             splitContainer7.Panel2.Controls.Add(btnConfirmarPedido);
-            splitContainer7.Size = new Size(425, 523);
-            splitContainer7.SplitterDistance = 439;
+            splitContainer7.Size = new Size(425, 585);
+            splitContainer7.SplitterDistance = 491;
             splitContainer7.SplitterWidth = 3;
             splitContainer7.TabIndex = 0;
             // 
@@ -662,10 +964,10 @@
             // 
             // splitContainer8.Panel2
             // 
-            splitContainer8.Panel2.Controls.Add(painelPix);
             splitContainer8.Panel2.Controls.Add(painelCartao);
-            splitContainer8.Size = new Size(425, 439);
-            splitContainer8.SplitterDistance = 83;
+            splitContainer8.Panel2.Controls.Add(painelPix);
+            splitContainer8.Size = new Size(425, 491);
+            splitContainer8.SplitterDistance = 92;
             splitContainer8.SplitterWidth = 3;
             splitContainer8.TabIndex = 0;
             // 
@@ -708,6 +1010,16 @@
             label19.TabIndex = 6;
             label19.Text = "Forma Pagamento";
             // 
+            // painelCartao
+            // 
+            painelCartao.Dock = DockStyle.Fill;
+            painelCartao.Location = new Point(0, 0);
+            painelCartao.Margin = new Padding(3, 2, 3, 2);
+            painelCartao.Name = "painelCartao";
+            painelCartao.Size = new Size(425, 396);
+            painelCartao.TabIndex = 1;
+            painelCartao.Visible = false;
+            // 
             // painelPix
             // 
             painelPix.Controls.Add(splitContainer11);
@@ -715,7 +1027,7 @@
             painelPix.Location = new Point(0, 0);
             painelPix.Margin = new Padding(3, 2, 3, 2);
             painelPix.Name = "painelPix";
-            painelPix.Size = new Size(425, 353);
+            painelPix.Size = new Size(425, 396);
             painelPix.TabIndex = 0;
             painelPix.Visible = false;
             // 
@@ -735,8 +1047,7 @@
             // splitContainer11.Panel2
             // 
             splitContainer11.Panel2.Controls.Add(splitContainer12);
-            splitContainer11.Size = new Size(425, 353);
-            splitContainer11.SplitterDistance = 45;
+            splitContainer11.Size = new Size(425, 396);
             splitContainer11.SplitterWidth = 3;
             splitContainer11.TabIndex = 0;
             // 
@@ -769,8 +1080,8 @@
             // splitContainer12.Panel2
             // 
             splitContainer12.Panel2.Controls.Add(pictureBoxQrCode);
-            splitContainer12.Size = new Size(425, 305);
-            splitContainer12.SplitterDistance = 54;
+            splitContainer12.Size = new Size(425, 343);
+            splitContainer12.SplitterDistance = 60;
             splitContainer12.SplitterWidth = 3;
             splitContainer12.TabIndex = 0;
             // 
@@ -801,6 +1112,7 @@
             textBoxCopiaECola.Location = new Point(149, 18);
             textBoxCopiaECola.Margin = new Padding(3, 2, 3, 2);
             textBoxCopiaECola.Name = "textBoxCopiaECola";
+            textBoxCopiaECola.ReadOnly = true;
             textBoxCopiaECola.Size = new Size(271, 23);
             textBoxCopiaECola.TabIndex = 0;
             // 
@@ -811,20 +1123,10 @@
             pictureBoxQrCode.Location = new Point(0, 0);
             pictureBoxQrCode.Margin = new Padding(3, 2, 3, 2);
             pictureBoxQrCode.Name = "pictureBoxQrCode";
-            pictureBoxQrCode.Size = new Size(425, 248);
+            pictureBoxQrCode.Size = new Size(425, 280);
             pictureBoxQrCode.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxQrCode.TabIndex = 0;
             pictureBoxQrCode.TabStop = false;
-            // 
-            // painelCartao
-            // 
-            painelCartao.Dock = DockStyle.Fill;
-            painelCartao.Location = new Point(0, 0);
-            painelCartao.Margin = new Padding(3, 2, 3, 2);
-            painelCartao.Name = "painelCartao";
-            painelCartao.Size = new Size(425, 353);
-            painelCartao.TabIndex = 1;
-            painelCartao.Visible = false;
             // 
             // btnCancelarPedido
             // 
@@ -860,7 +1162,7 @@
             painelAcompanhamento.Location = new Point(0, 0);
             painelAcompanhamento.Margin = new Padding(3, 2, 3, 2);
             painelAcompanhamento.Name = "painelAcompanhamento";
-            painelAcompanhamento.Size = new Size(915, 523);
+            painelAcompanhamento.Size = new Size(915, 585);
             painelAcompanhamento.TabIndex = 17;
             // 
             // splitContainer13
@@ -887,8 +1189,8 @@
             splitContainer13.Panel2.Controls.Add(pictureBox4);
             splitContainer13.Panel2.Controls.Add(pictureBoxBag);
             splitContainer13.Panel2.Controls.Add(progressBarPedido);
-            splitContainer13.Size = new Size(915, 523);
-            splitContainer13.SplitterDistance = 55;
+            splitContainer13.Size = new Size(915, 585);
+            splitContainer13.SplitterDistance = 61;
             splitContainer13.SplitterWidth = 3;
             splitContainer13.TabIndex = 0;
             // 
@@ -1007,271 +1309,6 @@
             progressBarPedido.Size = new Size(778, 22);
             progressBarPedido.TabIndex = 0;
             // 
-            // painelCatalogo
-            // 
-            painelCatalogo.Controls.Add(splitContainer3);
-            painelCatalogo.Dock = DockStyle.Fill;
-            painelCatalogo.Location = new Point(0, 0);
-            painelCatalogo.Margin = new Padding(3, 2, 3, 2);
-            painelCatalogo.Name = "painelCatalogo";
-            painelCatalogo.Size = new Size(915, 523);
-            painelCatalogo.TabIndex = 14;
-            // 
-            // splitContainer3
-            // 
-            splitContainer3.BorderStyle = BorderStyle.FixedSingle;
-            splitContainer3.Dock = DockStyle.Fill;
-            splitContainer3.IsSplitterFixed = true;
-            splitContainer3.Location = new Point(0, 0);
-            splitContainer3.Name = "splitContainer3";
-            // 
-            // splitContainer3.Panel1
-            // 
-            splitContainer3.Panel1.Controls.Add(splitContainer2);
-            // 
-            // splitContainer3.Panel2
-            // 
-            splitContainer3.Panel2.Controls.Add(splitContainer4);
-            splitContainer3.Size = new Size(915, 523);
-            splitContainer3.SplitterDistance = 517;
-            splitContainer3.TabIndex = 2;
-            // 
-            // splitContainer2
-            // 
-            splitContainer2.Dock = DockStyle.Fill;
-            splitContainer2.Location = new Point(0, 0);
-            splitContainer2.Name = "splitContainer2";
-            splitContainer2.Orientation = Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            splitContainer2.Panel1.Controls.Add(label20);
-            splitContainer2.Panel1.Controls.Add(textBoxPesquisa);
-            splitContainer2.Panel1.Controls.Add(label14);
-            splitContainer2.Panel1.Controls.Add(label13);
-            // 
-            // splitContainer2.Panel2
-            // 
-            splitContainer2.Panel2.AutoScroll = true;
-            splitContainer2.Panel2.Controls.Add(tableProdutos);
-            splitContainer2.Size = new Size(515, 521);
-            splitContainer2.SplitterDistance = 77;
-            splitContainer2.TabIndex = 1;
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Location = new Point(100, 53);
-            label20.Name = "label20";
-            label20.Size = new Size(57, 15);
-            label20.TabIndex = 3;
-            label20.Text = "Pesquisar";
-            // 
-            // textBoxPesquisa
-            // 
-            textBoxPesquisa.Location = new Point(166, 51);
-            textBoxPesquisa.Margin = new Padding(3, 2, 3, 2);
-            textBoxPesquisa.Name = "textBoxPesquisa";
-            textBoxPesquisa.Size = new Size(225, 23);
-            textBoxPesquisa.TabIndex = 2;
-            textBoxPesquisa.TextChanged += textBoxPesquisa_TextChanged;
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label14.Location = new Point(166, 34);
-            label14.Name = "label14";
-            label14.Size = new Size(213, 15);
-            label14.TabIndex = 1;
-            label14.Text = "Selecione o(s) produto(s) desejado(s)";
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Location = new Point(169, 3);
-            label13.Name = "label13";
-            label13.Size = new Size(122, 15);
-            label13.TabIndex = 0;
-            label13.Text = "Catálogo de Produtos";
-            // 
-            // tableProdutos
-            // 
-            tableProdutos.AutoScroll = true;
-            tableProdutos.ColumnCount = 2;
-            tableProdutos.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableProdutos.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableProdutos.Dock = DockStyle.Fill;
-            tableProdutos.Location = new Point(0, 0);
-            tableProdutos.Margin = new Padding(3, 2, 3, 2);
-            tableProdutos.Name = "tableProdutos";
-            tableProdutos.RowCount = 1;
-            tableProdutos.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableProdutos.Size = new Size(515, 440);
-            tableProdutos.TabIndex = 0;
-            // 
-            // splitContainer4
-            // 
-            splitContainer4.Dock = DockStyle.Fill;
-            splitContainer4.Location = new Point(0, 0);
-            splitContainer4.Margin = new Padding(3, 2, 3, 2);
-            splitContainer4.Name = "splitContainer4";
-            splitContainer4.Orientation = Orientation.Horizontal;
-            // 
-            // splitContainer4.Panel1
-            // 
-            splitContainer4.Panel1.Controls.Add(label15);
-            // 
-            // splitContainer4.Panel2
-            // 
-            splitContainer4.Panel2.Controls.Add(splitContainer5);
-            splitContainer4.Size = new Size(392, 521);
-            splitContainer4.SplitterDistance = 76;
-            splitContainer4.SplitterWidth = 3;
-            splitContainer4.TabIndex = 0;
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label15.Location = new Point(154, 34);
-            label15.Name = "label15";
-            label15.Size = new Size(60, 15);
-            label15.TabIndex = 0;
-            label15.Text = "Carrinho";
-            // 
-            // splitContainer5
-            // 
-            splitContainer5.Dock = DockStyle.Fill;
-            splitContainer5.Location = new Point(0, 0);
-            splitContainer5.Margin = new Padding(3, 2, 3, 2);
-            splitContainer5.Name = "splitContainer5";
-            splitContainer5.Orientation = Orientation.Horizontal;
-            // 
-            // splitContainer5.Panel1
-            // 
-            splitContainer5.Panel1.Controls.Add(dgvCarrinho);
-            // 
-            // splitContainer5.Panel2
-            // 
-            splitContainer5.Panel2.Controls.Add(textBoxPreco);
-            splitContainer5.Panel2.Controls.Add(label16);
-            splitContainer5.Panel2.Controls.Add(btnComprar);
-            splitContainer5.Panel2.Controls.Add(btnLimpar);
-            splitContainer5.Size = new Size(392, 442);
-            splitContainer5.SplitterDistance = 334;
-            splitContainer5.SplitterWidth = 3;
-            splitContainer5.TabIndex = 1;
-            // 
-            // dgvCarrinho
-            // 
-            dgvCarrinho.AllowUserToAddRows = false;
-            dgvCarrinho.AllowUserToDeleteRows = false;
-            dgvCarrinho.AllowUserToOrderColumns = true;
-            dgvCarrinho.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvCarrinho.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dgvCarrinho.BackgroundColor = SystemColors.Control;
-            dgvCarrinho.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCarrinho.Columns.AddRange(new DataGridViewColumn[] { numero, Item, Quantidade, Valor, Excluir });
-            dgvCarrinho.Dock = DockStyle.Fill;
-            dgvCarrinho.GridColor = SystemColors.GrayText;
-            dgvCarrinho.Location = new Point(0, 0);
-            dgvCarrinho.Margin = new Padding(3, 2, 3, 2);
-            dgvCarrinho.Name = "dgvCarrinho";
-            dgvCarrinho.ReadOnly = true;
-            dgvCarrinho.RowHeadersVisible = false;
-            dgvCarrinho.RowHeadersWidth = 51;
-            dgvCarrinho.ScrollBars = ScrollBars.Vertical;
-            dgvCarrinho.Size = new Size(392, 334);
-            dgvCarrinho.TabIndex = 0;
-            // 
-            // numero
-            // 
-            numero.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            numero.HeaderText = "No";
-            numero.MinimumWidth = 6;
-            numero.Name = "numero";
-            numero.ReadOnly = true;
-            numero.Width = 48;
-            // 
-            // Item
-            // 
-            Item.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Item.HeaderText = "Item";
-            Item.MinimumWidth = 25;
-            Item.Name = "Item";
-            Item.ReadOnly = true;
-            // 
-            // Quantidade
-            // 
-            Quantidade.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            Quantidade.HeaderText = "Qtd";
-            Quantidade.MinimumWidth = 15;
-            Quantidade.Name = "Quantidade";
-            Quantidade.ReadOnly = true;
-            Quantidade.Width = 52;
-            // 
-            // Valor
-            // 
-            Valor.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            Valor.HeaderText = "Valor";
-            Valor.MinimumWidth = 20;
-            Valor.Name = "Valor";
-            Valor.ReadOnly = true;
-            Valor.Width = 58;
-            // 
-            // Excluir
-            // 
-            Excluir.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            Excluir.HeaderText = "#";
-            Excluir.MinimumWidth = 6;
-            Excluir.Name = "Excluir";
-            Excluir.ReadOnly = true;
-            Excluir.Width = 20;
-            // 
-            // textBoxPreco
-            // 
-            textBoxPreco.Location = new Point(276, 33);
-            textBoxPreco.Margin = new Padding(3, 2, 3, 2);
-            textBoxPreco.Name = "textBoxPreco";
-            textBoxPreco.Size = new Size(110, 23);
-            textBoxPreco.TabIndex = 3;
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label16.Location = new Point(178, 38);
-            label16.Name = "label16";
-            label16.Size = new Size(71, 15);
-            label16.TabIndex = 2;
-            label16.Text = "Preço Total";
-            // 
-            // btnComprar
-            // 
-            btnComprar.Enabled = false;
-            btnComprar.Font = new Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnComprar.Location = new Point(276, 69);
-            btnComprar.Margin = new Padding(3, 2, 3, 2);
-            btnComprar.Name = "btnComprar";
-            btnComprar.Size = new Size(109, 22);
-            btnComprar.TabIndex = 1;
-            btnComprar.Text = "Comprar";
-            btnComprar.UseVisualStyleBackColor = true;
-            btnComprar.Click += btnComprar_Click;
-            // 
-            // btnLimpar
-            // 
-            btnLimpar.Font = new Font("Georgia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnLimpar.Location = new Point(13, 69);
-            btnLimpar.Margin = new Padding(3, 2, 3, 2);
-            btnLimpar.Name = "btnLimpar";
-            btnLimpar.Size = new Size(82, 22);
-            btnLimpar.TabIndex = 0;
-            btnLimpar.Text = "Limpar";
-            btnLimpar.UseVisualStyleBackColor = true;
-            btnLimpar.Click += btnLimpar_Click;
-            // 
             // printPreviewDialog1
             // 
             printPreviewDialog1.AutoScrollMargin = new Size(0, 0);
@@ -1286,21 +1323,22 @@
             // 
             printDocument1.PrintPage += PrintPage;
             // 
-            // pictureBox2
+            // label27
             // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(58, 14);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(69, 63);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 17;
-            pictureBox2.TabStop = false;
+            label27.AutoSize = true;
+            label27.BackColor = Color.Transparent;
+            label27.Font = new Font("Georgia", 12F);
+            label27.Location = new Point(13, 231);
+            label27.Name = "label27";
+            label27.Size = new Size(420, 18);
+            label27.TabIndex = 15;
+            label27.Text = "Nossos métodos de pagamento são: Pix e Cartão de crédito";
             // 
             // TelaPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1111, 523);
+            ClientSize = new Size(1110, 585);
             Controls.Add(splitContainer1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -1315,8 +1353,30 @@
             splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
             splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            painelCatalogo.ResumeLayout(false);
+            splitContainer3.Panel1.ResumeLayout(false);
+            splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer3).EndInit();
+            splitContainer3.ResumeLayout(false);
+            splitContainer2.Panel1.ResumeLayout(false);
+            splitContainer2.Panel1.PerformLayout();
+            splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
+            splitContainer2.ResumeLayout(false);
+            splitContainer4.Panel1.ResumeLayout(false);
+            splitContainer4.Panel1.PerformLayout();
+            splitContainer4.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainer4).EndInit();
+            splitContainer4.ResumeLayout(false);
+            splitContainer5.Panel1.ResumeLayout(false);
+            splitContainer5.Panel2.ResumeLayout(false);
+            splitContainer5.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainer5).EndInit();
+            splitContainer5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvCarrinho).EndInit();
             painelPedido.ResumeLayout(false);
             splitContainer6.Panel1.ResumeLayout(false);
             splitContainer6.Panel2.ResumeLayout(false);
@@ -1366,28 +1426,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBoxNotaFiscal).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxBag).EndInit();
-            painelCatalogo.ResumeLayout(false);
-            splitContainer3.Panel1.ResumeLayout(false);
-            splitContainer3.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer3).EndInit();
-            splitContainer3.ResumeLayout(false);
-            splitContainer2.Panel1.ResumeLayout(false);
-            splitContainer2.Panel1.PerformLayout();
-            splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer2).EndInit();
-            splitContainer2.ResumeLayout(false);
-            splitContainer4.Panel1.ResumeLayout(false);
-            splitContainer4.Panel1.PerformLayout();
-            splitContainer4.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)splitContainer4).EndInit();
-            splitContainer4.ResumeLayout(false);
-            splitContainer5.Panel1.ResumeLayout(false);
-            splitContainer5.Panel2.ResumeLayout(false);
-            splitContainer5.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)splitContainer5).EndInit();
-            splitContainer5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvCarrinho).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
 
@@ -1479,5 +1517,8 @@
         private DataGridViewImageColumn TrashIcon;
         private LinkLabel linkLabel2;
         private PictureBox pictureBox2;
+        private Label label23;
+        private ComboBox comboBoxCategoria;
+        private Label label27;
     }
 }

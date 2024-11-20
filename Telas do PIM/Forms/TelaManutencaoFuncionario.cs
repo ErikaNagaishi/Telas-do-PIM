@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MoreLinq;
 using Newtonsoft.Json;
+using System;
 using Telas_do_PIM.Models;
 
 namespace Telas_do_PIM.Forms
@@ -122,7 +123,7 @@ namespace Telas_do_PIM.Forms
 
             var funcionarioBanco = genesisContext.Funcionarios.AsNoTracking().First(e => e.Id.Equals(funcionario.Id));
 
-            if (!(JsonConvert.SerializeObject(funcionarioBanco) == JsonConvert.SerializeObject(funcionario)))
+            if (!IsEqualTo(funcionarioBanco, funcionario))
             {
                 if (funcionariosAlterados.Any(e => e.Id.Equals(funcionario.Id)))
                 {
@@ -136,6 +137,24 @@ namespace Telas_do_PIM.Forms
                 funcionariosAlterados.RemoveAll(e => e.Id.Equals(funcionario.Id));
                 if (funcionariosAlterados.Count == 0) btnConfirmar.Enabled = false;
             }
+        }
+
+        public bool IsEqualTo(Funcionario a, Funcionario b)
+        {
+            foreach (var prop in typeof(Funcionario).GetProperties())
+            {
+                var value1 = prop.GetValue(a);
+                var value2 = prop.GetValue(b);
+
+                if (value1.GetType().Name.Contains("Proxy"))
+                    continue;
+
+                if (!value1.Equals(value2))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         private void FormClosingAction(object? sender, FormClosingEventArgs e)

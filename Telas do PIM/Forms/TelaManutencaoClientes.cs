@@ -2,16 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MoreLinq;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Telas_do_PIM.Models;
 
 namespace Telas_do_PIM.Forms
@@ -119,7 +109,7 @@ namespace Telas_do_PIM.Forms
 
             var clienteBanco = genesisContext.Clientes.AsNoTracking().First(e => e.IdCliente.Equals(cliente.IdCliente));
 
-            if (!(JsonConvert.SerializeObject(clienteBanco) == JsonConvert.SerializeObject(cliente)))
+            if (!IsEqualTo(clienteBanco, cliente))
             {
                 if (clienteAlterados.Any(e => e.IdCliente.Equals(cliente.IdCliente)))
                 {
@@ -134,7 +124,23 @@ namespace Telas_do_PIM.Forms
                 if (clienteAlterados.Count == 0) btnConfirmar.Enabled = false;
             }
         }
+        public bool IsEqualTo(Cliente a, Cliente b)
+        {
+            foreach (var prop in typeof(Cliente).GetProperties())
+            {
+                var value1 = prop.GetValue(a);
+                var value2 = prop.GetValue(b);
 
+                if (value1.GetType().Name.Contains("Proxy"))
+                    continue;
+
+                if (!value1.Equals(value2))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private void FormClosingAction(object? sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)

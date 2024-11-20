@@ -13,6 +13,8 @@ public partial class GenesisSolutionsContext : DbContext
     {
     }
 
+    public virtual DbSet<Categorizacao> Categorizacaos { get; set; }
+
     public virtual DbSet<Cliente> Clientes { get; set; }
 
     public virtual DbSet<ConteudoPedidosCliente> ConteudoPedidosClientes { get; set; }
@@ -53,6 +55,20 @@ public partial class GenesisSolutionsContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Categorizacao>(entity =>
+        {
+            entity.HasKey(e => e.IdCategorizacao).HasName("PK__categori__35F078943E1DD003");
+
+            entity.ToTable("categorizacao");
+
+            entity.Property(e => e.IdCategorizacao).HasColumnName("id_categorizacao");
+            entity.Property(e => e.Nome)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("nome");
+        });
+
         modelBuilder.Entity<Cliente>(entity =>
         {
             entity.HasKey(e => e.IdCliente).HasName("PK__Clientes__9BB2655BFE434EA2");
@@ -90,6 +106,7 @@ public partial class GenesisSolutionsContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("senha_cliente");
+            entity.Property(e => e.SenhaCriptografada).HasColumnName("senha_criptografada");
         });
 
         modelBuilder.Entity<ConteudoPedidosCliente>(entity =>
@@ -249,6 +266,7 @@ public partial class GenesisSolutionsContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("SENHA");
+            entity.Property(e => e.SenhaCriptografada).HasColumnName("senha_criptografada");
             entity.Property(e => e.Telefone)
                 .IsRequired()
                 .HasMaxLength(15)
@@ -340,6 +358,10 @@ public partial class GenesisSolutionsContext : DbContext
             entity.ToTable("Pedidos_Cliente_Detalhe");
 
             entity.Property(e => e.IdDetalhe).HasColumnName("id_detalhe");
+            entity.Property(e => e.Descricao)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("descricao");
             entity.Property(e => e.IdPedido).HasColumnName("id_pedido");
             entity.Property(e => e.IdProduto).HasColumnName("id_produto");
             entity.Property(e => e.Quantidade).HasColumnName("quantidade");
@@ -353,7 +375,7 @@ public partial class GenesisSolutionsContext : DbContext
 
             entity.HasOne(d => d.IdProdutoNavigation).WithMany(p => p.PedidosClienteDetalhes)
                 .HasForeignKey(d => d.IdProduto)
-                .HasConstraintName("FK__Pedidos_C__id_pr__540C7B00");
+                .HasConstraintName("FK_Pedidos_Cliente_Detalhe_Produto");
         });
 
         modelBuilder.Entity<PedidosFornecedor>(entity =>
@@ -405,9 +427,9 @@ public partial class GenesisSolutionsContext : DbContext
         {
             entity.HasKey(e => e.IdProduto).HasName("PK__Produtos__FD71723B4E30EA1A");
 
-            entity.HasIndex(e => e.NomeProduto, "UQ_NomeProduto").IsUnique();
-
             entity.Property(e => e.IdProduto).HasColumnName("ID_produto");
+            entity.Property(e => e.Excluido).HasColumnName("excluido");
+            entity.Property(e => e.IdCategorizacao).HasColumnName("id_categorizacao");
             entity.Property(e => e.ImagemProduto).HasColumnName("imagem_produto");
             entity.Property(e => e.NomeProduto)
                 .IsRequired()
@@ -418,6 +440,10 @@ public partial class GenesisSolutionsContext : DbContext
             entity.Property(e => e.ValorVenda)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("valor_venda");
+
+            entity.HasOne(d => d.IdCategorizacaoNavigation).WithMany(p => p.Produtos)
+                .HasForeignKey(d => d.IdCategorizacao)
+                .HasConstraintName("FK_Produtos_Categorizacao");
         });
 
         modelBuilder.Entity<Tela>(entity =>

@@ -39,7 +39,7 @@
             // 
             // upDownCaixas
             // 
-            upDownCaixas.Location = new Point(47, 67);
+            upDownCaixas.Location = new Point(33, 133);
             upDownCaixas.Margin = new Padding(3, 2, 3, 2);
             upDownCaixas.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             upDownCaixas.Name = "upDownCaixas";
@@ -48,7 +48,7 @@
             // 
             // btnConfirmar
             // 
-            btnConfirmar.Location = new Point(55, 162);
+            btnConfirmar.Location = new Point(50, 161);
             btnConfirmar.Name = "btnConfirmar";
             btnConfirmar.Size = new Size(75, 23);
             btnConfirmar.TabIndex = 1;
@@ -69,7 +69,7 @@
             // comboBoxProduto
             // 
             comboBoxProduto.FormattingEnabled = true;
-            comboBoxProduto.Location = new Point(34, 129);
+            comboBoxProduto.Location = new Point(33, 62);
             comboBoxProduto.Name = "comboBoxProduto";
             comboBoxProduto.Size = new Size(120, 23);
             comboBoxProduto.TabIndex = 1;
@@ -78,7 +78,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Georgia", 9F);
-            label2.Location = new Point(65, 44);
+            label2.Location = new Point(33, 44);
             label2.Name = "label2";
             label2.Size = new Size(52, 15);
             label2.TabIndex = 4;
@@ -88,7 +88,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Georgia", 9F);
-            label3.Location = new Point(53, 106);
+            label3.Location = new Point(33, 116);
             label3.Name = "label3";
             label3.Size = new Size(75, 15);
             label3.TabIndex = 5;
@@ -98,7 +98,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(190, 197);
+            ClientSize = new Size(182, 194);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(comboBoxProduto);

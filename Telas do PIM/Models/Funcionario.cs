@@ -23,5 +23,7 @@ public partial class Funcionario
 
     public int? IdPerfil { get; set; }
 
+    public bool SenhaCriptografada { get; set; }
+
     public virtual Perfil IdPerfilNavigation { get; set; }
 }

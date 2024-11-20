@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
+using System.Web.Helpers;
 using Telas_do_PIM.Models;
 using ViaCep;
 
@@ -34,7 +35,8 @@ namespace Telas_do_PIM.Forms
                 tsUsuario.Enabled = false;
             }
 
-            tsUsuario.Text = Program.funcionarioLogado.Nome;
+            if(Program.funcionarioLogado is not null)
+                tsUsuario.Text = Program.funcionarioLogado.Nome;
         }
 
         private void textCEP_Leave(object? sender, EventArgs e)
@@ -116,10 +118,11 @@ namespace Telas_do_PIM.Forms
                     RazaoSocial = TxtNome.Text,
                     CnpjCliente = TxtCNPJ.Text,
                     Email = TxtEmail.Text,
-                    SenhaCliente = TxtSenha.Text,
-                    EnderecoCliente = TxtCEP.Text,
+                    SenhaCliente = Program.Encrypt(TxtSenha.Text),
+                    EnderecoCliente = TxtEndereco.Text,
                     Numero = TxtNumeracao.Text,
                     Cep = TxtCEP.Text,
+                    SenhaCriptografada = true
                 };
                 genesisContext.Clientes.Add(cliente);
                 genesisContext.SaveChanges();
@@ -283,11 +286,20 @@ namespace Telas_do_PIM.Forms
             }
             else
             {
-                using (var fmTelaDeManutencaoClientes = Program.ServiceProvider.GetRequiredService<TelaManutencaoClientes>())
+                if (Program.funcionarioLogado is not null)
+                {
+                    using (var fmTelaDeManutencaoClientes = Program.ServiceProvider.GetRequiredService<TelaManutencaoClientes>())
+                    {
+                        this.Hide();
+                        fmTelaDeManutencaoClientes.StartPosition = FormStartPosition.CenterScreen;
+                        fmTelaDeManutencaoClientes.ShowDialog();
+                    }
+                }
+                using (var fmTelaDeLogin = Program.ServiceProvider.GetRequiredService<TelaDeLogin>())
                 {
                     this.Hide();
-                    fmTelaDeManutencaoClientes.StartPosition = FormStartPosition.CenterScreen;
-                    fmTelaDeManutencaoClientes.ShowDialog();
+                    fmTelaDeLogin.StartPosition = FormStartPosition.CenterScreen;
+                    fmTelaDeLogin.ShowDialog();
                 }
             }
         }

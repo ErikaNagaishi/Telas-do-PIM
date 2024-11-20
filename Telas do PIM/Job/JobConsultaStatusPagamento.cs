@@ -28,7 +28,7 @@ namespace Telas_do_PIM.Job
             {
                 try
                 {
-                    var pedidosPendente = _genesisSolutionsContext.PedidosClientes.AsNoTracking().Where(e => e.StatusPagamento == "pending").ToList();
+                    var pedidosPendente = _genesisSolutionsContext.PedidosClientes.AsNoTracking().Where(e => e.StatusPagamento == "pending" && e.FormaPagamento == "pix").ToList();
 
                     if (pedidosPendente.Count > 0) 
                     {
@@ -48,13 +48,15 @@ namespace Telas_do_PIM.Job
                             {
                                 pedido.StatusPagamento = resultado.Status;
 
+                                _genesisSolutionsContext.ChangeTracker.Clear();
                                 _genesisSolutionsContext.PedidosClientes.Update(pedido);
-                                
+
                                 if (resultado.Status == "approved") 
                                 {
                                     pedido.DataPagamento = DateTime.Now;
                                 }
                                 _genesisSolutionsContext.SaveChanges();
+                                _genesisSolutionsContext.ChangeTracker.Clear();
                                 if (resultado.Status == "cancelled" || resultado.Status == "rejected")
                                 {
                                     var itensPedido = pedido.PedidosClienteDetalhes.ToList();
@@ -64,8 +66,10 @@ namespace Telas_do_PIM.Job
                                         var produto = item.IdProdutoNavigation;
 
                                         produto.QtdEmEstoque += item.Quantidade;
+                                        _genesisSolutionsContext.Produtos.Update(produto);
                                     });
                                     _genesisSolutionsContext.SaveChanges();
+                                    _genesisSolutionsContext.ChangeTracker.Clear();
                                 }
                             }
 
@@ -78,8 +82,10 @@ namespace Telas_do_PIM.Job
                         if(a.DataLimitePagamento.Value.Subtract(DateTime.Now).TotalMinutes < 0)
                         {
                             a.StatusPagamento = "cancelled";
+                            _genesisSolutionsContext.ChangeTracker.Clear();
                             _genesisSolutionsContext.PedidosClientes.Update(a);
                             _genesisSolutionsContext.SaveChanges();
+                            _genesisSolutionsContext.ChangeTracker.Clear();
                         }
                     });
 
@@ -87,11 +93,13 @@ namespace Telas_do_PIM.Job
 
                     pedidosPagos.ForEach(a =>
                     {
-                        if (a.DataPagamento.Value.Subtract(DateTime.Now).TotalMinutes > 0)
+                        if (a.DataPagamento.Value.Subtract(DateTime.Now).TotalMinutes < -1)
                         {
                             a.StatusPagamento = "available";
+                            _genesisSolutionsContext.ChangeTracker.Clear();
                             _genesisSolutionsContext.PedidosClientes.Update(a);
                             _genesisSolutionsContext.SaveChanges();
+                            _genesisSolutionsContext.ChangeTracker.Clear();
                         }
                     });
                 }

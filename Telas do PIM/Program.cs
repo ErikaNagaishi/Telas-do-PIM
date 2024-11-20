@@ -3,9 +3,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Configuration;
+using System.Text;
 using Telas_do_PIM.Forms;
 using Telas_do_PIM.Job;
 using Telas_do_PIM.Models;
+using XSystem.Security.Cryptography;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Telas_do_PIM
@@ -16,7 +18,7 @@ namespace Telas_do_PIM
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        private static async Task Main()
+        private static void Main()
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
@@ -90,8 +92,22 @@ namespace Telas_do_PIM
             services.AddTransient<TelaManutencaoProdutos>();
             services.AddTransient<TelaCarregamentoProdutos>();
             services.AddTransient<TelaEsqueceuSenha>();
+            services.AddTransient<TelaCadastroCategoria>();
+            services.AddTransient<TelaAtualizaImagemProduto>();
+            services.AddTransient<TelaCartaoCreditoMP>();
 
 
+        }
+        public static string Encrypt(string value)
+        {
+            //Using MD5 to encrypt a string
+            using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+            {
+                UTF8Encoding utf8 = new UTF8Encoding();
+                //Hash data
+                byte[] data = md5.ComputeHash(utf8.GetBytes(value));
+                return Convert.ToBase64String(data);
+            }
         }
     }
 }
