@@ -25,5 +25,7 @@ public partial class Cliente
 
     public bool SenhaCriptografada { get; set; }
 
+    public virtual ICollection<Encomendum> Encomenda { get; set; } = new List<Encomendum>();
+
     public virtual ICollection<PedidosCliente> PedidosClientes { get; set; } = new List<PedidosCliente>();
 }

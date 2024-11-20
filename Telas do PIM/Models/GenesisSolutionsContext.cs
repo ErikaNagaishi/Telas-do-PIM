@@ -21,6 +21,8 @@ public partial class GenesisSolutionsContext : DbContext
 
     public virtual DbSet<ConteudoPedidosFornecedor> ConteudoPedidosFornecedors { get; set; }
 
+    public virtual DbSet<Encomendum> Encomenda { get; set; }
+
     public virtual DbSet<EntregaPedido> EntregaPedidos { get; set; }
 
     public virtual DbSet<Entregadore> Entregadores { get; set; }
@@ -88,7 +90,6 @@ public partial class GenesisSolutionsContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("EMAIL");
             entity.Property(e => e.EnderecoCliente)
-                .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("endereco_cliente");
@@ -150,6 +151,20 @@ public partial class GenesisSolutionsContext : DbContext
             entity.HasOne(d => d.IdPedidoNavigation).WithMany()
                 .HasForeignKey(d => d.IdPedido)
                 .HasConstraintName("FK__Conteudo___ID_pe__7A672E12");
+        });
+
+        modelBuilder.Entity<Encomendum>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Encomend__3214EC0768A79BA3");
+
+            entity.Property(e => e.Produto)
+                .IsRequired()
+                .HasColumnName("produto");
+            entity.Property(e => e.Quantidade).HasColumnName("quantidade");
+
+            entity.HasOne(d => d.Cliente).WithMany(p => p.Encomenda)
+                .HasForeignKey(d => d.ClienteId)
+                .HasConstraintName("FK_Encomenda_Cliente");
         });
 
         modelBuilder.Entity<EntregaPedido>(entity =>
