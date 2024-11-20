@@ -1,0 +1,122 @@
+﻿@model Pim_Frontend.Models.Encomenda
+@{
+    ViewBag.Title = "Genesis Solutions: Encomendas";
+    Layout = "~/Views/_Layout/_Layout.cshtml";
+}
+
+<style>
+    .buy-box {
+        background-color: white;
+        border: 3px solid white;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 60%;
+        height: 40%;
+
+    }
+
+    .changes-image {
+          @if (ViewBag.Produto == "tomate")
+          {
+              <text>background-image: url(../../Content/IMG/tomate.jpg);</text>
+          } else if (ViewBag.Produto == "alface")
+          {
+              <text>background-image: url(../../Content/IMG/alface.png);</text>
+          } else if (ViewBag.Produto == "cebola")
+          {
+              <text>background-image: url(../../Content/IMG/cebola.png);</text>
+          } else if (ViewBag.Produto == "cenoura")
+          {
+              <text>background-image: url(../../Content/IMG/cenoura.png);</text>
+          } else if (ViewBag.Produto == "beterraba")
+          {
+              <text>background-image: url(../../Content/IMG/beterraba.png);</text>
+          } else {
+              <text>background-image: url(../../Content/IMG/milho.png);</text>
+          }
+
+    }
+
+    .changes-color {
+          @if (ViewBag.Produto == "tomate")
+          {
+              <text>background-color: rgb(226 18 11);</text>
+          } else if (ViewBag.Produto == "alface")
+          {
+              <text>background-color: rgb(147, 206, 0);</text>
+          } else if (ViewBag.Produto == "cebola")
+          {
+              <text>background-color: rgb(174 140 68);</text>
+          } else if (ViewBag.Produto == "cenoura")
+          {
+              <text>background-color: rgb(215 101 21);</text>
+          } else if (ViewBag.Produto == "beterraba")
+          {
+              <text>background-color: rgb(87 45 111);</text>
+          } else {
+              <text>background-color: rgb(243 190 42);</text>
+          }
+    }
+
+    .changes-buybox {
+          @if (ViewBag.Produto == "tomate")
+          {
+              <text>background-color: rgb(254 151 127);</text>
+              <text>border-color: rgb(226 18 1);</text>
+          } else if (ViewBag.Produto == "alface")
+          {
+              <text>background-color: rgb(211, 228, 170);</text>
+              <text>border-color: rgb(147, 206, 0);</text>
+          } else if (ViewBag.Produto == "cebola")
+          {
+              <text>background-color: rgb(241 225 191);</text>
+              <text>border-color: rgb(174 140 68);</text>
+          } else if (ViewBag.Produto == "cenoura")
+          {
+              <text>background-color: rgb(238 188 153);</text>
+              <text>border-color: rgb(215 101 21);</text>
+          } else if (ViewBag.Produto == "beterraba")
+          {
+              <text>background-color: rgb(184 159 198);</text>
+              <text>border-color: rgb(87 45 111);</text>
+          } else {
+              <text>background-color: rgb(255 242 170);</text>
+              <text>border-color: rgb(243 190 42);</text>
+          }
+    }
+
+    main {
+        width: 100%;
+        height: 100%;
+        background-size: 220px 220px;
+    }
+</style>
+
+<section class="d-flex flex-column w-100 h-100 align-items-center">
+    <header class="changes-color" style="height: 15%; width: 100%" ;></header>
+    <main class="d-flex flex-column h-100 justify-content-start align-items-center changes-image">
+        <section class="h-100 d-flex flex-column justify-content-around align-items-center" style="background-color: white; width: 50%">
+            <h1 class="mt-5" style="font-size: 25px">Página de Checkout <i class="fa-solid fa-cart-shopping ml-3"></i></h1>
+            <h2 class="mt-3" style="font-size: 18px">Você está comprando: @ViewBag.Produto</h2>
+            <section class="buy-box changes-buybox">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <section class="d-flex flex-column justify-content-evenly w-100 h-100">
+                        <label class="d-flex justify-content-center" style="font-size: 15px">Quantidade: <span class="ml-2">@Html.EditorFor(quantidade => Model.quantidade)</span></label>
+                        <section class="d-flex flex-column w-100 align-items-center">
+                            <button class="changes-color mt-4" style="border-radius: 10px; color: white; width:45%">Encomendar</button>
+                            <p class="mt-3" style="text-decoration: underline; font-size: 15px"> <a style="color: inherit" href="@Url.Action("mainPage", "Home")">Voltar</a> </p>
+                        </section>
+                    </section>
+                }
+            </section>
+        </section>
+    </main>
+    <footer style="height: 10%; width: 100%" class="d-flex justify-content-center align-items-center changes-color">
+        <p style="padding: 0; margin: 0; font-size: 14px; color: white">® Genesis Solutions</p>
+    </footer>
+</section>

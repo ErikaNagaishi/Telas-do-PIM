@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="pimWebDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="ID_cliente" />
+          </Key>
+          <Property Name="ID_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CNPJ_cliente" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="senha_cliente" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="razao_social" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="endereco_cliente" Type="varchar" MaxLength="255" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="100" />
+          <Property Name="CEP" Type="varchar" MaxLength="100" />
+          <Property Name="NUMERO" Type="varchar" MaxLength="20" />
+          <Property Name="senha_criptografada" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Encomenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quantidade" Type="int" Nullable="false" />
+          <Property Name="produto" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ClienteId" Type="int" />
+        </EntityType>
+        <Association Name="FK_Encomenda_Cliente">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Encomenda" Type="Self.Encomenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="ID_cliente" />
+            </Principal>
+            <Dependent Role="Encomenda">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="pimWebDBModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Encomenda" EntityType="Self.Encomenda" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Encomenda_Cliente" Association="Self.FK_Encomenda_Cliente">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Encomenda" EntitySet="Encomenda" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="pimWebDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Encomenda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quantidade" Type="Int32" Nullable="false" />
+          <Property Name="produto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClienteId" Type="Int32" />
+          <NavigationProperty Name="Clientes" Relationship="pimWebDBModel.FK_Encomenda_Cliente" FromRole="Encomenda" ToRole="Clientes1" />
+        </EntityType>
+        <EntityContainer Name="pimEntitiesConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Encomenda" EntityType="Self.Encomenda" />
+          <EntitySet Name="Cliente" EntityType="pimWebDBModel.Cliente" />
+          <AssociationSet Name="FK_Encomenda_Cliente" Association="pimWebDBModel.FK_Encomenda_Cliente">
+            <End Role="Clientes1" EntitySet="Cliente" />
+            <End Role="Encomenda" EntitySet="Encomenda" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CNPJ" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Senha" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="endereco_cliente" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CEP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NUMERO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="senha_criptografada" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Encomenda" Relationship="pimWebDBModel.FK_Encomenda_Cliente" FromRole="Clientes1" ToRole="Encomenda" />
+        </EntityType>
+        <Association Name="FK_Encomenda_Cliente">
+          <End Type="pimWebDBModel.Cliente" Role="Clientes1" Multiplicity="0..1" />
+          <End Type="pimWebDBModel.Encomenda" Role="Encomenda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes1">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Encomenda">
+              <PropertyRef Name="ClienteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="pimWebDBModelStoreContainer" CdmEntityContainer="pimEntitiesConnection">
+          <EntitySetMapping Name="Encomenda">
+            <EntityTypeMapping TypeName="pimWebDBModel.Encomenda">
+              <MappingFragment StoreEntitySet="Encomenda">
+                <ScalarProperty Name="ClienteId" ColumnName="ClienteId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+                <ScalarProperty Name="produto" ColumnName="produto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="pimWebDBModel.Cliente">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="senha_criptografada" ColumnName="senha_criptografada" />
+                <ScalarProperty Name="NUMERO" ColumnName="NUMERO" />
+                <ScalarProperty Name="CEP" ColumnName="CEP" />
+                <ScalarProperty Name="Email" ColumnName="EMAIL" />
+                <ScalarProperty Name="endereco_cliente" ColumnName="endereco_cliente" />
+                <ScalarProperty Name="Nome" ColumnName="razao_social" />
+                <ScalarProperty Name="Senha" ColumnName="senha_cliente" />
+                <ScalarProperty Name="CNPJ" ColumnName="CNPJ_cliente" />
+                <ScalarProperty Name="Id" ColumnName="ID_cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

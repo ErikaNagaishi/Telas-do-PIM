@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewBag.Title = "Genesis Solutions: Catálogo";
+    Layout = "~/Views/_Layout/_Layout.cshtml";
+    var mensagem = TempData["Mensagem"] as string;
+}
+@if (!string.IsNullOrEmpty(mensagem))
+{
+    <script>
+        toastr.options = {
+            "progressBar" :true,
+        }
+        $(document).ready(function (){
+            toastr.success("@mensagem");
+        });
+    </script>
+}
+<style>
+    p {
+        color: white;
+        padding: 0;
+        margin: 0;
+    }
+
+    .card-row {
+        height: 44%;
+        width: 100%;
+    }
+
+    .card {
+        background-color: #e5ddb7;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 6px;
+        object-fit: fill;
+    }
+
+    .logo {
+        width: 8%;
+        height: 80%;
+        mix-blend-mode: hard-light;
+    }
+
+    .card a {
+        height: 85%;
+        width: 100%;
+    }
+
+        .card a :hover {
+            border-radius: 6px;
+            border: 5px solid #FEFAE0;
+        }
+</style>
+
+<section class="d-flex flex-column w-100 h-100 align-items-center">
+    <header style="height: 15%; width: 85%; color: white;" class="d-flex justify-content-between align-items-center">
+        <img src="~/Content/IMG/logogenesis.png" class="ml-5 logo" style="border-radius: 10px" />
+        <section class="d-flex w-25 justify-content-around align-items-center">
+            <a href="@Url.Action("profilePage", "Home")" title="Acesse o seu perfil" class="mr-5" style="color: white">Meu Perfil<i class="fa-solid fa-circle-user fa-2xl ml-2"></i></a>
+            <a href="@Url.Action("Logout", "Home")" title="Fazer Logout" style="color: white">Logout<i class="fa-solid fa-arrow-right-from-bracket fa-xl ml-2 mr-4"></i></a>
+        </section>
+    </header>
+    <main class="d-flex flex-column h-100 justify-content-center align-items-center" style="width: 85%">
+        <h1 class="mb-4" style="font-size: 25px;"> Catálogo de Produtos<i class="fa-solid fa-list ml-4"></i> </h1>
+        <section class="d-flex flex-column align-items-center justify-content-around w-100 h-75">
+            <section class="row card-row d-flex justify-content-center">
+                <div class="col-2 card">
+                    <a href="@Url.Action("checkoutPage","Home", new {produto = "tomate"})">
+                        <img src="~/Content/IMG/tomate.jpg" />
+                    </a>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-2 card">
+                    <a href="@Url.Action("checkoutPage","Home", new {produto = "alface"})">
+                        <img src="~/Content/IMG/alface.png" />
+                    </a>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-2 card">
+                    <a href="@Url.Action("checkoutPage","Home", new {produto = "milho"})">
+                        <img src="~/Content/IMG/milho.png" />
+                    </a>
+                </div>
+            </section>
+            <section class="row card-row d-flex justify-content-center">
+                <div class="col-2 card">
+                    <a href="@Url.Action("checkoutPage","Home", new {produto = "cenoura"})">
+                        <img src="~/Content/IMG/cenoura.png" />
+                    </a>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-2 card">
+                    <a href="@Url.Action("checkoutPage","Home", new {produto = "beterraba"})">
+                        <img src="~/Content/IMG/beterraba.png" />
+                    </a>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-2 card">
+                    <a href="@Url.Action("checkoutPage","Home", new {produto = "cebola"})">
+                        <img src="~/Content/IMG/cebola.png" />
+                    </a>
+                </div>
+            </section>
+        </section>
+    </main>
+    <footer style="height: 5%; width: 85%" class="d-flex justify-content-center align-items-center">
+        <p style="padding: 0; margin: 0; font-size: 14px">® Genesis Solutions</p>
+    </footer>
+</section>
